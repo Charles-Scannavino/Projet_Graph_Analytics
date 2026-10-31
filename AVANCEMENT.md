@@ -1,8 +1,8 @@
 # AVANCEMENT.md — Graph Analytics 2026 | Fish Schooling Networks
 
 > **Dernière mise à jour :** 31 octobre 2026  
-> **Version :** 2.0  
-> **Statut :** cadrage documentaire établi ; **aucune analyse sur les fichiers bruts n'est encore vérifiée dans le dépôt du projet**.  
+> **Version :** 2.1  
+> **Statut :** JSON 2D audité et métriques exploratoires exécutées hors dépôt ; aucun pipeline définitif reproductible n'est encore publié sur GitHub.  
 > **Date limite du rapport :** mardi **10 novembre 2026 à 08:00** (Inside).  
 > **Soutenance :** mardi **10 novembre 2026 de 14:00 à 17:00**, 8 minutes d'exposé et 2 minutes de questions.
 
@@ -31,11 +31,12 @@ Ne cocher `[x]` pour une fonctionnalité informatique que si les fichiers, l'ex�
 ### 1.2. Éléments encore non vérifiés
 
 - [!] Nom du **second étudiant** non renseigné dans ces documents.
-- [!] Fichier de données réellement disponible et inspecté : **non confirmé**.
+- [x] Dataset 2D `Data/schooling_frames.json` accessible sur Drive et audité (5 000 frames, 86,8 Mo).
 - [!] Template du rapport sur **Inside** : non fourni ici.
 - [x] Dépôt GitHub dédié : https://github.com/Charles-Scannavino/Projet_Graph_Analytics.
 - [ ] Unités, continuité de suivi, sélection de frames et seuil `R` : à définir.
-- [ ] Code d'analyse, résultats chiffrés et figures calculées : non validés.
+- [x] Premières métriques de graphe calculées sur des snapshots, **uniquement pour l'audit exploratoire**.
+- [ ] Pipeline définitif reproductible, tests, tableaux et figures dans GitHub : à développer.
 - [ ] Rapport PDF final, README reproductible et slides : à produire.
 
 ## 2. Tableau de conformité à l'énoncé officiel
@@ -43,18 +44,18 @@ Ne cocher `[x]` pour une fonctionnalité informatique que si les fichiers, l'ex�
 | Exigence | État actuel | Preuve attendue | Priorité |
 |---|---|---|---|
 | Groupe de exactement 2 étudiants | [!] | Deux noms et répartition orale | P0 |
-| Dataset : origine et intérêt | [ ] | Référence, licence, fichier accessible et audité | P0 |
+| Dataset : origine et intérêt | [x] Audit du 31/10 | DOI et licence identifiés ; JSON lu | P0 |
 | Attribution du code effectivement utilisé | [ ] | Provenance du code incorporé, auteurs et URLs le cas échéant | P0 |
 | Problématique explicite | [x] Formulation candidate | Question finalisée dans le rapport | P0 |
 | Définition des nœuds et des arêtes | [ ] | Modèle et construction reproductibles | P0 |
 | Graphe orienté/non orienté et simple/multigraphe | [ ] | Choix justifié | P0 |
 | Attributs et poids | [ ] | Champs et unités documentés | P0 |
-| Nombre de nœuds `N` et d'arêtes `M` | [ ] | Chiffres calculés | P0 |
-| Connectivité et composantes | [ ] | Calcul et interprétation des composantes | P0 |
-| **Diamètre** | [!] | Valeur + convention + méthode | P0 |
-| **Rayon** | [!] | Valeur + convention + méthode | P0 |
+| Nombre de nœuds `N` et d'arêtes `M` | [x] Contrôle sur snapshots ; script final [ ] | Tableaux reproductibles à publier | P0 |
+| Connectivité et composantes | [x] Contrôle sur snapshots ; interprétation finale [ ] | Tailles et comparaison entre frames | P0 |
+| **Diamètre** | [x] Calcul sur LCC exploratoire ; script final [ ] | Convention annoncée : sauts sur LCC | P0 |
+| **Rayon** | [x] Calcul sur LCC exploratoire ; script final [ ] | Convention annoncée : sauts sur LCC | P0 |
 | Centralités et interprétation | [ ] | Scores, définitions et lecture scientifique | P0 |
-| Communautés et interprétation | [ ] | Algorithme, paramètres, partition et discussion | P0 |
+| Communautés et interprétation | [x] Louvain test sur snapshots ; discussion finale [ ] | Seed, modularité, taille des groupes | P0 |
 | Logiciels, paramètres et reproductibilité | [ ] | Versions, scripts, commande, jeu de données | P0 |
 | Rapport PDF ≤15 pages avec template Inside | [!] | Document final conforme | P0 |
 | Noms du binôme, URL GitHub, déclaration IA | [ ] | Sections du rapport | P0 |
@@ -69,11 +70,12 @@ Ne cocher `[x]` pour une fonctionnalité informatique que si les fichiers, l'ex�
 
 - [ ] Confirmer les deux membres et répartir les tâches.
 - [ ] Récupérer le **template de rapport** sur Inside.
-- [ ] Accéder au jeu *Fish Schooling Data Subset* et conserver les fichiers sources non modifiés.
-- [ ] Contrôler URL/DOI, auteur/institution, licence et date d'accès.
-- [ ] Analyser la structure des frames, les variables `px`, `py`, `vx`, `vy`, `onfish`.
-- [ ] Vérifier doublons, valeurs manquantes, individus visibles, unités et cohérence des vitesses.
-- [ ] Identifier les limites du suivi individuel et du découpage temporel.
+- [x] Accéder au jeu *Fish Schooling Data Subset* (Google Drive) ; le fichier brut a été audité sans modification.
+- [x] Vérifier DOI, auteurs, institution et licence depuis `Data/README.txt` (31/10/2026).
+- [x] Auditer les 5 000 frames et les variables `px`, `py`, `vx`, `vy`, `onfish`.
+- [x] Vérifier longueurs des tableaux, identifiants dupliqués par frame et effectifs observés.
+- [ ] Vérifier précisément les unités, les valeurs non finies et la nature des vitesses : les normes `(vx, vy)` valent ≈1 sur les frames contrôlées.
+- [x] Constater 10 751 identifiants de suivi distincts sur 5 000 frames et des effectifs variables ; documenter l'impossibilité de supposer un ID biologique permanent.
 - [ ] Choisir la ou les frames sur critères observables et documentés.
 
 **Livrable :** audit des données, dictionnaire des variables, provenance et sélection de frames.
@@ -175,8 +177,8 @@ Ne pas afficher un travail individuel ou collectif comme terminé sans preuve, n
 ## 6. Questions ouvertes
 
 - [ ] Qui est le second membre du binôme ?
-- [ ] Le dataset Oregon State est-il disponible sous forme exploitable ?
-- [ ] Quel est le nombre d'observations par frame et comment se comportent les identifiants ?
+- [x] Oui : `Data/schooling_frames.json` vérifié, 86 762 262 octets, 5 000 frames.
+- [x] 87 à 289 observations par frame, moyenne 223,62 ; 10 751 IDs distincts sur la séquence, ID de suivi non permanent.
 - [ ] Quelles sont les unités et quel seuil `R` est justifié ?
 - [ ] Quelles frames seront retenues ?
 - [ ] Quel algorithme de communautés et quelles centralités sont finalement choisis ?
@@ -188,7 +190,7 @@ Ne pas afficher un travail individuel ou collectif comme terminé sans preuve, n
 
 | Risque | Importance | Action |
 |---|---|---|
-| Dataset indisponible | Critique | Vérifier les accès ; étudier le jeu alternatif 2D avant d'avancer |
+| Dataset indisponible | Résolu | JSON 2D récupéré et audité, source conservée sur Drive |
 | Unités ou seuil de voisinage non maîtrisés | Élevée | Audit des unités, justification de `R`, robustesse |
 | Oubli du diamètre ou du rayon | Critique | Checklist P0, calcul explicite et convention des composantes |
 | Mauvaise gestion de la déconnexion | Élevée | Métriques sur LCC ou par composante, description du choix |
@@ -198,8 +200,27 @@ Ne pas afficher un travail individuel ou collectif comme terminé sans preuve, n
 | Sources ou code non attribués | Critique | Conserver un registre de provenance et citer précisément |
 | Dépôt non reproductible | Élevée | README, versions, test d'installation propre |
 | Extensions chronophages | Élevée | Reporter 3D, Neo4j, simulateur et LLM tant que P0 n'est pas terminé |
+| Clé API inscrite en clair dans un script de travail | Critique | Révoquer/renouveler la clé ; ne publier aucun script non assaini |
 
 ## 8. Journal de projet
+
+### 31 octobre 2026 — Audit effectif des ressources (Drive et environnement d'analyse)
+
+- [x] Source localisée : `Data/schooling_frames.json` (86 762 262 octets), `Data/README.txt` ; DOI https://doi.org/10.7267/zk51vq07c (CC BY 4.0 d'après le README).
+- [x] JSON complet lu : 5 000 frames, 1 118 118 détections, 87–289 poissons détectés/frame, moyenne 223,62, 10 751 identifiants de suivi distincts.
+- [x] Contrôle de cohérence des champs `px,py,vx,vy,onfish` par frame et absence d'IDs dupliqués au sein d'une frame.
+- [x] Prototypes exploratoires NetworkX sur plusieurs frames et rayons 60, 100, 120 ; diamètre/rayon mesurés sur la composante connexe principale.
+- [x] Frame 1 : pour `R=100`, **253 nœuds, 1 281 arêtes, 4 composantes, diamètre LCC 23, rayon LCC 12, clustering 0,578**.
+- [x] Louvain testé à `R=100` sur frame 1 : 11 communautés, modularité ≈0,703 (`seed=42`), à vérifier/interpréter dans le pipeline final.
+- [x] Audit statique des scripts disponibles : le simulateur `simulate_boids()` repart uniquement de la frame 1 ; il **ne parcourt pas** les 5 000 observations enregistrées.
+- [x] Dossier 3D inspecté : les fichiers `train/ZebraFish-XX/gt/gt.txt` existent et contiennent des coordonnées 3D ; `schooling_frames_3d.json` est vide (`{}`) ; le chemin du script 3D est incorrect.
+- [!] **Sécurité : une clé Gemini en clair est présente dans un script de travail sur Drive. Révocation/renouvellement par le titulaire indispensable avant publication.**
+- [ ] Clarifier les unités des positions et la normalisation des vecteurs de vitesse avant d'écrire « mm » / « mm/s ».
+- [ ] Créer des scripts indépendants et testables pour les données **observées**, plutôt que de lancer la simulation, l'animation GIF et les appels API.
+- [ ] Valider le binôme, le template Inside et les tâches de chacun.
+
+**Périmètre prioritaire :** snapshots réels → graphes NetworkX → composantes, diamètre/rayon LCC, centralités, Louvain → sensibilité à `R` → rapport. 3D, interface et LLM reportés.
+
 
 ### 31 octobre 2026 — Documentation scientifique et planification
 
@@ -207,10 +228,11 @@ Ne pas afficher un travail individuel ou collectif comme terminé sans preuve, n
 - [x] Définition de la problématique candidate et du modèle de graphe envisagé.
 - [x] Décomposition des étapes de travail jusqu'à la remise officielle.
 - [x] Préparation des documents `CONTEXT.md` et `AVANCEMENT.md`.
-- [ ] Validation du dataset et des métriques sur une exécution réelle.
+- [x] Validation du dataset et calcul ponctuel des métriques par un programme d'audit (hors dépôt).
+- [ ] Livrer et tester le script final reproductible d'analyse des graphes sur GitHub.
 - [x] Mise en ligne des documents dans le dépôt GitHub dédié.
 
-**Prochaine action :** vérifier et charger le dataset pour calculer les indicateurs obligatoires.
+**Prochaine action :** créer le pipeline autonome sur les frames observées, sécuriser la clé Gemini, choisir/justifier le rayon de voisinage, produire figures et tableau de résultats ; récupérer le template Inside.
 
 ---
 

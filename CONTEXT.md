@@ -1,8 +1,8 @@
 # CONTEXT.md — Graph Analytics 2026 | Fish Schooling Networks
 
-> **Version :** 2.0 — 31 octobre 2026  
+> **Version :** 2.1 — 31 octobre 2026 (audit empirique)  
 > **Référence officielle :** `Instructions_Projet.pdf`, *Graph analytics 2026 - Project* (2 pages).  
-> **Statut :** cadrage scientifique et technique ; le dataset, les scripts et les résultats restent à valider.  
+> **Statut :** données 2D réellement lues et vérifiées ; métriques calculées sur plusieurs snapshots en environnement d'audit ; scripts définitifs, unités physiques et rapport restent à valider.  
 > **Rôle du document :** préciser le sujet, les exigences d'évaluation, les choix méthodologiques proposés et les conditions de reproductibilité.
 
 ## 1. Présentation du projet
@@ -67,7 +67,38 @@ Le projet évalué porte d'abord sur les **graphes et leurs propriétés**. Il n
 | Évaluation | **Rapport : 60 %** ; **oral : 40 %** |
 | Critère essentiel | Qualité, profondeur, pertinence et interprétation de l'analyse ; non la taille du dataset |
 
-## 3. Données expérimentales envisagées
+## 3. Données expérimentales et audit
+
+### 3.0. Audit vérifié le 31 octobre 2026
+
+**Source effectivement accessible :** dossier Drive de travail (non destiné à être publié en totalité), contenant `Data/schooling_frames.json` (86 762 262 octets) et `Data/README.txt`. Référence scientifique : Katz et al., *Fish Schooling Data Subset*, Oregon State University, DOI [10.7267/zk51vq07c](https://doi.org/10.7267/zk51vq07c), licence **CC BY 4.0** selon le README du jeu. Le README documente 300 golden shiners, 5 000 frames à 30 fps, bassin 2,1 × 1,2 m de faible profondeur.
+
+**Contrôles exécutés sur le JSON complet, indépendamment de la simulation :**
+- 5 000 frames numérotées de `1` à `5000`, 1 118 118 enregistrements individuels cumulés.
+- Entre 87 et 289 individus détectés par frame ; moyenne 223,62, médiane 253.
+- 10 751 identifiants `onfish` distincts au total : ce sont des **identifiants de segments de suivi**, pas 10 751 poissons physiques.
+- Toutes les frames comportent les tableaux `px`, `py`, `vx`, `vy`, `onfish` avec longueurs cohérentes ; aucun doublon d'identifiant **au sein d'une frame**.
+- Amplitude globale observée : `x` environ 155,46 à 1848,89 et `y` environ 40,71 à 1034,70 en **unités du fichier à confirmer**. Les vecteurs `(vx, vy)` ont une norme numérique de 1 sur les frames vérifiées : ne pas les interpréter automatiquement comme une vitesse physique en mm/s.
+- Une frame enregistrée est une observation **réelle**, tandis que `simulate_boids()` génère de nouvelles positions à partir de la seule frame initiale : les deux jeux ne sont pas interchangeables.
+
+**Premiers graphes de proximité calculés avec NetworkX (seuil numérique `d < R`, graphe simple non orienté, distances euclidiennes non normalisées) :**
+
+| Frame | R | Sommets | Arêtes | Composantes | Diamètre LCC | Rayon LCC | Clustering moyen |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| 1 | 60 | 253 | 454 | 35 | 38 | 19 | 0,4067 |
+| 1 | 100 | 253 | 1 281 | 4 | 23 | 12 | 0,5780 |
+| 1 | 120 | 253 | 1 824 | 3 | 19 | 10 | 0,6161 |
+| 1000 | 100 | 251 | 2 017 | 2 | 14 | 7 | 0,5895 |
+| 5000 | 100 | 262 | 1 249 | 3 | 24 | 12 | 0,5593 |
+
+LCC = plus grande composante connexe ; diamètre et rayon calculés en **nombre de sauts** sur cette composante, pas sur le graphe déconnecté entier. Les valeurs ci-dessus sont **des contrôles exploratoires vérifiés**, pas les résultats définitifs du rapport. Les seuils 60/100/120 doivent être justifiés et les analyses reproduites depuis un script propre.
+
+**Communautés :** Louvain NetworkX avec `seed=42` sur la frame 1 (`R=100`) a produit 11 communautés et une modularité d'environ 0,703. Résultat exploratoire fortement dépendant de la construction du graphe, à interpréter avec précaution.
+
+
+
+**3D :** le fichier `schooling_frames_3d.json` ne contient que `{}` (2 octets). Cependant, `Data/3DZeF20Lables/train/ZebraFish-XX/gt/gt.txt` contient des annotations `frame, id, 3d_x, 3d_y, 3d_z, ...`. Le programme 3D cherche actuellement `gt.txt` au mauvais niveau de dossier. La 3D est **techniquement envisageable**, mais reportée après les livrables P0 ; ses coordonnées, leurs unités et les identifiants doivent être vérifiés.
+
 
 ### 3.1. Dataset principal candidat
 
@@ -189,7 +220,7 @@ Commencer par le minimum exécutable : lecture d'une frame, création d'un graph
 ### 6.1. Points à confirmer
 
 - Identité et répartition des tâches du binôme.
-- Disponibilité effective du dataset et de son format.
+- ✅ Disponibilité et structure du dataset 2D vérifiées le 31 octobre 2026.
 - Unités physiques, identification temporelle, frame(s) et rayon `R`.
 - Modèle de rapport Inside.
 - Algorithmes de communautés, choix final des centralités et résultats effectivement mesurés.
@@ -207,6 +238,6 @@ Commencer par le minimum exécutable : lecture d'une frame, création d'un graph
 ## 8. Références
 
 - **Énoncé :** `Instructions_Projet.pdf`, *Graph analytics 2026 - Project* (2026).
-- **Données candidates :** Oregon State University, *Fish Schooling Data Subset*, https://ir.library.oregonstate.edu/concern/datasets/zk51vq07c?locale=en.
+- **Données utilisées pour l'audit :** Katz et al. (2021), *Fish Schooling Data Subset*, Oregon State University, DOI https://doi.org/10.7267/zk51vq07c, licence CC BY 4.0 d'après `Data/README.txt`.
 - **Méthode de simulation éventuelle :** Reynolds, C. W. (1987), *Flocks, Herds, and Schools: A Distributed Behavioral Model*.
 - **Outils :** Python/NetworkX ; Neo4j/Cypher facultatifs.
