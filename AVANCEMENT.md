@@ -204,6 +204,22 @@ Ne pas afficher un travail individuel ou collectif comme terminé sans preuve, n
 
 ## 8. Journal de projet
 
+### 3 novembre 2026 — Tests automatisés des graphes : 6/6 validés localement
+
+- [x] Création locale du fichier `tests/test_graph_models.py` (6 cas, dont deux essais sur la frame 1 réelle).
+- [x] Exécution locale `python -m pytest -v` sous Python 3.12.6 : **6 passed in 0.28s**.
+- [x] Tests réussis : graphe spatial simple et distance, seuil strict `d<R`, arc vers l'avant et exclusion vers l'arrière, visibilité latérale avec deux secteurs aveugles, comptages de nœuds/arcs et composantes faibles/fortes sur la frame 1.
+- [x] Test de cohérence : chaque arc du graphe directionnel correspond à une arête du graphe spatial de référence.
+- [ ] Les fichiers `src/`, `tests/`, `.gitignore` et `requirements.txt` sont encore **locaux, non committés**, au moment de ce relevé ; publication sécurisée à effectuer.
+- [ ] Tester davantage les cas limites (rayon invalide, angle invalide, direction nulle, positions superposées, frames avec une détection) et produire le module `graph_metrics.py`.
+- [!] Validation algorithmique ≠ validation biologique du champ de vision ; les métriques de visibilité restent des hypothèses directionnelles.
+
+**Prochaine étape :** synchroniser le journal, améliorer `.gitignore` pour exclure `.pytest_cache/`, vérifier les fichiers staged et committer uniquement le code contrôlé, puis calculer les métriques obligatoires.
+
+---
+
+
+
 ### 3 novembre 2026 — Graphe de visibilité : premières sorties locales
 
 - [x] Exécution sur Mac M1 de `python -m src.visibility_graph` ; 253 nœuds dans les deux variantes.
