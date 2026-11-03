@@ -72,6 +72,21 @@ Une relation de visibilité `i → j` est potentiellement **asymétrique** : le 
 
 **Analyses à prévoir pour le modèle B :** degrés entrant/sortant, composantes faiblement/fortement connexes ; définir explicitement si une projection non orientée est nécessaire pour comparer Louvain et les autres mesures. Tester la sensibilité à l'angle et au rayon. **Aucune métrique de visibilité n'a encore été exécutée.**
 
+### Résultats expérimentaux du modèle B — 3 novembre 2026 (frame 1, R=100)
+
+Le programme local `python -m src.visibility_graph` a été exécuté sur le Mac M1 et a affiché les résultats suivants. Le code est **encore local** ; les tests automatisés sont à faire.
+
+| Angle mort arrière total | Champ visible | Nœuds | Arcs | Composantes faibles | Composantes fortes |
+|---:|---:|---:|---:|---:|---:|
+| 60° | 300° | 253 | 2 139 | 4 | 5 |
+| 240° | 120° | 253 | 887 | 10 | 226 |
+
+Comparaison : le graphe spatial de référence comprend **1 281 arêtes non orientées**, soit **2 562 arcs directionnels potentiels**. Les proportions d'arcs effectivement présents valent donc environ **83,5 %** (angle mort 60°) et **34,6 %** (angle mort 240°). Ces résultats sont des **observations de sortie de programme**, pas encore des preuves apportées par des tests de cohérence `pytest`.
+
+**Interprétation prudente :** l'élargissement du secteur non visible retire des arcs, ce qui peut accroître le nombre de composantes fortes et faibles. Une composante fortement connexe représente l'accessibilité **réciproque par chemin orienté**, pas nécessairement une interaction ou influence biologique. Les poissons peuvent être physiquement voisins même lorsqu'aucun arc de visibilité n'est présent.
+
+**Limites supplémentaires :** les autres poissons ne sont pas modélisés comme des obstacles visuels (pas d'occlusion), la largeur du champ de vision est une hypothèse, et `(vx,vy)` représente la direction du déplacement, qui peut différer de l'orientation corporelle/visuelle.
+
 ## 4. Paramètres de l'ancienne simulation — hors calcul des graphes observés
 
 L'ancien simulateur avait `r_separation=60`, `r_alignement=80`, `r_cohesion=120`, `k_separation=20`, `k_alignement=0.4`, `k_cohesion=0.015`, `angle_mort_degre=60`, `v_max=60` et `dt=1`. **Ce sont des paramètres de simulation Boids, pas des données empiriques ni des paramètres activés automatiquement dans le graphe de proximité validé.** Le seuil `R=100` utilisé dans l'analyse actuelle est un test de sensibilité supplémentaire.
