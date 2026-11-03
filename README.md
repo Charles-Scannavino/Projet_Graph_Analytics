@@ -172,5 +172,14 @@ python -m pytest -v
 
 **Interprétation descriptive :** à `R=100`, 2 386 des 2 562 arcs possibles sur les paires proches sont conservés (~93,13 %). Cela ne confirme ni une communication réelle, ni un effet causal, ni un comportement de leadership : la direction `(vx,vy)` n'est qu'une approximation de l'orientation visuelle et les occlusions ne sont pas modélisées.
 
-**À faire :** tests unitaires des métriques, commit du module local, métriques sur plusieurs frames, visualisations et communautés Louvain. Les résultats de cette seule frame ne constituent pas une conclusion temporelle.
+**À faire :** committer le module et ses 5 tests réussis localement, diagnostiquer le ralentissement de pytest, calculer les métriques sur plusieurs frames, visualiser et étudier les communautés Louvain. Les résultats de cette seule frame ne constituent pas une conclusion temporelle.
+
+
+### Validation locale des métriques — 15 tests réussis (3 novembre 2026)
+
+Commande exécutée sur le Mac M1 : `python -m pytest -v -s`. Résultat **15 passed in 319.06s (5 min 19 s)** : 10 tests des modèles de voisinage/visibilité à angle mort 25°, 5 tests du module `src/graph_metrics.py` (graphe spatial avec isolé, cycle et chaîne orientés, graphe vide, métriques de la frame réelle). Les valeurs de la frame 1 (`R=100`) ont été confirmées : 253 sommets, 1 281 arêtes spatiales, 2 386 arcs de visibilité, diamètres 23/24, rayons 12/12 et clustering 0,578/0,54551.
+
+**Performance :** exécution complète **anormalement longue**. Un diagnostic isolé avait montré que `import numpy` demandait 15,40 s mais réussissait ; cette observation ne suffit pas à expliquer les 319,06 s. La cause reste **inconnue** ; cibler le ralentissement avec `python -m pytest --durations=10 -v` et, si la collecte reste longue, les temps d'importation de Python. Aucun problème fonctionnel n'a été révélé par ce run.
+
+**Publication :** `src/graph_metrics.py` et `tests/test_graph_metrics.py` ont été créés et testés **localement**, mais leur commit GitHub n'est pas encore confirmé.
 
