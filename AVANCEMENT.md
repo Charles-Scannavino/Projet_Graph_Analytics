@@ -1,8 +1,8 @@
 # AVANCEMENT.md — Graph Analytics 2026 | Fish Schooling Networks
 
-> **Dernière mise à jour :** 31 octobre 2026  
-> **Version :** 2.1  
-> **Statut :** JSON 2D audité et métriques exploratoires exécutées hors dépôt ; aucun pipeline définitif reproductible n'est encore publié sur GitHub.  
+> **Dernière mise à jour :** 3 novembre 2026  
+> **Version :** 2.2  
+> **Statut :** lecture JSON et construction du graphe spatial vérifiées localement (3 novembre) ; code local et tests restant à publier/valider dans GitHub. Le modèle de visibilité reste à développer.  
 > **Date limite du rapport :** mardi **10 novembre 2026 à 08:00** (Inside).  
 > **Soutenance :** mardi **10 novembre 2026 de 14:00 à 17:00**, 8 minutes d'exposé et 2 minutes de questions.
 
@@ -36,7 +36,7 @@ Ne cocher `[x]` pour une fonctionnalité informatique que si les fichiers, l'ex�
 - [x] Dépôt GitHub dédié : https://github.com/Charles-Scannavino/Projet_Graph_Analytics.
 - [ ] Unités, continuité de suivi, sélection de frames et seuil `R` : à définir.
 - [x] Premières métriques de graphe calculées sur des snapshots, **uniquement pour l'audit exploratoire**.
-- [ ] Pipeline définitif reproductible, tests, tableaux et figures dans GitHub : à développer.
+- [ ] Pipeline définitif reproductible et tests dans GitHub : modules `data_loader` et `graph_builder` validés localement le 03/11, mais pas encore publiés ; autres analyses à développer.
 - [ ] Rapport PDF final, README reproductible et slides : à produire.
 
 ## 2. Tableau de conformité à l'énoncé officiel
@@ -203,6 +203,22 @@ Ne pas afficher un travail individuel ou collectif comme terminé sans preuve, n
 | Clé API inscrite en clair dans un script de travail | Critique | Révoquer/renouveler la clé ; ne publier aucun script non assaini |
 
 ## 8. Journal de projet
+### 3 novembre 2026 — Validation locale du graphe et clarification de l'angle mort
+
+- [x] Mac M1 : Python 3.12.6 dans `.venv` ; dépendances installées ; `schooling_frames.json` disponible via lien symbolique dans `data/`.
+- [x] Module local `src/data_loader.py` exécuté avec succès : frames 1 = 253, 1000 = 251, 2500 = 138, 5000 = 262 poissons détectés.
+- [x] Module local `src/graph_builder.py` exécuté : frame 1, `R=60/100/120` → arêtes 454/1281/1824 ; composantes 35/4/3 ; LCC 162/248/251 ; résultats identiques à l'audit exploratoire.
+- [ ] Code, `.gitignore` et `requirements.txt` encore **non committés depuis le Mac** au moment de ce journal ; `pytest` non exécuté.
+- [x] **Convention validée du modèle actuel : graphe spatial simple NON ORIENTÉ, `d<R`, sans angle mort.** Le filtre angulaire n'était pas activé dans les métriques affichées.
+- [x] Audit du simulateur ancien : `abs(delta)<=60°` représente un **cône visible frontal de 120°**, soit une zone non visible de **240°** ; le nom `angle_mort_degre` y est donc trompeur.
+- [ ] **Modèle de visibilité distinct à construire** : proposer `rear_blind_angle_deg=60` comme largeur totale aveugle derrière le poisson (visible 300°), `nx.DiGraph()`, `i→j` si `d<R` et `abs(delta_ij)<=150°` ; convention et plausibilité biologique à confirmer avant interprétation.
+- [ ] Écrire des tests séparés pour le modèle spatial et le modèle directionnel ; analyser degrés entrants/sortants, composantes faibles/fortes et effet de l'angle.
+- [!] Ne pas confondre seuils `R=60,100,120` de l'analyse avec les forces/coefficients Boids du simulateur ; les coordonnées restent en unités natives non calibrées.
+
+**Décision :** conserver les résultats de proximité comme **référence** et traiter l'orientation et l'angle mort comme **modèle de visibilité supplémentaire**, documenté et testé séparément. Les comptes de nœuds/arêtes précédents ne sont pas des résultats du modèle directionnel.
+
+---
+
 
 ### 31 octobre 2026 — Audit effectif des ressources (Drive et environnement d'analyse)
 
