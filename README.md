@@ -70,13 +70,25 @@ Une relation de visibilité `i → j` est potentiellement **asymétrique** : le 
 | Zone aveugle obtenue | 240° | **25°** |
 | Graphe | Voisins filtrés pour les forces Boids | Arcs `i → j` de visibilité, **nouvelle analyse** |
 
-**Analyses à prévoir pour le modèle B :** degrés entrant/sortant, composantes faiblement/fortement connexes ; définir explicitement si une projection non orientée est nécessaire pour comparer Louvain et les autres mesures. L'**angle mort reste constant à 25°** ; seule une sensibilité au **rayon `R`** peut être explorée. Des essais à 60° et 240° ont été exécutés auparavant, mais **aucun résultat à 25° n'a encore été confirmé**.
+**Analyses à prévoir pour le modèle B :** degrés entrant/sortant, composantes faiblement/fortement connexes ; définir explicitement si une projection non orientée est nécessaire pour comparer Louvain et les autres mesures. L'**angle mort reste constant à 25°** ; seule une sensibilité au **rayon `R`** peut être explorée. Des essais historiques à 60° et 240° ont été exécutés auparavant ; le résultat **à 25° a été exécuté localement et confirmé** (voir tableau ci-dessous).
 
 ### Référence biologique pour le modèle B : 25°
 
 L'espèce du dataset est le **Golden shiner** (*Notemigonus crysoleucas*). Une étude expérimentale dédiée, Pita et al. (2015), *Vision in two cyprinid fish: implications for collective behavior*, [DOI 10.7717/peerj.1113](https://doi.org/10.7717/peerj.1113), rapporte **25° ± 1,20°** pour la largeur moyenne de la **zone aveugle arrière horizontale** et une couverture horizontale de **335° ± 3,5°** (mesures sur 9 adultes avec yeux au repos ; ± erreur standard rapportée). Davidson et al. (2021), [DOI 10.1098/rsif.2021.0142](https://doi.org/10.1098/rsif.2021.0142), utilisent également un angle aveugle arrière de **25°** pour l'espèce.
 
-**Décision définitive du 3 novembre 2026 :** `rear_blind_angle_deg=25` pour **tous les individus et tous les instants**, sans comparaison d'autres angles dans les résultats scientifiques finaux (secteur aveugle arrière total, visible = 335°). Les calculs historiques **60°** et **240°** sont archivés comme essais de développement, **pas** comme analyses de sensibilité du projet. **Résultats à 25° : non encore calculés ni validés.** Attention : la direction `(vx,vy)` peut différer de l'orientation corporelle, et les occlusions ne sont pas simulées.
+**Décision définitive du 3 novembre 2026 :** `rear_blind_angle_deg=25` pour **tous les individus et tous les instants**, sans comparaison d'autres angles dans les résultats scientifiques finaux (secteur aveugle arrière total, visible = 335°). Les calculs historiques **60°** et **240°** sont archivés comme essais de développement, **pas** comme analyses de sensibilité du projet. **Résultats à 25° : calculés et vérifiés par sortie Terminal ; tests automatisés spécifiques à 25° encore à exécuter.** Attention : la direction `(vx,vy)` peut différer de l'orientation corporelle, et les occlusions ne sont pas simulées.
+
+### Résultat du modèle définitif à 25° — frame 1, R = 100
+
+**Exécution locale confirmée le 3 novembre 2026 :** commande `python -m src.visibility_graph` après modification du paramètre par défaut et de l'exécution principale à `rear_blind_angle_deg=25`.
+
+| Angle mort arrière constant | Champ visible | Sommets | Arcs dirigés | Composantes faiblement connexes | Composantes fortement connexes |
+|---:|---:|---:|---:|---:|---:|
+| **25°** | **335°** | **253** | **2 386** | **4** | **4** |
+
+Le graphe de proximité de référence, sur la même frame et avec `R=100`, comporte **253 sommets et 1 281 arêtes non orientées**. Il existe donc **2 562 arcs directionnels spatialement possibles** dans le graphe de proximité, dont **2 386** sont retenus dans le modèle de visibilité (environ **93,1 %**). Ce pourcentage n'est pas une validation biologique et n'établit pas une communication entre individus. Les tailles des composantes, les centralités et les tests automatisés spécifiques au 25° restent à compléter.
+
+Le résultat à 25° constitue la **référence du projet**. Les angles historiques à 60° et 240° ci-dessous ne sont conservés que pour la traçabilité du développement.
 
 ### Historique technique des premiers essais du modèle B — hors analyse finale (3 novembre 2026, frame 1, R=100)
 
