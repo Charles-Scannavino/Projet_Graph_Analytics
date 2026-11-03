@@ -2,7 +2,7 @@
 
 > **Dernière mise à jour :** 3 novembre 2026  
 > **Version :** 2.2  
-> **Statut :** lecture JSON et construction du graphe spatial vérifiées localement (3 novembre) ; code local et tests restant à publier/valider dans GitHub. Le modèle de visibilité reste à développer.  
+> **Statut :** lecture JSON et construction du graphe spatial vérifiées localement (3 novembre) ; code local et tests restant à publier/valider dans GitHub. Le modèle de visibilité à angle constant 25° fonctionne localement (frame 1 : 2 386 arcs, 4 composantes faibles et 4 fortes), mais les tests spécifiques à 25° et la publication des scripts restent à faire.  
 > **Date limite du rapport :** mardi **10 novembre 2026 à 08:00** (Inside).  
 > **Soutenance :** mardi **10 novembre 2026 de 14:00 à 17:00**, 8 minutes d'exposé et 2 minutes de questions.
 
@@ -204,14 +204,31 @@ Ne pas afficher un travail individuel ou collectif comme terminé sans preuve, n
 
 ## 8. Journal de projet
 
+### 3 novembre 2026 — Graphe de visibilité définitif à 25° exécuté localement
+
+- [x] Paramètre par défaut de `src/visibility_graph.py` modifié localement en `rear_blind_angle_deg=25` et boucle de démonstration limitée à `(25,)`.
+- [x] Exécution locale `python -m src.visibility_graph` : **253 nœuds**, **2 386 arcs**, **4 composantes faiblement connexes** et **4 composantes fortement connexes**, pour `frame_id=1`, `R=100`, angle mort arrière constant de **25°** (champ visible 335°).
+- [x] Valeur de référence fondée sur la littérature pour le Golden shiner, appliquée uniformément ; aucune sensibilité à l'angle prévue.
+- [ ] Adapter les tests locaux `tests/test_graph_models.py` pour vérifier la configuration à 25° et ses cas limites ; `pytest` n'a pas encore été relancé depuis le changement.
+- [ ] Ajouter des affichages de progression `print(..., flush=True)` dans les scripts lancés depuis le Terminal.
+- [ ] Publier le code et les tests locaux (le dépôt GitHub contient à cette étape la documentation mais pas encore les nouveaux scripts).
+- [ ] Compléter les tailles des composantes, centralités, diamètre/rayon et détection des communautés.
+
+**Suite immédiate :** réviser les tests, lancer `python -m pytest -v`, vérifier le `.gitignore`, puis créer un commit local et le pousser.
+
+---
+
+
+
 ### 3 novembre 2026 — Décision ferme : angle mort 25° pendant toute l'étude
 
 - [x] **Paramètre figé par décision du responsable :** `rear_blind_angle_deg=25` (largeur totale de l'angle mort horizontal arrière) pour **chaque poisson et chaque frame** du modèle directionnel.
 - [x] Champ visible horizontal nominal correspondant : **335°** ; l'axe visuel est approximé par `(vx,vy)`, sans occlusion.
 - [x] **Plus de comparaison entre angles 25°, 60° et 240° dans le projet.** Les calculs à 60°/240° figurent exclusivement dans le journal des essais déjà réalisés.
 - [x] Le **graphe spatial non orienté** reste une référence indépendante ; l'étude de la sensibilité au **rayon de proximité `R`** reste envisageable, sans variation d'angle.
-- [ ] Régler le code **local** `src/visibility_graph.py` sur 25° (argument par défaut et exécution principale) et adapter les tests à la configuration retenue.
-- [ ] Exécuter la frame 1 avec 25° et enregistrer les métriques réellement obtenues.
+- [x] Régler le code **local** `src/visibility_graph.py` sur 25° (argument par défaut et exécution principale).
+- [ ] Adapter les tests à la configuration retenue.
+- [x] Exécuter la frame 1 avec 25° et enregistrer les métriques réellement obtenues : 253 nœuds, 2 386 arcs, 4 composantes faibles et 4 fortes.
 - [ ] Après validation, committer le code assaini et les tests locaux (ils ne sont pas encore publiés).
 
 **Priorité :** un seul modèle de visibilité défini avec angle mort constant 25°, pas une expérimentation comparative sur le champ de vision.
