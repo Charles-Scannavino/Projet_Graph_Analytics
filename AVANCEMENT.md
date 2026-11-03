@@ -123,9 +123,11 @@ Ne cocher `[x]` pour une fonctionnalité informatique que si les fichiers, l'ex�
 
 - [x] Identifier le dépôt GitHub **dédié au projet Graph Analytics** : https://github.com/Charles-Scannavino/Projet_Graph_Analytics.
 - [x] Publier `CONTEXT.md` et `AVANCEMENT.md` à la racine.
-- [ ] Ajouter les scripts de calcul et les dépendances exactes.
+- [x] Publier la première version des modules et tests : commit `748e463` sur `main`, 10 tests réussis en local.
+- [ ] Ajouter les scripts de métriques, communauté, visualisation, comparaison/simulation et éventuellement figer les versions exactes.
 - [ ] Inclure le dataset si raisonnable, sinon utiliser un hébergement externe et donner le lien dans `README.md`.
-- [ ] Créer un README : problématique, source/licence, installation, commandes, paramètres, fichiers d'entrée/sortie, références et usage de l'IA.
+- [x] Créer un README de travail : problématique, source/licence, paramètres et commandes préliminaires.
+- [ ] Finaliser et vérifier les commandes de reproduction et références pour le rendu.
 - [ ] Attribuer précisément les éventuelles contributions de code préexistant utilisées et les codes provenant d'Internet.
 - [ ] Tester sur un environnement propre et s'assurer qu'aucune clé ou donnée sensible n'est publiée.
 
@@ -203,6 +205,25 @@ Ne pas afficher un travail individuel ou collectif comme terminé sans preuve, n
 | Clé API inscrite en clair dans un script de travail | Critique | Révoquer/renouveler la clé ; ne publier aucun script non assaini |
 
 ## 8. Journal de projet
+
+### 3 novembre 2026 — Extension décidée : simulation Boids puis comparaison réel/simulé
+
+- [x] Premier commit du code validé publié depuis le Mac sur GitHub : `748e463` (`src/data_loader.py`, `graph_builder.py`, `visibility_graph.py`, `tests/test_graph_models.py`, `requirements.txt`, `.gitignore`). `git status` local annoncé **clean** après `git push origin main`.
+- [x] **10 tests `pytest` réussis** localement le 3 novembre (`10 passed in 0.56s`), avec angle mort arrière 25°.
+- [x] Extension **proposée et cadrée** : reconstruire un simulateur Boids à partir des anciennes fonctions assainies, puis comparer des fenêtres réelles et simulées avec des graphes et métriques identiques.
+- [ ] Implémenter `src/boids_simulation.py` avec angle mort constant 25°, pas temporel/échelle calibrés, coefficients explicitement déclarés, progression terminal et gestion des frontières.
+- [ ] Auditer les segments de suivi individuels sur fenêtres courtes pour vérifier appariement et vitesse observée ; ne pas traiter `vx,vy` normalisés comme des vitesses physiques.
+- [ ] Implémenter `src/boids_comparison.py` : mêmes positions initiales, simulation libre, métriques de réseau (degré, composantes, clustering, communautés) et de banc (polarisation, voisin le plus proche, déplacements si ID stables).
+- [ ] Calibrer les coefficients sur un sous-ensemble de fenêtres et évaluer sur des fenêtres disjointes, avec baseline de persistance et ablations des trois forces.
+- [ ] Documenter les limites et l'absence de preuve directe que les poissons obéissent aux règles de Boids.
+- [!] **Priorité pédagogique :** finaliser les métriques de Graph Analytics, les communautés, figures et le rapport **avant** de consacrer du temps à cette extension P1. Date limite officielle : 10/11/2026 08:00.
+- [!] Ne jamais publier l'ancien script Boids contenant une clé Gemini en clair : révoquer/renouveler la clé et extraire seulement les calculs utiles.
+
+**Résultat attendu du volet optionnel :** quantifier la proximité du modèle Boids avec les comportements observés, identifier quelles règles améliorent la prédiction, et signaler les limites d'inférence causale.
+
+---
+
+
 
 ### 3 novembre 2026 — Graphe de visibilité définitif à 25° exécuté localement
 

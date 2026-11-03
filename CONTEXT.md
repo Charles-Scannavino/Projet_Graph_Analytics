@@ -210,6 +210,35 @@ Si le graphe est déconnecté : ne pas attribuer de diamètre/rayon global fini.
 
 **Limite fondamentale :** un lien géométrique ne prouve ni communication effective ni leadership. Les communautés d'un graphe spatial peuvent être produites en partie par la règle de construction.
 
+### 4.5. Extension scientifique — simulation Boids et comparaison aux observations
+
+**Décision de cadrage du 3 novembre 2026 :** ajouter au projet un axe complémentaire de **simulation du comportement collectif avec les règles de Boids**, suivi d'une **comparaison quantitative entre les trajectoires expérimentales et les trajectoires simulées**. Ce volet est **prévu et non encore implémenté** dans le dépôt Graph Analytics 2026 ; priorité **P1**, après satisfaction des exigences P0 (mesures topologiques, centralités, communautés, figures, rapport).
+
+**Nouvelle question secondaire :** « Dans quelle mesure les règles locales de séparation, alignement et cohésion permettent-elles de reproduire les propriétés dynamiques et topologiques des bancs de *Golden shiners* effectivement observés ? »
+
+#### B1 — Simulateur Boids reconstruit et vérifiable
+
+- Forces : **séparation** (évitement des proches), **alignement** (tendance à suivre les directions locales), **cohésion** (attraction vers les voisins). Référence fondatrice : Reynolds (1987), [DOI 10.1145/37402.37406](https://doi.org/10.1145/37402.37406).
+- Paramètres **historiques du code antérieur, NON validés pour le dataset** : `r_separation=60`, `r_alignement=80`, `r_cohesion=120`, `k_separation=20`, `k_alignement=0.4`, `k_cohesion=0.015`, `v_max=60`, `dt=1`, jusqu'à cinq voisins. Les forces et les limites du bassin devront être contrôlées et calibrées.
+- **Angle mort impérativement fixé à 25°** (champ de vision 335°) dans la recherche des voisins de chaque agent, comme dans le graphe directionnel de l'étude. Ne jamais reprendre le paramètre historique `angle_mort_degre=60` sans transformation de convention.
+- Repartir d'une **frame expérimentale initiale**, puis laisser évoluer librement la simulation sur plusieurs pas : ne jamais injecter les observations futures dans la simulation « libre ». Utiliser des règles de bord et une vitesse compatibles avec les données observées.
+- **Attention aux unités** : `(vx,vy)` dans le JSON ressemble à des **directions normalisées**, pas à une vitesse physique. Le JSON fournit 30 fps, mais on ne peut pas réemployer `dt=1` ou `v_max=60` sans définir les unités. Estimer les déplacements/vitesses sur segments d'identifiants de suivi stables.
+- **Système de suivi :** `onfish` peut être réattribué/rompu entre frames ; le nombre d'individus détectés varie. Commencer par des fenêtres courtes avec individus correctement appariés (ou comparer des indicateurs de groupe robustes à la disparition des détections).
+- Ajouter des `print(..., flush=True)` de progression et une graine RNG fixe si le simulateur utilise de l'aléatoire.
+
+#### B2 — Confrontation quantitative réel vs simulé
+
+1. **Même point de départ** : frame expérimentale observée `t0`, même groupe, même échelle spatiale et convention de temps ; simuler un horizon court (`t0+H`) et comparer aux observations sans réinitialisation à chaque frame.
+2. **Comparer les graphes construits à l'identique** sur les deux séries (même `R`, même angle de visibilité 25°) : `N`, nombre de liens, degré moyen, composantes/LCC, clustering, éventuellement modularité/Louvain (seed fixé) et densité.
+3. **Comparer les comportements** : distribution des distances au plus proche voisin, polarisation (norme de la moyenne des directions unitaires), distribution des changements de cap, éventuel étalement/compacité, erreurs de trajectoire si identifiants appariés fiables.
+4. **Calibrer les paramètres** de forces sur une ou plusieurs fenêtres d'entraînement, puis **évaluer sur d'autres fenêtres temporelles non utilisées pour le réglage** ; mesurer erreurs et variabilité entre fenêtres et, le cas échéant, graines.
+5. **Ablations** : comparer le modèle complet à des variantes sans séparation, sans cohésion ou sans alignement et à une baseline de persistance du mouvement. Retirer une règle permet d'évaluer son apport prédictif dans **ce simulateur**, pas de prouver qu'elle est suivie biologiquement.
+6. **Conclusion** : discuter ce que Boids explique et n'explique pas et les biais du modèle (suivi, orientation, vitesse, confondants, bords, retard de réponse, interactions à trois). Des graphes ressemblants ne prouvent **pas** que les mêmes règles individuelles sont utilisées.
+
+**Mise en garde scientifique spécifique à l'espèce :** Katz et al. (2011), *Inferring the structure and dynamics of interactions in schooling fish*, [DOI 10.1073/pnas.1107583108](https://doi.org/10.1073/pnas.1107583108), infèrent des règles à partir de trajectoires de *Golden shiners* et rapportent que l'alignement peut émerger de l'attraction/répulsion sans appariement explicite des orientations. Le projet doit donc parler de **compatibilité avec Boids**, de **qualité de reproduction** et de **contribution prédictive des règles**, non de démonstration que toutes les règles sont « respectées ».
+
+**Organisation logicielle envisagée :** `src/boids_simulation.py` (simulation assainie), `src/boids_comparison.py` (fenêtres et métriques), `tests/test_boids.py` (invariants et régression), `results/` (courbes/comparatifs). Recommandation : livrer d'abord un **prototype d'une fenêtre** et deux ou trois métriques robustes, avant de viser les 5 000 frames.
+
 ## 5. Architecture logicielle proposée
 
 La structure ci-dessous est **une cible de dépôt**, et non la description de fichiers déjà créés :
