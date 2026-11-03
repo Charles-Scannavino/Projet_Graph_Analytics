@@ -2,7 +2,7 @@
 
 > **Dernière mise à jour :** 3 novembre 2026  
 > **Version :** 2.2  
-> **Statut :** pipeline de lecture et construction des graphes publié sur GitHub (commit `748e463`), 10 tests réussis ; `src/graph_metrics.py` exécuté localement sur frame 1 avec angle mort fixe 25°, **pas encore committé ni testé indépendamment**. Analyses temporelles, communautés, figures et rapport à produire.  
+> **Statut :** pipeline de lecture et construction des graphes publié sur GitHub (commit `748e463`), 10 tests réussis ; `src/graph_metrics.py` exécuté localement sur frame 1 avec angle mort fixe 25°, **5 tests spécifiques réussis localement ; pas encore committé**. Analyses temporelles, communautés, figures et rapport à produire.  
 > **Date limite du rapport :** mardi **10 novembre 2026 à 08:00** (Inside).  
 > **Soutenance :** mardi **10 novembre 2026 de 14:00 à 17:00**, 8 minutes d'exposé et 2 minutes de questions.
 
@@ -205,6 +205,21 @@ Ne pas afficher un travail individuel ou collectif comme terminé sans preuve, n
 | Clé API inscrite en clair dans un script de travail | Critique | Révoquer/renouveler la clé ; ne publier aucun script non assaini |
 
 ## 8. Journal de projet
+
+### 3 novembre 2026 — 15 tests réussis, mais lenteur d'exécution à diagnostiquer
+
+- [x] `python -m pytest -v -s` exécuté depuis le venv du Mac M1, Python 3.12.6 / pytest 9.2.0 : **15 passed in 319.06s (0:05:19)**.
+- [x] 10 tests déjà réussis sur les modèles spatial et directionnel à angle mort fixé à 25°.
+- [x] 5 nouveaux tests du module local `src/graph_metrics.py` : isolé, cycle orienté, chaîne orientée, erreur sur graphe vide et régression frame 1 réelle, tous **PASSED**.
+- [x] Première frame : 253 sommets, 1 281 arêtes spatiales, 2 386 arcs orientés ; diamètres LCC/SCC 23/24 et rayons 12/12 ; résultats cohérents avec l'exécution du module.
+- [!] **Durée excessivement longue (319 s)** : `import numpy` a précédemment abouti en 15,40 s avec une trace au niveau de `importlib.get_data`, mais le ralentissement de toute la suite n'a pas encore été expliqué. Ne pas attribuer avec certitude le problème au SSD, à NumPy ou à pytest.
+- [ ] Diagnostiquer à l'aide de `python -m pytest -v --durations=10` (séparer temps de collecte et durées des tests) puis, si nécessaire, `python -X importtime -c 'import numpy'`.
+- [ ] **Commit du code restant :** `src/graph_metrics.py` et `tests/test_graph_metrics.py` validés localement, pas encore publiés.
+- [ ] Poursuivre avec Louvain, figures et analyse temporelle avant extension de la simulation Boids.
+
+---
+
+
 
 ### 3 novembre 2026 — Premier module de métriques structurelles exécuté
 
