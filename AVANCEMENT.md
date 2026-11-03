@@ -206,6 +206,21 @@ Ne pas afficher un travail individuel ou collectif comme terminé sans preuve, n
 
 ## 8. Journal de projet
 
+### 3 novembre 2026 — Cinq tests de visualisation réussis
+
+- [x] `tests/test_visualize.py` créé localement pour tester graphe vide, partition incohérente, figures PNG/SVG spatiale/orientée et cas sans arêtes (`modularity=None`).
+- [x] `src/visualize.py` corrigé localement pour afficher `N/A` quand la modularité ou le rayon sont absents.
+- [x] Exécution avec Anaconda `base` désactivé et `PYTEST_DISABLE_PLUGIN_AUTOLOAD=1` : **5 passed in 924.15s (15 min 24 s)** ; durée totale du lanceur **935.38 s**.
+- [x] Les trois tests générant des figures ont duré respectivement **15,17 s**, **0,14 s** et **0,12 s** ; l'essentiel des 924 s est donc lié à la **collecte/importation**, non aux calculs des tests. Trace lors de la collecte : `networkx.utils` via `importlib.get_data`, cohérente avec les imports précédemment très lents NumPy/SciPy.
+- [!] Cause racine de la lenteur encore indéterminée ; le seul fait que les modules soient dans `~/Documents` et que le SSD soit occupé à 95 % ne prouve pas un problème spécifique de disque ou de synchronisation cloud.
+- [ ] Publier `src/visualize.py`, `tests/test_visualize.py` et les quatre figures PNG/SVG validées (pas encore confirmées sur GitHub).
+- [ ] Examiner séparément l'environnement Python et les accès au système de fichiers avant l'analyse multi-frames.
+- [ ] Analyse temporelle, figures du rapport et comparaison exploratoire avec une simulation Boids.
+
+---
+
+
+
 ### 3 novembre 2026 — Visualisations Louvain produites, imports Python excessivement longs
 
 - [x] `src/visualize.py` exécuté **localement** via `runpy.run_module("src.visualize", run_name="__main__")` avec diagnostics `faulthandler` toutes les 20 s.
