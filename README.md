@@ -72,6 +72,12 @@ Une relation de visibilité `i → j` est potentiellement **asymétrique** : le 
 
 **Analyses à prévoir pour le modèle B :** degrés entrant/sortant, composantes faiblement/fortement connexes ; définir explicitement si une projection non orientée est nécessaire pour comparer Louvain et les autres mesures. Tester la sensibilité à l'angle et au rayon. **Aucune métrique de visibilité n'a encore été exécutée.**
 
+### Référence biologique pour le modèle B : 25°
+
+L'espèce du dataset est le **Golden shiner** (*Notemigonus crysoleucas*). Une étude expérimentale dédiée, Pita et al. (2015), *Vision in two cyprinid fish: implications for collective behavior*, [DOI 10.7717/peerj.1113](https://doi.org/10.7717/peerj.1113), rapporte **25° ± 1,20°** pour la largeur moyenne de la **zone aveugle arrière horizontale** et une couverture horizontale de **335° ± 3,5°** (mesures sur 9 adultes avec yeux au repos ; ± erreur standard rapportée). Davidson et al. (2021), [DOI 10.1098/rsif.2021.0142](https://doi.org/10.1098/rsif.2021.0142), utilisent également un angle aveugle arrière de **25°** pour l'espèce.
+
+**À utiliser comme hypothèse principale de notre modèle de visibilité :** `rear_blind_angle_deg=25` (secteur aveugle arrière total, visible = 335°). Les résultats **60°** et **240°** déjà calculés restent des analyses de sensibilité, et ne sont **pas** des mesures anatomiques du Golden shiner. **Résultats à 25° : non encore calculés ni validés.** Attention : la direction `(vx,vy)` peut différer de l'orientation corporelle, et les occlusions ne sont pas simulées.
+
 ### Résultats expérimentaux du modèle B — 3 novembre 2026 (frame 1, R=100)
 
 Le programme local `python -m src.visibility_graph` a été exécuté sur le Mac M1 et a affiché les résultats suivants. Le code est **encore local** ; six tests automatisés ont réussi localement le 3 novembre 2026 ; des tests de cas limites supplémentaires restent à faire.
@@ -90,6 +96,10 @@ Comparaison : le graphe spatial de référence comprend **1 281 arêtes non orie
 ## 4. Paramètres de l'ancienne simulation — hors calcul des graphes observés
 
 L'ancien simulateur avait `r_separation=60`, `r_alignement=80`, `r_cohesion=120`, `k_separation=20`, `k_alignement=0.4`, `k_cohesion=0.015`, `angle_mort_degre=60`, `v_max=60` et `dt=1`. **Ce sont des paramètres de simulation Boids, pas des données empiriques ni des paramètres activés automatiquement dans le graphe de proximité validé.** Le seuil `R=100` utilisé dans l'analyse actuelle est un test de sensibilité supplémentaire.
+
+## Consigne d'exécution terminal
+
+Lorsqu'un script est lancé depuis le Terminal, ajouter dans son point d'entrée des `print(..., flush=True)` aux étapes de chargement, construction, calcul et sauvegarde, ainsi qu'une progression périodique pour les longues boucles. Ne pas afficher une ligne par poisson. Voir la règle complète dans [CONTEXT.md](CONTEXT.md).
 
 ## 5. Environnement et exécution locale
 
