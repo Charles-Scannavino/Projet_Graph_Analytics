@@ -183,3 +183,22 @@ Commande exécutée sur le Mac M1 : `python -m pytest -v -s`. Résultat **15 pas
 
 **Publication :** `src/graph_metrics.py` et `tests/test_graph_metrics.py` ont été créés et testés **localement**, mais leur commit GitHub n'est pas encore confirmé.
 
+
+## 9. Détection des communautés Louvain — premiers résultats (3 novembre 2026)
+
+**Exécution locale confirmée :** `python -m src.community_detection` sur la frame réelle 1 avec `R=100`, et angle mort arrière **constant de 25°** pour le modèle orienté. Module local **non encore committé**, tests unitaires spécifiques encore à réaliser.
+
+| Indicateur | Graphe spatial | Graphe de visibilité 25° |
+|---|---:|---:|
+| Sommets | 253 | 253 |
+| Liens | 1 281 arêtes | 2 386 arcs |
+| Nombre de communautés Louvain | **11** | **10** |
+| Modularité (NetworkX, poids ignorés) | **0,70344** | **0,70500** |
+| Tailles des communautés, triées décroissantes | 64, 47, 38, 30, 27, 26, 11, 5, 3, 1, 1 | 65, 43, 38, 37, 30, 30, 5, 3, 1, 1 |
+
+Paramètres : `nx.community.louvain_communities(G, seed=42, resolution=1.0, weight=None)`. L'algorithme de NetworkX prend en charge les graphes dirigés ; la fonction de modularité utilise des conventions distinctes pour les graphes dirigés/non dirigés. Les scores ne suffisent pas à établir un classement biologique de cohésion des deux modèles.
+
+Les listes de tailles couvrent chacune **253 poissons observés**. Sortie locale : `results/communities_frame1_R100.json` ; le fichier contient la communauté de chaque ID de suivi pour une future figure utilisant leurs positions spatiales. **Temps affiché : 0,13 s** (ne pas généraliser à toute l'analyse des 5 000 frames). Les communautés ne sont pas une preuve de sous-bancs biologiques ou de leadership.
+
+**À faire :** tests unitaires et régression frame 1, commit du module/des tests/du JSON, visualisation cartographique des groupes sur les positions réelles, stabilité entre frames.
+
