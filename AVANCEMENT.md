@@ -2,7 +2,7 @@
 
 > **Dernière mise à jour :** 3 novembre 2026  
 > **Version :** 2.2  
-> **Statut :** lecture JSON et construction du graphe spatial vérifiées localement (3 novembre) ; code local et tests restant à publier/valider dans GitHub. Le modèle de visibilité à angle constant 25° fonctionne localement (frame 1 : 2 386 arcs, 4 composantes faibles et 4 fortes), mais les tests spécifiques à 25° et la publication des scripts restent à faire.  
+> **Statut :** pipeline de lecture et construction des graphes publié sur GitHub (commit `748e463`), 10 tests réussis ; `src/graph_metrics.py` exécuté localement sur frame 1 avec angle mort fixe 25°, **pas encore committé ni testé indépendamment**. Analyses temporelles, communautés, figures et rapport à produire.  
 > **Date limite du rapport :** mardi **10 novembre 2026 à 08:00** (Inside).  
 > **Soutenance :** mardi **10 novembre 2026 de 14:00 à 17:00**, 8 minutes d'exposé et 2 minutes de questions.
 
@@ -205,6 +205,21 @@ Ne pas afficher un travail individuel ou collectif comme terminé sans preuve, n
 | Clé API inscrite en clair dans un script de travail | Critique | Révoquer/renouveler la clé ; ne publier aucun script non assaini |
 
 ## 8. Journal de projet
+
+### 3 novembre 2026 — Premier module de métriques structurelles exécuté
+
+- [x] `src/graph_metrics.py` créé localement et exécuté avec `python -m src.graph_metrics` : **1,12 s**, affichage des six étapes, sortie JSON locale `results/metrics_frame1_R100.json`.
+- [x] **Frame 1, `R=100` :** graphe spatial = 253 nœuds, 1 281 arêtes, 4 composantes, LCC 248 (98,02 %), diamètre LCC 23, rayon LCC 12, densité 0,04018, clustering 0,578, degré moyen 10,1265.
+- [x] **Frame 1, visibilité angle mort 25° :** 253 nœuds, 2 386 arcs, 4 composantes faibles, 4 composantes fortes, plus grande SCC 248 (98,02 %), diamètre SCC 24, rayon SCC 12, densité 0,03742, clustering dirigé 0,54551, moyenne degrés entrant/sortant 9,4308.
+- [x] Top intermédiarité spatiale : ID de suivi 99458 (0,16501). Top intermédiarité directionnelle : ID de suivi 99981 (0,14945). Ces ID **ne prouvent pas un leadership**.
+- [x] Conventions : diamètre/rayon sur la plus grande composante pertinente, chemins **non pondérés en sauts** ; centralités sur graphes entiers, avec avertissement sur différences entre clustering dirigé/non dirigé.
+- [ ] Ajouter `tests/test_graph_metrics.py` et valider les cas simples, les composantes isolées et les résultats de la frame 1 ; **ne pas affirmer que ce module est encore testé/committé**.
+- [ ] Git : pousser `src/graph_metrics.py` avec les tests ; produire mesures sur plusieurs frames, Louvain, export CSV, figures et interprétation.
+- [!] Le fichier `results/metrics_frame1_R100.json` est une sortie calculée locale, non encore un livrable public ; ne pas confondre cette première frame avec des résultats sur les 5 000 frames.
+
+---
+
+
 
 ### 3 novembre 2026 — Extension décidée : simulation Boids puis comparaison réel/simulé
 
