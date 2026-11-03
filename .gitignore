@@ -1,0 +1,23 @@
+# Environnements Python
+.venv/
+.conda/
+__pycache__/
+*.py[cod]
+
+# Secrets
+.env
+.env.*
+!.env.example
+
+# Dataset expérimental local
+data/*.json
+
+# Fichiers macOS
+.DS_Store
+__MACOSX/
+
+# Résultats temporaires
+results/*.gif
+results/*.mp4
+
+.pytest_cache/
