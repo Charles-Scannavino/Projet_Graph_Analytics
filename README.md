@@ -149,3 +149,28 @@ python -m pytest -v
 - Contrôle de robustesse : évaluer sur fenêtres distinctes de celles servant au réglage, comparer au mouvement par persistance, retirer une règle à la fois (**ablations**). L'objectif est de mesurer la **capacité de Boids à reproduire des régularités**, pas de prouver que les poissons exécutent littéralement les trois règles.
 - **Priorité : P1 après les livrables P0.** Référence scientifique : Reynolds (1987), [Flocks, Herds and Schools](https://doi.org/10.1145/37402.37406) ; Katz et al. (2011), [Inferring the structure and dynamics of interactions in schooling fish](https://doi.org/10.1073/pnas.1107583108).
 
+
+## 8. Mesures structurelles — premiers résultats exécutés localement (3 novembre 2026)
+
+**Module local :** `src/graph_metrics.py`, exécuté par `python -m src.graph_metrics` sur la frame observée 1, `R=100` (unités natives), angle mort arrière **constant de 25°** pour la visibilité. **Exécution réussie en 1,12 s**, avec messages de progression aux six étapes. Les deux jeux de métriques ont été enregistrés localement dans `results/metrics_frame1_R100.json`. À ce stade, **le module et ses nouveaux tests ne sont pas encore publiés sur GitHub**.
+
+| Métrique | Graphe spatial non orienté | Graphe orienté de visibilité (25°) |
+|---|---:|---:|
+| Nœuds | 253 | 253 |
+| Arêtes / arcs | 1 281 | 2 386 |
+| Composantes connexes / fortement connexes | 4 | 4 |
+| Taille de la plus grande composante pertinente | 248 | 248 |
+| Part des nœuds dans cette composante | 98,02 % | 98,02 % |
+| Diamètre de cette composante (sauts non pondérés) | 23 | 24 |
+| Rayon de cette composante (sauts non pondérés) | 12 | 12 |
+| Densité NetworkX | 0,04018 | 0,03742 |
+| Clustering moyen NetworkX | 0,57800 | 0,54551 |
+| Degré moyen / moyen entrant = sortant | 10,1265 | 9,4308 |
+| Plus forte centralité d'intermédiarité (ID de suivi) | 99458 (0,16501) | 99981 (0,14945) |
+
+**Conventions :** `nx.connected_components` pour le graphe spatial ; `nx.weakly_connected_components` et `nx.strongly_connected_components` pour le graphe orienté. Le diamètre et le rayon sont calculés **uniquement sur la plus grande composante connexe (spatial) ou fortement connexe (visibilité)**, en nombre de sauts, sans `weight`. Le clustering est calculé par NetworkX selon des définitions différentes en orienté/non orienté ; comparaison prudente. Centralités calculées sur **le graphe entier** avec chemin non pondéré, pas seulement la plus grande composante.
+
+**Interprétation descriptive :** à `R=100`, 2 386 des 2 562 arcs possibles sur les paires proches sont conservés (~93,13 %). Cela ne confirme ni une communication réelle, ni un effet causal, ni un comportement de leadership : la direction `(vx,vy)` n'est qu'une approximation de l'orientation visuelle et les occlusions ne sont pas modélisées.
+
+**À faire :** tests unitaires des métriques, commit du module local, métriques sur plusieurs frames, visualisations et communautés Louvain. Les résultats de cette seule frame ne constituent pas une conclusion temporelle.
+
