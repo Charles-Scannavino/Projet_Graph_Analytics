@@ -206,6 +206,20 @@ Ne pas afficher un travail individuel ou collectif comme terminé sans preuve, n
 
 ## 8. Journal de projet
 
+### 3 novembre 2026 — Visualisations Louvain produites, imports Python excessivement longs
+
+- [x] `src/visualize.py` exécuté **localement** via `runpy.run_module("src.visualize", run_name="__main__")` avec diagnostics `faulthandler` toutes les 20 s.
+- [x] Les 7 étapes ont abouti ; **quatre fichiers créés localement** dans `results/figures/` : `frame1_spatial_louvain.png`, `frame1_spatial_louvain.svg`, `frame1_visibility25_louvain.png`, `frame1_visibility25_louvain.svg`.
+- [x] Durée interne à `main()` : **19,43 secondes** ; durée globale du processus **1 018,90 secondes** (environ 16 min 59 s). Les appels d'importation et la préparation avant `main()` constituent donc presque toute l'attente.
+- [!] Diagnostic : `faulthandler` a montré des imports Python très lents via `importlib._bootstrap_external.get_data`, successivement dans NumPy, SciPy (`sparse`, `linalg`, `spatial`) et autres sous-modules. **Le programme progresse et termine** ; aucune cause racine confirmée. Il serait prématuré de conclure à un bug de Matplotlib, NumPy ou au disque saturé.
+- [ ] Vérifier visuellement les PNG et les dimensions/fichiers produits ; créer des tests ciblés des fonctions de visualisation et publier le script et figures retenues.
+- [ ] Diagnostiquer séparément le système de fichiers, l'occupation mémoire/SSD et l'éventuelle synchronisation cloud du dossier `Documents`, avant de réinstaller les dépendances.
+- [ ] Les quatre figures et `src/visualize.py` sont **locaux uniquement** ; pas de publication GitHub confirmée.
+
+---
+
+
+
 ### 3 novembre 2026 — Louvain publié et dépôt synchronisé
 
 - [x] Commit **`a92ce23`** publié sur `main` : `src/community_detection.py`, `tests/test_community_detection.py` et `results/communities_frame1_R100.json`.
