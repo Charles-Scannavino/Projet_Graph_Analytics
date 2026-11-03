@@ -46,7 +46,7 @@ Le graphe est **simple, non orienté et sans boucle**. Les poissons isolés rest
 | 100 | 253 | 1 281 | 4 | 248 | 10,13 |
 | 120 | 253 | 1 824 | 3 | 251 | 14,42 |
 
-## 3. Modèle B : graphe orienté de visibilité — À DÉVELOPPER ET VALIDER
+## 3. Modèle B : graphe orienté de visibilité — angle mort fixe 25°
 
 Une relation de visibilité `i → j` est potentiellement **asymétrique** : le poisson `i` peut voir `j` sans que `j` voie `i`. Il faut donc utiliser `nx.DiGraph()` si ce modèle est retenu ; ne pas remplacer silencieusement `nx.Graph()` par un graphe de visibilité et continuer d'interpréter les mêmes métriques.
 
@@ -55,8 +55,8 @@ Une relation de visibilité `i → j` est potentiellement **asymétrique** : le 
 - Direction du poisson `i` : `theta_i = atan2(vy_i, vx_i)`.
 - Direction de `i` vers `j` : `phi_ij = atan2(py_j - py_i, px_j - px_i)`.
 - Différence angulaire ramenée à `[-180°,180°]` : `delta_ij = wrap(phi_ij - theta_i)`.
-- **Proposition scientifique distincte de l'ancien code :** `rear_blind_angle_deg = 60` représente la **largeur totale d'un secteur aveugle de 60° centré derrière le poisson**. Sous cette convention, `j` est visible depuis `i` si `abs(delta_ij) <= 180° - rear_blind_angle_deg/2` (donc `<= 150°`), et si `d(i,j) < R`.
-- **Ce 60° est un paramètre de modélisation à justifier, pas une mesure biologiquement validée du dataset.**
+- **Hypothèse fixe retenue :** `rear_blind_angle_deg = 25` représente la **largeur totale du secteur aveugle arrière de 25°**, centré derrière le poisson. Une relation `i → j` existe si `abs(delta_ij) <= 180° - 25°/2 = 167,5°` ET `d(i,j) < R`. La valeur est fixe pour tous les poissons et toutes les frames.
+- **Source biologique :** moyenne du secteur aveugle arrière mesuré chez le Golden shiner par Pita et al. (2015). Son application constante est une **hypothèse du modèle**, et non une mesure individuelle dans le dataset.
 - Si le vecteur direction est de norme nulle, définir explicitement la convention (par exemple exclure les arcs sortants, ou signaler la frame).
 
 
@@ -64,21 +64,21 @@ Une relation de visibilité `i → j` est potentiellement **asymétrique** : le 
 | Paramètre | Ancien simulateur | Modèle B proposé |
 |---|---|---|
 | Nom | `angle_mort_degre` | `rear_blind_angle_deg` |
-| Valeur de départ | 60° | 60° (hypothèse à tester) |
+| Valeur | 60° (dans le code historique) | **25° fixé pour l'étude** |
 | Signification réelle | Demi-ouverture visuelle **avant** | Largeur de l'angle mort **arrière** |
-| Champ visible obtenu | 120° | 300° |
-| Zone aveugle obtenue | 240° | 60° |
+| Champ visible obtenu | 120° | **335°** |
+| Zone aveugle obtenue | 240° | **25°** |
 | Graphe | Voisins filtrés pour les forces Boids | Arcs `i → j` de visibilité, **nouvelle analyse** |
 
-**Analyses à prévoir pour le modèle B :** degrés entrant/sortant, composantes faiblement/fortement connexes ; définir explicitement si une projection non orientée est nécessaire pour comparer Louvain et les autres mesures. Tester la sensibilité à l'angle et au rayon. **Aucune métrique de visibilité n'a encore été exécutée.**
+**Analyses à prévoir pour le modèle B :** degrés entrant/sortant, composantes faiblement/fortement connexes ; définir explicitement si une projection non orientée est nécessaire pour comparer Louvain et les autres mesures. L'**angle mort reste constant à 25°** ; seule une sensibilité au **rayon `R`** peut être explorée. Des essais à 60° et 240° ont été exécutés auparavant, mais **aucun résultat à 25° n'a encore été confirmé**.
 
 ### Référence biologique pour le modèle B : 25°
 
 L'espèce du dataset est le **Golden shiner** (*Notemigonus crysoleucas*). Une étude expérimentale dédiée, Pita et al. (2015), *Vision in two cyprinid fish: implications for collective behavior*, [DOI 10.7717/peerj.1113](https://doi.org/10.7717/peerj.1113), rapporte **25° ± 1,20°** pour la largeur moyenne de la **zone aveugle arrière horizontale** et une couverture horizontale de **335° ± 3,5°** (mesures sur 9 adultes avec yeux au repos ; ± erreur standard rapportée). Davidson et al. (2021), [DOI 10.1098/rsif.2021.0142](https://doi.org/10.1098/rsif.2021.0142), utilisent également un angle aveugle arrière de **25°** pour l'espèce.
 
-**À utiliser comme hypothèse principale de notre modèle de visibilité :** `rear_blind_angle_deg=25` (secteur aveugle arrière total, visible = 335°). Les résultats **60°** et **240°** déjà calculés restent des analyses de sensibilité, et ne sont **pas** des mesures anatomiques du Golden shiner. **Résultats à 25° : non encore calculés ni validés.** Attention : la direction `(vx,vy)` peut différer de l'orientation corporelle, et les occlusions ne sont pas simulées.
+**Décision définitive du 3 novembre 2026 :** `rear_blind_angle_deg=25` pour **tous les individus et tous les instants**, sans comparaison d'autres angles dans les résultats scientifiques finaux (secteur aveugle arrière total, visible = 335°). Les calculs historiques **60°** et **240°** sont archivés comme essais de développement, **pas** comme analyses de sensibilité du projet. **Résultats à 25° : non encore calculés ni validés.** Attention : la direction `(vx,vy)` peut différer de l'orientation corporelle, et les occlusions ne sont pas simulées.
 
-### Résultats expérimentaux du modèle B — 3 novembre 2026 (frame 1, R=100)
+### Historique technique des premiers essais du modèle B — hors analyse finale (3 novembre 2026, frame 1, R=100)
 
 Le programme local `python -m src.visibility_graph` a été exécuté sur le Mac M1 et a affiché les résultats suivants. Le code est **encore local** ; six tests automatisés ont réussi localement le 3 novembre 2026 ; des tests de cas limites supplémentaires restent à faire.
 
@@ -89,7 +89,7 @@ Le programme local `python -m src.visibility_graph` a été exécuté sur le Mac
 
 Comparaison : le graphe spatial de référence comprend **1 281 arêtes non orientées**, soit **2 562 arcs directionnels potentiels**. Les proportions d'arcs effectivement présents valent donc environ **83,5 %** (angle mort 60°) et **34,6 %** (angle mort 240°). Ces résultats sont des **observations de sortie de programme**, pas encore des preuves apportées par des tests de cohérence `pytest`.
 
-**Interprétation prudente :** l'élargissement du secteur non visible retire des arcs, ce qui peut accroître le nombre de composantes fortes et faibles. Une composante fortement connexe représente l'accessibilité **réciproque par chemin orienté**, pas nécessairement une interaction ou influence biologique. Les poissons peuvent être physiquement voisins même lorsqu'aucun arc de visibilité n'est présent.
+**Statut :** mesures de développement conservées pour la traçabilité seulement. La version finale emploiera exclusivement un angle aveugle arrière de 25° ; aucune conclusion comparative sur 60° et 240° ne sera formulée dans le rapport. **Interprétation prudente :** l'élargissement du secteur non visible retire des arcs, ce qui peut accroître le nombre de composantes fortes et faibles. Une composante fortement connexe représente l'accessibilité **réciproque par chemin orienté**, pas nécessairement une interaction ou influence biologique. Les poissons peuvent être physiquement voisins même lorsqu'aucun arc de visibilité n'est présent.
 
 **Limites supplémentaires :** les autres poissons ne sont pas modélisés comme des obstacles visuels (pas d'occlusion), la largeur du champ de vision est une hypothèse, et `(vx,vy)` représente la direction du déplacement, qui peut différer de l'orientation corporelle/visuelle.
 
