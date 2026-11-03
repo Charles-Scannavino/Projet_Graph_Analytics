@@ -204,6 +204,22 @@ Ne pas afficher un travail individuel ou collectif comme terminé sans preuve, n
 
 ## 8. Journal de projet
 
+### 3 novembre 2026 — Décision ferme : angle mort 25° pendant toute l'étude
+
+- [x] **Paramètre figé par décision du responsable :** `rear_blind_angle_deg=25` (largeur totale de l'angle mort horizontal arrière) pour **chaque poisson et chaque frame** du modèle directionnel.
+- [x] Champ visible horizontal nominal correspondant : **335°** ; l'axe visuel est approximé par `(vx,vy)`, sans occlusion.
+- [x] **Plus de comparaison entre angles 25°, 60° et 240° dans le projet.** Les calculs à 60°/240° figurent exclusivement dans le journal des essais déjà réalisés.
+- [x] Le **graphe spatial non orienté** reste une référence indépendante ; l'étude de la sensibilité au **rayon de proximité `R`** reste envisageable, sans variation d'angle.
+- [ ] Régler le code **local** `src/visibility_graph.py` sur 25° (argument par défaut et exécution principale) et adapter les tests à la configuration retenue.
+- [ ] Exécuter la frame 1 avec 25° et enregistrer les métriques réellement obtenues.
+- [ ] Après validation, committer le code assaini et les tests locaux (ils ne sont pas encore publiés).
+
+**Priorité :** un seul modèle de visibilité défini avec angle mort constant 25°, pas une expérimentation comparative sur le champ de vision.
+
+---
+
+
+
 ### 3 novembre 2026 — Documentation scientifique du champ visuel et règle de progression
 
 - [x] Documenté dans `CONTEXT.md` : toute exécution de code depuis le Terminal doit afficher des messages de progression `print(..., flush=True)`, à fréquence maîtrisée et avec un bilan final.
@@ -213,7 +229,7 @@ Ne pas afficher un travail individuel ou collectif comme terminé sans preuve, n
 - [ ] Exécuter le modèle directionnel avec `rear_blind_angle_deg=25`, sauvegarder les résultats et écrire au moins un test de régression spécifique.
 - [ ] Distinguer dans le rapport l'angle anatomique, la direction de déplacement et les occlusions non modélisées.
 
-**Choix recommandé :** `25°` comme référence documentée ; `60°` et `240°` comme scénarios comparatifs uniquement.
+**Décision ultérieure du 03/11/2026 :** `25°` est **l'unique angle retenu** pour l'étude ; les résultats à `60°` et `240°` sont des essais techniques historiques, **non retenus comme scénarios comparatifs finaux**.
 
 ---
 
@@ -244,7 +260,7 @@ Ne pas afficher un travail individuel ou collectif comme terminé sans preuve, n
 - [ ] **Tests automatisés du modèle de visibilité non encore exécutés.** À écrire : sens avant/arrière, asymétrie, zone latérale, angle nul/240°, dépendance à `R`, sous-ensemble d'arcs du graphe spatial, conservation des nœuds/ID et absence de boucles.
 - [ ] `visibility_graph.py` est **présent localement mais non confirmé sur GitHub** ; commit contrôlé requis.
 - [!] Ne pas confondre la direction de déplacement et le regard réel : champ visuel/angle mort hypothétiques, occlusion non modélisée, pas de démonstration de leadership ou d'influence.
-- [ ] Analyser le sens scientifique des composantes fortement/faiblement connexes et stabiliser la justification de l'angle de vision.
+- [ ] Analyser le sens scientifique des composantes fortement/faiblement connexes avec l'angle fixé à **25°** ; justification scientifique ajoutée au CONTEXT.
 
 **Suite prioritaire :** tester `graph_builder.py` et `visibility_graph.py` avec `pytest`, puis committer le pipeline assaini et réaliser les métriques obligatoires du cours.
 
