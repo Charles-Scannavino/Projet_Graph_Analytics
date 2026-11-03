@@ -2,7 +2,7 @@
 
 **Sujet :** analyse de l'organisation spatiale et temporelle d'un banc de poissons à partir de graphes de voisinage.  
 **Dépôt :** [Projet_Graph_Analytics](https://github.com/Charles-Scannavino/Projet_Graph_Analytics)  
-**État au 3 novembre 2026 :** les modules `src/data_loader.py` et `src/graph_builder.py` fonctionnent **sur la machine locale de développement**, mais ne sont pas encore intégrés à cette branche GitHub ; les tests `pytest` restent à exécuter.  
+**État au 3 novembre 2026 :** les modules `src/data_loader.py` et `src/graph_builder.py` fonctionnent **sur la machine locale de développement**, mais ne sont pas encore intégrés à cette branche GitHub ; les **six tests `pytest` de base ont réussi localement**, mais ne sont pas encore intégrés à cette branche GitHub.  
 **Documents de pilotage :** [CONTEXT.md](CONTEXT.md) · [AVANCEMENT.md](AVANCEMENT.md).
 
 ## 1. Données et provenance
@@ -74,7 +74,7 @@ Une relation de visibilité `i → j` est potentiellement **asymétrique** : le 
 
 ### Résultats expérimentaux du modèle B — 3 novembre 2026 (frame 1, R=100)
 
-Le programme local `python -m src.visibility_graph` a été exécuté sur le Mac M1 et a affiché les résultats suivants. Le code est **encore local** ; les tests automatisés sont à faire.
+Le programme local `python -m src.visibility_graph` a été exécuté sur le Mac M1 et a affiché les résultats suivants. Le code est **encore local** ; six tests automatisés ont réussi localement le 3 novembre 2026 ; des tests de cas limites supplémentaires restent à faire.
 
 | Angle mort arrière total | Champ visible | Nœuds | Arcs | Composantes faibles | Composantes fortes |
 |---:|---:|---:|---:|---:|---:|
@@ -106,6 +106,8 @@ python -m pytest -v
 ```
 
 **Ces commandes de modules nécessitent que leurs fichiers locaux soient ajoutés au dépôt ; à ce jour ils ne figurent pas encore dans la branche GitHub.** Le dataset est conservé localement hors Git.
+
+**Tests locaux confirmés :** `python -m pytest -v` → **6 passed in 0.28s** (3 novembre 2026), incluant le seuil strict de distance, la visibilité avant/arrière et latérale, les composantes du dataset observé et le fait qu'aucun arc directionnel ne soit ajouté hors du graphe spatial. Tests présents sur le Mac mais **non encore publiés** sur GitHub.
 
 ## 6. Intégrité et reproductibilité
 
