@@ -2,7 +2,7 @@
 
 **Sujet :** analyse de l'organisation spatiale et temporelle d'un banc de poissons à partir de graphes de voisinage.  
 **Dépôt :** [Projet_Graph_Analytics](https://github.com/Charles-Scannavino/Projet_Graph_Analytics)  
-**État au 3 novembre 2026 :** les modules `src/data_loader.py` et `src/graph_builder.py` fonctionnent **sur la machine locale de développement**, mais ne sont pas encore intégrés à cette branche GitHub ; les **six tests `pytest` de base ont réussi localement**, mais ne sont pas encore intégrés à cette branche GitHub.  
+**État au 3 novembre 2026 :** les modules `src/data_loader.py`, `src/graph_builder.py` et `src/visibility_graph.py` ont été publiés dans le commit **`748e463`** ; **10 tests `pytest`** ont réussi localement, angle mort arrière fixé à **25°**.  
 **Documents de pilotage :** [CONTEXT.md](CONTEXT.md) · [AVANCEMENT.md](AVANCEMENT.md).
 
 ## 1. Données et provenance
@@ -127,9 +127,9 @@ python -m src.graph_builder
 python -m pytest -v
 ```
 
-**Ces commandes de modules nécessitent que leurs fichiers locaux soient ajoutés au dépôt ; à ce jour ils ne figurent pas encore dans la branche GitHub.** Le dataset est conservé localement hors Git.
+**Les modules figurent sur la branche GitHub depuis le commit `748e463`.** Le dataset est conservé localement hors Git.
 
-**Tests locaux confirmés :** `python -m pytest -v` → **6 passed in 0.28s** (3 novembre 2026), incluant le seuil strict de distance, la visibilité avant/arrière et latérale, les composantes du dataset observé et le fait qu'aucun arc directionnel ne soit ajouté hors du graphe spatial. Tests présents sur le Mac mais **non encore publiés** sur GitHub.
+**Tests locaux confirmés :** `python -m pytest -v -s` → **10 passed in 0.56s** (3 novembre 2026), incluant la configuration 25° et le contrôle des 2 386 arcs sur la frame 1. Suite de tests publiée dans le commit `748e463`.
 
 ## 6. Intégrité et reproductibilité
 
@@ -137,3 +137,15 @@ python -m pytest -v
 - Ne pas publier le script ancien non assaini : il contient une **clé API Gemini en clair**. Cette clé doit être révoquée/renouvelée par son titulaire.
 - Ne jamais changer les dates de fichiers copiés pour laisser croire que les données ou scripts originaux ont été produits en 2026.
 - Les métriques du modèle A ne peuvent **pas** être présentées comme des métriques du modèle B : le champ de visibilité transforme les arêtes, l'orientation et parfois les algorithmes applicables.
+
+## 7. Extension scientifique planifiée — simulation Boids / comparatif réel-simulé
+
+**Projet complémentaire cadré, pas encore codé ni validé.** Deux nouveaux axes suivront la partie obligatoire de Graph Analytics : (1) simulation dynamique à partir d'une frame observée avec séparation / alignement / cohésion ; (2) confrontation quantitative des trajectoires et graphes expérimentaux aux trajectoires et graphes simulés sur des fenêtres temporelles comparables.
+
+- **Angle mort inchangé : 25°** pour tous les agents, à toutes les étapes de simulation et de comparaison. Seuls les rayons et coefficients de comportement pourront faire l'objet d'une calibration documentée.
+- Le code Boids antérieur (fonctions de séparation, alignement, cohésion et boucle de simulation) sera **audité et assaini**, et son origine attribuée. Une clé Gemini est présente dans le script ancien : **ne pas importer/publi­er ce fichier tel quel**.
+- Les vitesses `(vx,vy)` du dataset ressemblent à des directions unitaires ; l'échelle et `dt` du simulateur devront être calibrés à partir des trajectoires appariées et de la fréquence de **30 fps**.
+- Comparaison prévue : mêmes états initiaux, simulation libre sur fenêtres courtes ; **graphe spatial et directionnel à 25°**, degré moyen, composantes, clustering, communautés, polarisation, distances aux plus proches voisins et écarts de trajectoire si suivis fiables.
+- Contrôle de robustesse : évaluer sur fenêtres distinctes de celles servant au réglage, comparer au mouvement par persistance, retirer une règle à la fois (**ablations**). L'objectif est de mesurer la **capacité de Boids à reproduire des régularités**, pas de prouver que les poissons exécutent littéralement les trois règles.
+- **Priorité : P1 après les livrables P0.** Référence scientifique : Reynolds (1987), [Flocks, Herds and Schools](https://doi.org/10.1145/37402.37406) ; Katz et al. (2011), [Inferring the structure and dynamics of interactions in schooling fish](https://doi.org/10.1073/pnas.1107583108).
+
