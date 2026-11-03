@@ -206,6 +206,18 @@ Ne pas afficher un travail individuel ou collectif comme terminé sans preuve, n
 
 ## 8. Journal de projet
 
+### 3 novembre 2026 — Louvain publié et dépôt synchronisé
+
+- [x] Commit **`a92ce23`** publié sur `main` : `src/community_detection.py`, `tests/test_community_detection.py` et `results/communities_frame1_R100.json`.
+- [x] `python -m pytest tests/test_community_detection.py -v -s --durations=5` : **5 passed in 0.44 s** ; test réel en **0,04 s**.
+- [x] `git status` après `git push origin main` : branche à jour, **working tree clean**.
+- [ ] Préparer une visualisation scientifique des deux partitions Louvain avec coordonnées `pos` des poissons, échelles communes et légendes indépendantes : `src/visualize.py`.
+- [ ] Tester puis publier les figures PNG/SVG ; ne pas inférer l'équivalence biologique de communautés de même couleur entre graphes.
+
+---
+
+
+
 ### 3 novembre 2026 — Louvain exécuté sur les deux graphes
 
 - [x] `src/community_detection.py` créé et exécuté localement : `python -m src.community_detection` a terminé en **0,13 seconde**, en affichant les étapes de progression.
