@@ -5,6 +5,22 @@
 > **Statut :** données 2D réellement lues et vérifiées ; métriques calculées sur plusieurs snapshots en environnement d'audit ; scripts définitifs, unités physiques et rapport restent à valider.  
 > **Rôle du document :** préciser le sujet, les exigences d'évaluation, les choix méthodologiques proposés et les conditions de reproductibilité.
 
+## Consigne permanente pour les scripts exécutés dans un terminal
+
+**Règle demandée par l'utilisateur — à appliquer à tout nouveau script ou module exécuté depuis le Terminal :**
+
+> Toujours intégrer des affichages `print(..., flush=True)` permettant de suivre la progression du programme pendant son exécution, et pas seulement son résultat final.
+
+- Au démarrage : afficher le module, les paramètres principaux et les fichiers d'entrée.
+- Avant/après chaque grande étape : chargement, préparation des données, construction des graphes, métriques, sauvegarde.
+- Pour les opérations longues : progression périodique (par exemple toutes les 10 % des frames ou toutes les 100 frames) avec nombre d'éléments traités, sans imprimer une ligne pour chaque poisson.
+- À la fin : afficher le bilan, le chemin des résultats produits et le succès ou l'échec.
+- En cas d'erreur anticipée : émettre un message suffisamment explicite pour identifier l'étape défaillante.
+- Dans les fonctions réutilisables : utiliser si besoin un paramètre `verbose=False` ou un mécanisme de progression externe, afin que les tests unitaires restent lisibles ; **activer le suivi dans les points d'entrée exécutés depuis le Terminal**.
+- Pour les tests, lancer `python -m pytest -v` (et `-s` lorsqu'il faut voir les `print`).
+
+Cette consigne concerne aussi les exemples de commandes et tout nouveau code fourni pour ce projet.
+
 ## 1. Présentation du projet
 
 - **Formation :** MSc Data & IA for Sustainability — Albert School / Mines Paris PSL.
@@ -99,6 +115,16 @@ LCC = plus grande composante connexe ; diamètre et rayon calculés en **nombre 
 
 **3D :** le fichier `schooling_frames_3d.json` ne contient que `{}` (2 octets). Cependant, `Data/3DZeF20Lables/train/ZebraFish-XX/gt/gt.txt` contient des annotations `frame, id, 3d_x, 3d_y, 3d_z, ...`. Le programme 3D cherche actuellement `gt.txt` au mauvais niveau de dossier. La 3D est **techniquement envisageable**, mais reportée après les livrables P0 ; ses coordonnées, leurs unités et les identifiants doivent être vérifiés.
 
+
+### Référence scientifique : champ visuel du Golden shiner
+
+- **Espèce des observations :** *Notemigonus crysoleucas*, dit *Golden shiner* (méné jaune). Source du dataset : Katz et al., *Fish Schooling Data Subset* (Oregon State University), DOI [10.7267/zk51vq07c](https://doi.org/10.7267/zk51vq07c).
+- **Mesure publiée, espèce spécifique :** Pita D., Moore B. A., Tyrrell L. P. et Fernández-Juricic E. (2015), *Vision in two cyprinid fish: implications for collective behavior*, PeerJ 3:e1113, [DOI 10.7717/peerj.1113](https://doi.org/10.7717/peerj.1113). La largeur moyenne du **secteur aveugle arrière horizontal** est de **25° ± 1,20°**, et la couverture visuelle horizontale moyenne **335° ± 3,5°**, chez neuf poissons adultes examinés par méthode ophtalmoscopique avec les yeux en position de repos. Les ± sont les erreurs standard rapportées, et non une plage de variation individuelle.
+- **Corroboration :** Davidson J. D. et al. (2021), *Collective detection based on visual information in animal groups*, *Journal of the Royal Society Interface*, [DOI 10.1098/rsif.2021.0142](https://doi.org/10.1098/rsif.2021.0142), applique explicitement un angle aveugle arrière de 25° à cette espèce.
+- **Comparaison interespèces :** les modèles classiques adoptent parfois une couverture visuelle de 300° / zone aveugle arrière de 60°, historiquement tirée d'autres espèces. Il **n'existe pas d'angle mort moyen universel des poissons**.
+- **Décision méthodologique recommandée :** pour le **graphe orienté de visibilité**, prendre comme valeur biologiquement documentée `rear_blind_angle_deg=25` (**largeur TOTALE** du secteur arrière, donc champ visible horizontal nominal 335°). Tester `60` et `240` comme scénarios de sensibilité uniquement ; `240` correspond au champ frontal de 120° de l'ancien simulateur, pas à une mesure physiologique du Golden shiner.
+- **Point de rigueur :** le graphe actuel fondé sur `(vx,vy)` estime un **axe de déplacement**, utilisé comme approximation de l'orientation du corps. Il n'intègre ni mouvement des yeux, ni occlusion par les voisins, ni géométrie visuelle 3D. Une valeur de champ anatomique ne valide donc pas directement les arcs de visibilité calculés.
+- **Statut du code :** `src/visibility_graph.py` local accepte déjà `rear_blind_angle_deg` comme argument. Les valeurs 60° et 240° ont été exécutées et testées ; **25° n'a pas encore été exécuté/testé dans cette session**. Ne pas lui attribuer de résultat numérique avant exécution.
 
 ### 3.1. Dataset principal candidat
 
