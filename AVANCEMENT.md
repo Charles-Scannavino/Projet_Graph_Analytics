@@ -203,6 +203,23 @@ Ne pas afficher un travail individuel ou collectif comme terminé sans preuve, n
 | Clé API inscrite en clair dans un script de travail | Critique | Révoquer/renouveler la clé ; ne publier aucun script non assaini |
 
 ## 8. Journal de projet
+
+### 3 novembre 2026 — Graphe de visibilité : premières sorties locales
+
+- [x] Exécution sur Mac M1 de `python -m src.visibility_graph` ; 253 nœuds dans les deux variantes.
+- [x] `R=100`, secteur aveugle arrière **60°**, champ de visibilité **300°** : **2 139 arcs**, **4 composantes faiblement connexes**, **5 fortement connexes**.
+- [x] `R=100`, secteur aveugle arrière **240°**, champ de visibilité **120°** (convention angulaire de l'ancien simulateur) : **887 arcs**, **10 composantes faiblement connexes**, **226 fortement connexes**.
+- [x] Comparaison numérique avec le graphe spatial : 1 281 arêtes non orientées → maximum 2 562 arcs orientés de proximité ; rétention approximative 83,5 % et 34,6 %.
+- [ ] **Tests automatisés du modèle de visibilité non encore exécutés.** À écrire : sens avant/arrière, asymétrie, zone latérale, angle nul/240°, dépendance à `R`, sous-ensemble d'arcs du graphe spatial, conservation des nœuds/ID et absence de boucles.
+- [ ] `visibility_graph.py` est **présent localement mais non confirmé sur GitHub** ; commit contrôlé requis.
+- [!] Ne pas confondre la direction de déplacement et le regard réel : champ visuel/angle mort hypothétiques, occlusion non modélisée, pas de démonstration de leadership ou d'influence.
+- [ ] Analyser le sens scientifique des composantes fortement/faiblement connexes et stabiliser la justification de l'angle de vision.
+
+**Suite prioritaire :** tester `graph_builder.py` et `visibility_graph.py` avec `pytest`, puis committer le pipeline assaini et réaliser les métriques obligatoires du cours.
+
+---
+
+
 ### 3 novembre 2026 — Validation locale du graphe et clarification de l'angle mort
 
 - [x] Mac M1 : Python 3.12.6 dans `.venv` ; dépendances installées ; `schooling_frames.json` disponible via lien symbolique dans `data/`.
