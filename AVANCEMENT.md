@@ -206,6 +206,22 @@ Ne pas afficher un travail individuel ou collectif comme terminé sans preuve, n
 
 ## 8. Journal de projet
 
+### 3 novembre 2026 — Louvain exécuté sur les deux graphes
+
+- [x] `src/community_detection.py` créé et exécuté localement : `python -m src.community_detection` a terminé en **0,13 seconde**, en affichant les étapes de progression.
+- [x] Frame 1, `R=100`, `seed=42`, `resolution=1.0`, `weight=None` : **11 communautés, modularité 0,70344** sur graphe spatial ; tailles **64, 47, 38, 30, 27, 26, 11, 5, 3, 1, 1**.
+- [x] Même frame, angle mort constant **25°**, graphe dirigé : **10 communautés, modularité 0,70500** ; tailles **65, 43, 38, 37, 30, 30, 5, 3, 1, 1**.
+- [x] Fichier local produit : `results/communities_frame1_R100.json`, incluant la partition par ID de suivi.
+- [ ] Tests `pytest` du module, y compris la couverture des identifiants et les cas de graphe vide/sans lien ; **non encore exécutés**.
+- [ ] Commit de `src/community_detection.py`, `tests/test_community_detection.py` et du fichier JSON de résultats ; le dépôt distant **ne contient pas encore** ces nouveaux fichiers.
+- [ ] Visualiser les communautés sur les positions réelles et interpréter leur signification avec prudence (graphe dirigé/non dirigé et modularités non directement interchangeables).
+
+**Prochaine étape :** ajouter les tests ciblés et publier les fichiers, avant la visualisation des communautés.
+
+---
+
+
+
 ### 3 novembre 2026 — 15 tests réussis, mais lenteur d'exécution à diagnostiquer
 
 - [x] `python -m pytest -v -s` exécuté depuis le venv du Mac M1, Python 3.12.6 / pytest 9.2.0 : **15 passed in 319.06s (0:05:19)**.
