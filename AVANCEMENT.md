@@ -204,6 +204,21 @@ Ne pas afficher un travail individuel ou collectif comme terminé sans preuve, n
 
 ## 8. Journal de projet
 
+### 3 novembre 2026 — Documentation scientifique du champ visuel et règle de progression
+
+- [x] Documenté dans `CONTEXT.md` : toute exécution de code depuis le Terminal doit afficher des messages de progression `print(..., flush=True)`, à fréquence maîtrisée et avec un bilan final.
+- [x] Espèce confirmée : *Notemigonus crysoleucas* (Golden shiner).
+- [x] Pita et al., PeerJ 2015, DOI 10.7717/peerj.1113 : **secteur aveugle arrière horizontal 25° ± 1,20°**, champ visuel horizontal **335° ± 3,5°** (9 adultes, yeux au repos, valeurs ± erreur standard rapportée).
+- [x] Davidson et al., JRSI 2021, DOI 10.1098/rsif.2021.0142 : réutilisation du **25°** pour le Golden shiner.
+- [ ] Exécuter le modèle directionnel avec `rear_blind_angle_deg=25`, sauvegarder les résultats et écrire au moins un test de régression spécifique.
+- [ ] Distinguer dans le rapport l'angle anatomique, la direction de déplacement et les occlusions non modélisées.
+
+**Choix recommandé :** `25°` comme référence documentée ; `60°` et `240°` comme scénarios comparatifs uniquement.
+
+---
+
+
+
 ### 3 novembre 2026 — Tests automatisés des graphes : 6/6 validés localement
 
 - [x] Création locale du fichier `tests/test_graph_models.py` (6 cas, dont deux essais sur la frame 1 réelle).
