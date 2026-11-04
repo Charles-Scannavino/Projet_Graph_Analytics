@@ -2,7 +2,7 @@
 
 > **Dernière mise à jour :** 4 novembre 2026  
 > **Version :** 2.3  
-> **Statut :** graphes spatiaux et de visibilité (angle mort arrière constant 25°), métriques, Louvain et figures publiés ; **25 tests historiques réussis**. Module temporel exploratoire exécuté localement (5 000 frames parcourues, 21 mesurées, CSV exporté en 7,52 s) ; **32/32 tests réussis en une même exécution** (56,94 s), pipeline temporel publié dans le commit `268a320`. Rapport et graphiques temporels à produire.
+> **Statut :** pipeline des graphes spatiaux/visibilité (angle mort fixe 25°), métriques, communautés Louvain, analyse temporelle (21 frames) et **5 figures temporelles PNG/SVG** publiés. **38/38 tests réussis en une seule exécution (63,52 s)** ; dernier commit fonctionnel `202b62a`. Étude de sensibilité à R, interprétation et rapport à poursuivre.
 > **Date limite du rapport :** mardi **10 novembre 2026 à 08:00** (Inside).  
 > **Soutenance :** mardi **10 novembre 2026 de 14:00 à 17:00**, 8 minutes d'exposé et 2 minutes de questions.
 
@@ -205,6 +205,19 @@ Ne pas afficher un travail individuel ou collectif comme terminé sans preuve, n
 | Clé API inscrite en clair dans un script de travail | Critique | Révoquer/renouveler la clé ; ne publier aucun script non assaini |
 
 ## 8. Journal de projet
+
+### 4 novembre 2026 — Figures temporelles publiées et 38/38 tests réussis
+
+- [x] `python -u -m src.plot_temporal` : 5 figures (10 exports PNG/SVG) régénérées avec suppression automatique des espaces finaux dans les SVG (**16,18 s** pour cette exécution) ; (graph-analytics) fonctionne.
+- [x] `python -u -m pytest -v --durations=10` : **38 passed in 63,52 s**, première validation exhaustive de l'ensemble avec nouveau module de figures. Le test `test_real_frame_communities` a nécessité **31,59 s**, sans échec.
+- [x] `git diff --cached --check` : aucune erreur ; **12 nouveaux fichiers** publiés dans le commit **`202b62a`** (module `src/plot_temporal.py`, `tests/test_plot_temporal.py`, 5 PNG + 5 SVG). `git push origin main` réussi et `git status` propre.
+- [ ] Examiner visuellement les figures avant conclusion : les tests prouvent l'existence et la validité des fichiers, **pas** la lisibilité des légendes ni la pertinence des axes.
+- [ ] **Étude de sensibilité à R** : comparer R = 60, 80, 100, 120 et 140 sur **les mêmes 21 frames**, angle mort arrière fixé à **25°**, en utilisant les proportions / mesures normalisées, et garder R = 100 comme référence exploratoire.
+- [ ] Générer tableau et graphiques de robustesse ; interpréter l'influence du rayon, les limites des identifiants `onfish`, puis produire rapport et présentation.
+
+---
+
+
 
 ### 4 novembre 2026 — Six tests supplémentaires de figures temporelles réussis
 
