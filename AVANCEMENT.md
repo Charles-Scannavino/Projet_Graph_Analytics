@@ -206,6 +206,19 @@ Ne pas afficher un travail individuel ou collectif comme terminé sans preuve, n
 
 ## 8. Journal de projet
 
+### 4 novembre 2026 — Six tests supplémentaires de figures temporelles réussis
+
+- [x] `python -u -m pytest tests/test_plot_temporal.py -v -s --durations=5` : **6 passed in 4,32 s** (test PNG/SVG en 0,64 s) : CSV valide et tri, champs manquants, CSV vide, NaN, génération de 10 exports PNG/SVG, CSV réel de 21 frames.
+- [x] Dix figures locales confirmées par `ls -lh results/figures/temporal_*` : cinq PNG et cinq SVG, taille non nulle. `src/plot_temporal.py` et `tests/test_plot_temporal.py` sont également présents en local.
+- [x] Cumul **38 tests individuels validés**, mais nouvelle **exécution globale de 38 tests encore à faire**.
+- [ ] Les **12 nouveaux fichiers sont non suivis par Git**, et ne sont pas encore publiés : `src/plot_temporal.py`, `tests/test_plot_temporal.py` et les 10 figures `results/figures/temporal_*.png/.svg`.
+- [ ] Vérifier les éventuels espaces de fin de ligne SVG avant staging, lancer la suite complète, `git diff --cached --check` puis publier les 12 fichiers. Examiner les figures avec captures avant conclusions visuelles définitives.
+- [!] Ne pas confondre « 21 frames échantillonnées parmi 5000 » et une série exhaustive ; conserver R = 100 et l'angle mort arrière à 25° pour cette première exploration.
+
+---
+
+
+
 ### 4 novembre 2026 — Cinq graphiques temporels générés localement
 
 - [x] `src/plot_temporal.py` exécuté **localement** depuis l'environnement `~/.venvs/graph-analytics` : `python -u -m src.plot_temporal`.
