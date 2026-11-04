@@ -97,6 +97,7 @@ def test_streaming_and_csv(tmp_path):
     ]
 
     assert output.is_file()
+    assert b"\r\n" not in output.read_bytes()
 
     with output.open(newline="", encoding="utf-8") as file:
         saved = list(csv.DictReader(file))
