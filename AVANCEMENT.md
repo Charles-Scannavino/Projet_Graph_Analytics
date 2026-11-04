@@ -206,6 +206,20 @@ Ne pas afficher un travail individuel ou collectif comme terminé sans preuve, n
 
 ## 8. Journal de projet
 
+### 4 novembre 2026 — Visualisations publiées sur GitHub
+
+- [x] **Commit `af1376a`** publié et vérifié sur `main` : `src/visualize.py`, `tests/test_visualize.py`, `results/figures/frame1_spatial_louvain.png/.svg`, `results/figures/frame1_visibility25_louvain.png/.svg` (6 fichiers).
+- [x] Avant commit, `GIT_PAGER=cat git diff --cached --check` : aucune erreur après suppression des espaces de fin de ligne des deux SVG.
+- [x] `git push origin main` réussi ; `git status` indique `nothing to commit, working tree clean`.
+- [x] **25 tests individuels validés** en exécutions ciblées / précédentes (10 modèles, 5 métriques, 5 Louvain, 5 visualisation). *Pas de nouvelle exécution de la suite complète après le dernier commit.*
+- [!] Lenteurs d'import de NumPy/SciPy/NetworkX/Matplotlib récurrentes, ainsi qu'un `fatal: mmap failed: Operation canceled` ponctuel dans `git status`, disparu lors de la vérification finale. Cause à diagnostiquer avant de lancer la grande analyse temporelle ; vérifier le statut stockage/cloud et les fichiers locaux sans modifier les environnements tant que la cause est inconnue.
+- [ ] Prochaine livraison : pipeline temporel reproductible avec lecture streaming du JSON, échantillonnage initial sur quelques dizaines de frames, mesures de structure et Louvain (angle mort 25° constant), progression affichée, export CSV/figures.
+- [ ] Puis étude de sensibilité du rayon **R**, interprétation du dataset, rapport ≤15 pages et présentation.
+
+---
+
+
+
 ### 3 novembre 2026 — Cinq tests de visualisation réussis
 
 - [x] `tests/test_visualize.py` créé localement pour tester graphe vide, partition incohérente, figures PNG/SVG spatiale/orientée et cas sans arêtes (`modularity=None`).
