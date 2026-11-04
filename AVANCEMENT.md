@@ -2,7 +2,7 @@
 
 > **Dernière mise à jour :** 4 novembre 2026  
 > **Version :** 2.3  
-> **Statut :** graphes spatiaux et de visibilité (angle mort arrière constant 25°), métriques, Louvain et figures publiés ; **25 tests historiques réussis**. Module temporel exploratoire exécuté localement (5 000 frames parcourues, 21 mesurées, CSV exporté en 7,52 s) ; **7 nouveaux tests réussis localement**, publication du code temporel en attente (32 tests validés en deux exécutions distinctes). Rapport et graphiques temporels à produire.
+> **Statut :** graphes spatiaux et de visibilité (angle mort arrière constant 25°), métriques, Louvain et figures publiés ; **25 tests historiques réussis**. Module temporel exploratoire exécuté localement (5 000 frames parcourues, 21 mesurées, CSV exporté en 7,52 s) ; **32/32 tests réussis en une même exécution** (56,94 s), pipeline temporel publié dans le commit `268a320`. Rapport et graphiques temporels à produire.
 > **Date limite du rapport :** mardi **10 novembre 2026 à 08:00** (Inside).  
 > **Soutenance :** mardi **10 novembre 2026 de 14:00 à 17:00**, 8 minutes d'exposé et 2 minutes de questions.
 
@@ -205,6 +205,19 @@ Ne pas afficher un travail individuel ou collectif comme terminé sans preuve, n
 | Clé API inscrite en clair dans un script de travail | Critique | Révoquer/renouveler la clé ; ne publier aucun script non assaini |
 
 ## 8. Journal de projet
+
+### 4 novembre 2026 — Publication temporelle et 32/32 tests validés
+
+- [x] `python -u -m pytest -v -s --durations=10` : **32 passed in 56,94 s**. Exécution complète ; test Louvain sur frame réelle le plus long (**32,17 s**).
+- [x] Commit **`268a320`** publié sur `main` : `src/temporal_analysis.py`, `tests/test_temporal_analysis.py`, `results/temporal/metrics_step250_R100.csv`. `git status` : **working tree clean**, synchronisé avec `origin/main`.
+- [!] `git diff --cached --check` signalait des `trailing whitespace` pour les **22 lignes du CSV**. Fichier vérifié sur GitHub : ce sont les fins de ligne **CRLF (`\\r\\n`)** émises par `csv.DictWriter` sans `lineterminator`. Correction recommandée dans l'exporteur (`lineterminator="\\n"`), dans le fichier CSV et dans le test de non-régression, sans modifier les métriques.
+- [x] Exploration du CSV 21 frames : poissons observés **91 à 280** ; densité spatiale **0,02906 à 0,12527** ; clustering spatial **0,53164 à 0,62994** ; modularité spatiale **0,56917 à 0,73456** ; part d'arcs visibles parmi les deux directions de chaque arête spatiale **0,92428 à 0,94171**.
+- [ ] Générer des figures temporelles séparées avec axes explicites, les données du CSV et une comparaison prudente des modèles, en conservant l'angle mort fixe de 25° et en indiquant les effets du nombre variable de poissons.
+- [ ] Faire la correction CRLF localement, exécuter les tests de non-régression puis publier un commit ciblé.
+
+---
+
+
 
 ### 4 novembre 2026 — Validation des 7 tests temporels et export local
 
