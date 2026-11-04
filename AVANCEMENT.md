@@ -1,8 +1,8 @@
 # AVANCEMENT.md — Graph Analytics 2026 | Fish Schooling Networks
 
-> **Dernière mise à jour :** 3 novembre 2026  
-> **Version :** 2.2  
-> **Statut :** pipeline de lecture et construction des graphes publié sur GitHub (commit `748e463`), 10 tests réussis ; `src/graph_metrics.py` exécuté localement sur frame 1 avec angle mort fixe 25°, **5 tests spécifiques réussis localement ; pas encore committé**. Analyses temporelles, communautés, figures et rapport à produire.  
+> **Dernière mise à jour :** 4 novembre 2026  
+> **Version :** 2.3  
+> **Statut :** graphes spatiaux et de visibilité (angle mort arrière constant 25°), métriques, Louvain et figures publiés ; **25 tests historiques réussis**. Module temporel exploratoire exécuté localement (5 000 frames parcourues, 21 mesurées, CSV exporté en 7,52 s) ; **7 nouveaux tests réussis localement**, publication du code temporel en attente (32 tests validés en deux exécutions distinctes). Rapport et graphiques temporels à produire.
 > **Date limite du rapport :** mardi **10 novembre 2026 à 08:00** (Inside).  
 > **Soutenance :** mardi **10 novembre 2026 de 14:00 à 17:00**, 8 minutes d'exposé et 2 minutes de questions.
 
@@ -205,6 +205,19 @@ Ne pas afficher un travail individuel ou collectif comme terminé sans preuve, n
 | Clé API inscrite en clair dans un script de travail | Critique | Révoquer/renouveler la clé ; ne publier aucun script non assaini |
 
 ## 8. Journal de projet
+
+### 4 novembre 2026 — Validation des 7 tests temporels et export local
+
+- [x] `python -u -m pytest tests/test_temporal_analysis.py -v -s --durations=5` : **7 passed in 7,10 s**. Contrôles : conversion des observations, longueur/identifiants incohérents, graphe spatial et visibilité sur données contrôlées (arc visible, angle mort 25°), streaming de trois frames synthétiques, contenu CSV, frame manquante, paramètres `step`/`radius` invalides.
+- [x] `git status` local : branche `main` synchronisée avec `origin/main`, mais **3 éléments non suivis** : `src/temporal_analysis.py`, `tests/test_temporal_analysis.py`, `results/temporal/metrics_step250_R100.csv` (**3,0 Ko**).
+- [x] Cumul **32 tests distincts validés localement** (25 anciens en 14,94 s, 7 nouveaux en 7,10 s). **Reste à exécuter la suite complète de 32 tests d'un seul tenant** après publication.
+- [ ] Publier les trois fichiers temporels ensemble depuis le Mac par `git add` / `git commit` / `git push` ; vérifier ensuite le statut Git.
+- [ ] Générer des courbes à partir du CSV, puis poursuivre la robustesse par variation du rayon `R`, avec angle mort fixe **25°**.
+- [!] Prudence : nombre de poissons variable d'une frame à l'autre et communauté Louvain non équivalente à un sous-banc individuel biologiquement stable.
+
+---
+
+
 
 ### 4 novembre 2026 — Analyse temporelle exploratoire réussie (21 frames)
 
