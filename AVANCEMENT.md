@@ -206,6 +206,22 @@ Ne pas afficher un travail individuel ou collectif comme terminé sans preuve, n
 
 ## 8. Journal de projet
 
+### 4 novembre 2026 — Nouvel environnement local validé : 25/25 tests
+
+- [x] Création de `~/.venvs/graph-analytics` hors du dossier `~/Documents` (Python 3.12.6), installation **sans cache** des versions précédentes : NumPy 2.5.4, SciPy 1.18.1, NetworkX 3.7, Matplotlib 3.11.2, ijson 3.6, pytest 9.2.0.
+- [x] Le fichier `~/.venvs/graph-analytics/lib/python3.12/site-packages/numpy/__init__.py` **n'a pas l'attribut `dataless`**.
+- [x] Mesures d'imports séquentiels : numpy 0,355 s ; scipy.spatial.distance 5,986 s ; networkx 0,093 s ; matplotlib.pyplot 2,250 s ; ijson 0,179 s ; pytest 0,068 s ; **total 8,931 s**.
+- [x] `PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 python -u -m pytest tests/test_visualize.py -v -s --durations=5` : **5 passed in 10,40 s** ; toutes les figures produites dans les tests.
+- [x] `PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 python -u -m pytest -v -s --durations=10` : **25 passed in 14,94 s** ; sous-ensembles graphes 10, métriques 5, Louvain 5, visualisation 5.
+- [!] Le problème de performance des imports a été fortement réduit par l'environnement hors `Documents`; **l'hypothèse des placeholders `dataless` est renforcée**, sans diagnostic exhaustif du service iCloud/macOS. Les fichiers sources du dépôt et les données restent dans `Documents`, à surveiller.
+- [ ] Conserver provisoirement l'ancien `.venv` (ne pas le supprimer tant qu'une stratégie de déplacement n'est pas décidée).
+- [ ] Prochaine étape : analyse temporelle des graphes réels en **streaming une seule lecture**, sur des frames réparties dans le temps, progression affichée, même rayon spatial et même angle mort arrière **25° constant**, export CSV/figures.
+- [ ] Rapport, méthodologie de sélection de R et comparaison prudente avec simulation Boids.
+
+---
+
+
+
 ### 4 novembre 2026 — Cause probable des imports très lents : fichiers dataless
 
 - [x] Inspection locale : `ls -lO@` signale **`hidden,compressed,dataless`** sur les fichiers `.venv/lib/python3.12/site-packages/numpy/__init__.py` et `scipy/spatial/_kdtree.py`. Cela signifie que le contenu de ces fichiers n'est pas physiquement matérialisé localement.
