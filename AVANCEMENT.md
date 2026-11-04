@@ -206,6 +206,19 @@ Ne pas afficher un travail individuel ou collectif comme terminé sans preuve, n
 
 ## 8. Journal de projet
 
+### 4 novembre 2026 — Cinq graphiques temporels générés localement
+
+- [x] `src/plot_temporal.py` exécuté **localement** depuis l'environnement `~/.venvs/graph-analytics` : `python -u -m src.plot_temporal`.
+- [x] Lecture du CSV de **21 frames**, production de **5 figures** en PNG et SVG (**10 fichiers**) dans `results/figures/`, en **1,81 s** : `temporal_fish_count`, `temporal_density`, `temporal_clustering`, `temporal_modularity`, `temporal_connectivity`.
+- [x] `open results/figures/temporal_*.png` lancé sans erreur Terminal apparente ; **qualité visuelle non encore contrôlée** via captures ou inspection des fichiers.
+- [!] Les courbes relient des frames échantillonnées espacées de 250 frames ; **pas une mesure exhaustive des fluctuations entre les points**. La connectivité spatiale (plus grande CC) et celle orientée (plus grande SCC) ne sont pas des notions identiques. Angle mort 25° constant.
+- [ ] Ajouter des tests automatisés au nouveau module (import, colonnes requises, CSV vide/non fini, exports PNG/SVG), puis contrôler les figures et publier les fichiers locaux sur GitHub.
+- [ ] Normaliser au besoin les espaces finaux dans les fichiers SVG générés avant `git diff --cached --check` ; les SVG Matplotlib précédents en comportaient.
+
+---
+
+
+
 ### 4 novembre 2026 — Correction CRLF publiée et vérifiée
 
 - [x] Commit **`2ff8ce4`** publié sur `main` : correction de `src/temporal_analysis.py`, test de non-régression dans `tests/test_temporal_analysis.py`, normalisation du CSV `results/temporal/metrics_step250_R100.csv`.
