@@ -206,6 +206,20 @@ Ne pas afficher un travail individuel ou collectif comme terminé sans preuve, n
 
 ## 8. Journal de projet
 
+### 4 novembre 2026 — Sensibilité au rayon R : cinq séries CSV disponibles en local
+
+- [x] Le script `python -u -m src.temporal_analysis --step 250 --radius R` a été exécuté pour **R = 60, 80, 120, 140**, avec **21 frames** par rayon, **angle mort fixe de 25°** et sorties locales : `results/temporal/metrics_step250_R60.csv`, `...R80.csv`, `...R120.csv`, `...R140.csv`. **R = 100** était déjà disponible dans le dépôt.
+- [x] Les quatre exécutions ont réussi (durées déclarées : **1,36 s ; 1,57 s ; 2,50 s ; 3,32 s**) et les cinq CSV ont été listés par `ls -lh` (~2,9–3,0 Ko chacun).
+- [x] Changement marqué du nombre de communautés Louvain selon R : **frame 1** spatiales 44,17,11,10,8 pour R=60,80,100,120,140 ; **frame 5000** : 48,21,12,8,8.
+- [x] Moyennes des **21 nombres de communautés spatiales** rapportés dans le terminal : R60 **29,76**, R80 **12,90**, R100 **8,76**, R120 **6,81**, R140 **6,43** (valeurs descriptives sur cet échantillon, sans analyse d'incertitude).
+- [!] **La densité, les composantes et la modularité doivent être vérifiées dans les CSV par rayon avant de conclure sur la robustesse.** L'influence sur le nombre de communautés seul ne suffit pas à retenir un rayon « optimal ».
+- [ ] Étape suivante : script reproductible de synthèse des cinq CSV vérifiant l'alignement des 21 frames et du nombre de poissons, générant un tableau `results/sensitivity/summary_step250.csv` et des graphiques de sensibilité PNG/SVG.
+- [ ] Tester puis publier ces nouveaux résultats et interpréter méthodologiquement R=100 et les valeurs alternatives dans le rapport.
+
+---
+
+
+
 ### 4 novembre 2026 — Figures temporelles publiées et 38/38 tests réussis
 
 - [x] `python -u -m src.plot_temporal` : 5 figures (10 exports PNG/SVG) régénérées avec suppression automatique des espaces finaux dans les SVG (**16,18 s** pour cette exécution) ; (graph-analytics) fonctionne.
