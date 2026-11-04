@@ -206,6 +206,18 @@ Ne pas afficher un travail individuel ou collectif comme terminé sans preuve, n
 
 ## 8. Journal de projet
 
+### 4 novembre 2026 — Correction CRLF publiée et vérifiée
+
+- [x] Commit **`2ff8ce4`** publié sur `main` : correction de `src/temporal_analysis.py`, test de non-régression dans `tests/test_temporal_analysis.py`, normalisation du CSV `results/temporal/metrics_step250_R100.csv`.
+- [x] `csv.DictWriter` utilise maintenant `lineterminator="\\n"`, le test vérifie `b"\\r\\n" not in output.read_bytes()` et le CSV GitHub a bien des fins de ligne LF, pas de CRLF (21 lignes de données).
+- [x] **7 tests temporels réussis** après correctif (**11,34 s**) ; `git diff --cached --check` sans message ; `git push origin main` réussi ; dernier `git status` propre et synchronisé.
+- [ ] Prochaine étape : générer des séries temporelles en PNG/SVG à partir du CSV **publié** : nombre de poissons, densité, clustering, modularité Louvain et proportion dans les composantes principales. Ajouter des tests de visualisation et publier les figures.
+- [!] Pour les figures, les graphes spatiaux sont non orientés, les graphes de visibilité orientés ; **LCC spatiale et SCC de visibilité ne sont pas des notions identiques**, même si leurs proportions peuvent être comparées descriptivement. L'angle mort reste 25°.
+
+---
+
+
+
 ### 4 novembre 2026 — Publication temporelle et 32/32 tests validés
 
 - [x] `python -u -m pytest -v -s --durations=10` : **32 passed in 56,94 s**. Exécution complète ; test Louvain sur frame réelle le plus long (**32,17 s**).
