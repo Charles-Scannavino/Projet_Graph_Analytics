@@ -206,6 +206,19 @@ Ne pas afficher un travail individuel ou collectif comme terminé sans preuve, n
 
 ## 8. Journal de projet
 
+### 4 novembre 2026 — Analyse temporelle exploratoire réussie (21 frames)
+
+- [x] Module **local** `src/temporal_analysis.py` exécuté : `python -u -m src.temporal_analysis --step 250 --radius 100`. Lecture streaming en une passe de **5 000 frames** et analyse de **21 frames** (1, 251, …, 4751, 5000), angle mort **25° constant**.
+- [x] **Durée 7,52 s**, avec messages de progression ; export local `results/temporal/metrics_step250_R100.csv`, 21 lignes de données et en-tête.
+- [x] Valeurs issues du terminal : frame 1 = 253 poissons, 11 communautés spatiales, 10 de visibilité ; frame 501 = 91 poissons, 5 et 6 communautés ; frame 4501 = 280 poissons, 8 et 10 ; frame 4751 = 272 poissons, 13 et 12 ; frame 5000 = 262 poissons, 12 et 11.
+- [!] Nombre de poissons observés très variable (dans les 21 mesures affichées : **91 à 280**) ; **ne pas** interpréter directement les nombres absolus de communautés comme des transitions comportementales. Prioriser métriques normalisées, part de la plus grande composante et modularité ; temporalité et validité des ID `onfish` à expliciter.
+- [ ] `src/temporal_analysis.py` et le CSV **non encore publiés** sur GitHub. Prochaine étape : tests unitaires du streaming, paramètres, frames absentes, export, puis contrôle du contenu CSV et commit.
+- [ ] Produire des courbes temporelles et vérifier la robustesse pour plusieurs valeurs **de R uniquement** (angle mort invariant 25°). Structurer ensuite le rapport et prioriser résultats expérimentaux avant simulation Boids.
+
+---
+
+
+
 ### 4 novembre 2026 — Nouvel environnement local validé : 25/25 tests
 
 - [x] Création de `~/.venvs/graph-analytics` hors du dossier `~/Documents` (Python 3.12.6), installation **sans cache** des versions précédentes : NumPy 2.5.4, SciPy 1.18.1, NetworkX 3.7, Matplotlib 3.11.2, ijson 3.6, pytest 9.2.0.
