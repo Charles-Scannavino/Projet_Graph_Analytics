@@ -206,6 +206,19 @@ Ne pas afficher un travail individuel ou collectif comme terminé sans preuve, n
 
 ## 8. Journal de projet
 
+### 4 novembre 2026 — Synthèse des cinq rayons et figures de sensibilité générées
+
+- [x] `python -u -m src.sensitivity_analysis` exécuté localement : **5 CSV chargés** pour R=60,80,100,120,140, **21 mêmes frames** par rayon, angle mort arrière fixe **25°** ; rapport de synthèse exporté dans `results/sensitivity/summary_step250.csv`.
+- [x] Synthèse contrôlée par le programme : **communautés Louvain spatiales moyennes** 29,76 ; 12,90 ; 8,76 ; 6,81 ; 6,43 et **densités spatiales moyennes** 0,0213 ; 0,0391 ; 0,0609 ; 0,0862 ; 0,1142 dans l'ordre des rayons.
+- [x] **5 figures de sensibilité** (communautés, densité, clustering, modularité, composantes principales) produites localement en **10 PNG/SVG**, en **6,49 secondes**, sous `results/figures/sensitivity_*`.
+- [!] **Ces sorties et le fichier `src/sensitivity_analysis.py` sont encore locaux / non publiés** sur GitHub. Les graphiques ont été ouverts, mais aucune inspection des rendus n'a été fournie.
+- [ ] Créer des **tests dédiés** : alignement frames/nombre de poissons, CSV erronés, duplication de frames, valeurs non finies, exactitude des moyennes, export PNG/SVG, cohérence des résultats réels ; exécuter la suite globale et faire le commit.
+- [!] L'augmentation de la densité avec R est attendue par construction. La chute du nombre de communautés est descriptive et **n'établit pas que R=100 est biologiquement optimal**. Les comparaisons de modularité / connectivité entre graphe spatial non orienté et graphe de visibilité orienté nécessitent des précautions.
+
+---
+
+
+
 ### 4 novembre 2026 — Sensibilité au rayon R : cinq séries CSV disponibles en local
 
 - [x] Le script `python -u -m src.temporal_analysis --step 250 --radius R` a été exécuté pour **R = 60, 80, 120, 140**, avec **21 frames** par rayon, **angle mort fixe de 25°** et sorties locales : `results/temporal/metrics_step250_R60.csv`, `...R80.csv`, `...R120.csv`, `...R140.csv`. **R = 100** était déjà disponible dans le dépôt.
