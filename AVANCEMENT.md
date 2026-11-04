@@ -206,6 +206,21 @@ Ne pas afficher un travail individuel ou collectif comme terminé sans preuve, n
 
 ## 8. Journal de projet
 
+### 4 novembre 2026 — Cause probable des imports très lents : fichiers dataless
+
+- [x] Inspection locale : `ls -lO@` signale **`hidden,compressed,dataless`** sur les fichiers `.venv/lib/python3.12/site-packages/numpy/__init__.py` et `scipy/spatial/_kdtree.py`. Cela signifie que le contenu de ces fichiers n'est pas physiquement matérialisé localement.
+- [x] Le dossier `~/Documents` porte les attributs `com.apple.file-provider-domain-id`, `com.apple.fileprovider.detached` et `com.apple.icloud.desktop`, compatibles avec une gestion iCloud/File Provider. **Hypothèse forte :** récupérations à la demande pendant les imports responsables du retard, à vérifier lors d'un test dans un environnement non synchronisé.
+- [x] Volume `/System/Volumes/Data` : **228 Gio, 195 Gio utilisés, 8,7 Gio disponibles (96 %)**.
+- [!] `git status` a précédemment rencontré `fatal: mmap failed: Operation canceled`, puis a réussi ; lien avec les placeholders plausible mais **non confirmé**.
+- [ ] **Action recommandée sans suppression :** créer un nouveau venv dans `~/.venvs/graph-analytics` (hors `Documents`), installer les dépendances selon `requirements.txt`, vérifier l'absence de `dataless` et mesurer le temps d'import NumPy/SciPy/Matplotlib/NetworkX.
+- [ ] Ensuite envisager une copie entièrement locale du dépôt vers `~/Developer/Projet_Graph_Analytics`, avec dataset réellement matérialisé ; **ne pas supprimer le dépôt original ni son venv tant que la copie n'est pas validée**.
+- [ ] Libérer de l'espace disque avec précaution avant toute grosse copie ; éviter tout nettoyage destructif automatique.
+- [ ] Une fois le fonctionnement stabilisé, lancer l'analyse temporelle progressive (angle mort 25° constant).
+
+---
+
+
+
 ### 4 novembre 2026 — Visualisations publiées sur GitHub
 
 - [x] **Commit `af1376a`** publié et vérifié sur `main` : `src/visualize.py`, `tests/test_visualize.py`, `results/figures/frame1_spatial_louvain.png/.svg`, `results/figures/frame1_visibility25_louvain.png/.svg` (6 fichiers).
