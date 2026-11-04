@@ -1,0 +1,6 @@
+radius,frames,mean_number_of_fish,mean_spatial_communities,mean_visibility_communities,mean_spatial_density,mean_visibility_density,mean_spatial_clustering,mean_visibility_clustering,mean_spatial_modularity,mean_visibility_modularity,mean_spatial_largest_component_share,mean_visibility_largest_scc_share,mean_visible_arc_fraction
+60,21,224.42857,29.7619,29.80952,0.02128,0.02015,0.41344,0.39095,0.79888,0.8049,0.78778,0.75838,0.9473
+80,21,224.42857,12.90476,13.14286,0.03906,0.0366,0.52683,0.49773,0.71689,0.71802,0.95136,0.94454,0.9371
+100,21,224.42857,8.7619,8.7619,0.06095,0.05682,0.57873,0.54529,0.65325,0.6549,0.99281,0.99088,0.93223
+120,21,224.42857,6.80952,6.95238,0.08619,0.08022,0.6102,0.57335,0.60115,0.60593,0.99629,0.99415,0.93072
+140,21,224.42857,6.42857,6.04762,0.11418,0.10609,0.63357,0.5945,0.56025,0.56253,0.99706,0.99706,0.92919
