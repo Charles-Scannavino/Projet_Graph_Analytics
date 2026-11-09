@@ -1,6 +1,7 @@
 # Projet Graph Analytics 2026 — Fish Schooling Networks
 
 **Sujet :** Analyse de l'organisation spatiale et temporelle d'un banc de poissons à partir de graphes de voisinage.
+**Équipe :** Charles Scannavino et Jacques Chevolot.
 **Dépôt :** [Projet_Graph_Analytics](https://github.com/Charles-Scannavino/Projet_Graph_Analytics)
 **État au 3 novembre 2026 :** les modules `src/data_loader.py`, `src/graph_builder.py` et `src/visibility_graph.py` ont été publiés sur la branche `main` ; **10 tests `pytest`** ont réussi localement, angle mort arrière fixé à **25°**.
 **Documents de pilotage :** [CONTEXT.md](CONTEXT.md) · [AVANCEMENT.md](AVANCEMENT.md).
