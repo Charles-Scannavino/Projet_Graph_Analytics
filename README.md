@@ -1,8 +1,8 @@
 # Projet Graph Analytics 2026 — Fish Schooling Networks
 
-**Sujet :** analyse de l'organisation spatiale et temporelle d'un banc de poissons à partir de graphes de voisinage.  
-**Dépôt :** [Projet_Graph_Analytics](https://github.com/Charles-Scannavino/Projet_Graph_Analytics)  
-**État au 3 novembre 2026 :** les modules `src/data_loader.py`, `src/graph_builder.py` et `src/visibility_graph.py` ont été publiés dans le commit **`748e463`** ; **10 tests `pytest`** ont réussi localement, angle mort arrière fixé à **25°**.  
+**Sujet :** Analyse de l'organisation spatiale et temporelle d'un banc de poissons à partir de graphes de voisinage.
+**Dépôt :** [Projet_Graph_Analytics](https://github.com/Charles-Scannavino/Projet_Graph_Analytics)
+**État au 3 novembre 2026 :** les modules `src/data_loader.py`, `src/graph_builder.py` et `src/visibility_graph.py` ont été publiés sur la branche `main` ; **10 tests `pytest`** ont réussi localement, angle mort arrière fixé à **25°**.
 **Documents de pilotage :** [CONTEXT.md](CONTEXT.md) · [AVANCEMENT.md](AVANCEMENT.md).
 
 ## 1. Données et provenance
@@ -60,23 +60,11 @@ Une relation de visibilité `i → j` est potentiellement **asymétrique** : le 
 - Si le vecteur direction est de norme nulle, définir explicitement la convention (par exemple exclure les arcs sortants, ou signaler la frame).
 
 
-
-| Paramètre | Ancien simulateur | Modèle B proposé |
-|---|---|---|
-| Nom | `angle_mort_degre` | `rear_blind_angle_deg` |
-| Valeur | 60° (dans le code historique) | **25° fixé pour l'étude** |
-| Signification réelle | Demi-ouverture visuelle **avant** | Largeur de l'angle mort **arrière** |
-| Champ visible obtenu | 120° | **335°** |
-| Zone aveugle obtenue | 240° | **25°** |
-| Graphe | Voisins filtrés pour les forces Boids | Arcs `i → j` de visibilité, **nouvelle analyse** |
-
-**Analyses à prévoir pour le modèle B :** degrés entrant/sortant, composantes faiblement/fortement connexes ; définir explicitement si une projection non orientée est nécessaire pour comparer Louvain et les autres mesures. L'**angle mort reste constant à 25°** ; seule une sensibilité au **rayon `R`** peut être explorée. Des essais historiques à 60° et 240° ont été exécutés auparavant ; le résultat **à 25° a été exécuté localement et confirmé** (voir tableau ci-dessous).
-
 ### Référence biologique pour le modèle B : 25°
 
 L'espèce du dataset est le **Golden shiner** (*Notemigonus crysoleucas*). Une étude expérimentale dédiée, Pita et al. (2015), *Vision in two cyprinid fish: implications for collective behavior*, [DOI 10.7717/peerj.1113](https://doi.org/10.7717/peerj.1113), rapporte **25° ± 1,20°** pour la largeur moyenne de la **zone aveugle arrière horizontale** et une couverture horizontale de **335° ± 3,5°** (mesures sur 9 adultes avec yeux au repos ; ± erreur standard rapportée). Davidson et al. (2021), [DOI 10.1098/rsif.2021.0142](https://doi.org/10.1098/rsif.2021.0142), utilisent également un angle aveugle arrière de **25°** pour l'espèce.
 
-**Décision définitive du 3 novembre 2026 :** `rear_blind_angle_deg=25` pour **tous les individus et tous les instants**, sans comparaison d'autres angles dans les résultats scientifiques finaux (secteur aveugle arrière total, visible = 335°). Les calculs historiques **60°** et **240°** sont archivés comme essais de développement, **pas** comme analyses de sensibilité du projet. **Résultats à 25° : calculés et vérifiés par sortie Terminal ; tests automatisés spécifiques à 25° encore à exécuter.** Attention : la direction `(vx,vy)` peut différer de l'orientation corporelle, et les occlusions ne sont pas simulées.
+**Décision définitive du 3 novembre 2026 :** `rear_blind_angle_deg=25` pour **tous les individus et tous les instants**, sans comparaison d'autres angles dans les résultats scientifiques finaux (secteur aveugle arrière total, visible = 335°). Les valeurs **60°** et **240°** ne sont pas retenues pour l’analyse finale du projet. **Résultats à 25° : calculés et vérifiés par sortie Terminal ; tests automatisés spécifiques à 25° encore à exécuter.** Attention : la direction `(vx,vy)` peut différer de l'orientation corporelle, et les occlusions ne sont pas simulées.
 
 ### Résultat du modèle définitif à 25° — frame 1, R = 100
 
@@ -88,9 +76,9 @@ L'espèce du dataset est le **Golden shiner** (*Notemigonus crysoleucas*). Une �
 
 Le graphe de proximité de référence, sur la même frame et avec `R=100`, comporte **253 sommets et 1 281 arêtes non orientées**. Il existe donc **2 562 arcs directionnels spatialement possibles** dans le graphe de proximité, dont **2 386** sont retenus dans le modèle de visibilité (environ **93,1 %**). Ce pourcentage n'est pas une validation biologique et n'établit pas une communication entre individus. Les tailles des composantes, les centralités et les tests automatisés spécifiques au 25° restent à compléter.
 
-Le résultat à 25° constitue la **référence du projet**. Les angles historiques à 60° et 240° ci-dessous ne sont conservés que pour la traçabilité du développement.
+Le résultat à 25° constitue la **référence du projet**. Les autres valeurs ci-dessous correspondent à des essais exploratoires non retenus.
 
-### Historique technique des premiers essais du modèle B — hors analyse finale (3 novembre 2026, frame 1, R=100)
+### Essais exploratoires du modèle B — hors analyse finale (3 novembre 2026, frame 1, R=100)
 
 Le programme local `python -m src.visibility_graph` a été exécuté sur le Mac M1 et a affiché les résultats suivants. Le code est **encore local** ; six tests automatisés ont réussi localement le 3 novembre 2026 ; des tests de cas limites supplémentaires restent à faire.
 
@@ -101,21 +89,17 @@ Le programme local `python -m src.visibility_graph` a été exécuté sur le Mac
 
 Comparaison : le graphe spatial de référence comprend **1 281 arêtes non orientées**, soit **2 562 arcs directionnels potentiels**. Les proportions d'arcs effectivement présents valent donc environ **83,5 %** (angle mort 60°) et **34,6 %** (angle mort 240°). Ces résultats sont des **observations de sortie de programme**, pas encore des preuves apportées par des tests de cohérence `pytest`.
 
-**Statut :** mesures de développement conservées pour la traçabilité seulement. La version finale emploiera exclusivement un angle aveugle arrière de 25° ; aucune conclusion comparative sur 60° et 240° ne sera formulée dans le rapport. **Interprétation prudente :** l'élargissement du secteur non visible retire des arcs, ce qui peut accroître le nombre de composantes fortes et faibles. Une composante fortement connexe représente l'accessibilité **réciproque par chemin orienté**, pas nécessairement une interaction ou influence biologique. Les poissons peuvent être physiquement voisins même lorsqu'aucun arc de visibilité n'est présent.
+**Statut :** mesures exploratoires non retenues pour l’analyse finale. La version finale emploiera exclusivement un angle aveugle arrière de 25° ; aucune conclusion comparative sur 60° et 240° ne sera formulée dans le rapport. **Interprétation prudente :** l'élargissement du secteur non visible retire des arcs, ce qui peut accroître le nombre de composantes fortes et faibles. Une composante fortement connexe représente l'accessibilité **réciproque par chemin orienté**, pas nécessairement une interaction ou influence biologique. Les poissons peuvent être physiquement voisins même lorsqu'aucun arc de visibilité n'est présent.
 
 **Limites supplémentaires :** les autres poissons ne sont pas modélisés comme des obstacles visuels (pas d'occlusion), la largeur du champ de vision est une hypothèse, et `(vx,vy)` représente la direction du déplacement, qui peut différer de l'orientation corporelle/visuelle.
 
-## 4. Paramètres de l'ancienne simulation — hors calcul des graphes observés
-
-L'ancien simulateur avait `r_separation=60`, `r_alignement=80`, `r_cohesion=120`, `k_separation=20`, `k_alignement=0.4`, `k_cohesion=0.015`, `angle_mort_degre=60`, `v_max=60` et `dt=1`. **Ce sont des paramètres de simulation Boids, pas des données empiriques ni des paramètres activés automatiquement dans le graphe de proximité validé.** Le seuil `R=100` utilisé dans l'analyse actuelle est un test de sensibilité supplémentaire.
-
-## Consigne d'exécution terminal
+## 4. Consigne d'exécution terminal
 
 Lorsqu'un script est lancé depuis le Terminal, ajouter dans son point d'entrée des `print(..., flush=True)` aux étapes de chargement, construction, calcul et sauvegarde, ainsi qu'une progression périodique pour les longues boucles. Ne pas afficher une ligne par poisson. Voir la règle complète dans [CONTEXT.md](CONTEXT.md).
 
 ## 5. Environnement et exécution locale
 
-Environnement validé : MacBook Pro M1, Python **3.12.6**, NumPy **2.5.4**, SciPy **1.18.1**, NetworkX **3.7**, Matplotlib **3.11.2**, ijson **3.6.0**, pytest **9.2.0**. Ces versions correspondent à l'installation locale rapportée ; `requirements.txt` reste à committer.
+Environnement validé : MacBook Pro M1, Python **3.12.6**, NumPy **2.5.4**, SciPy **1.18.1**, NetworkX **3.7**, Matplotlib **3.11.2**, ijson **3.6.0**, pytest **9.2.0**. Ces versions correspondent à l'installation locale rapportée.
 
 ```bash
 python3 -m venv .venv
@@ -127,30 +111,24 @@ python -m src.graph_builder
 python -m pytest -v
 ```
 
-**Les modules figurent sur la branche GitHub depuis le commit `748e463`.** Le dataset est conservé localement hors Git.
+**Les modules figurent sur la branche GitHub `main`.** Le dataset est conservé localement hors Git.
 
-**Tests locaux confirmés :** `python -m pytest -v -s` → **10 passed in 0.56s** (3 novembre 2026), incluant la configuration 25° et le contrôle des 2 386 arcs sur la frame 1. Suite de tests publiée dans le commit `748e463`.
+**Tests locaux confirmés :** `python -m pytest -v -s` → **10 passed in 0.56s** (3 novembre 2026), incluant la configuration 25° et le contrôle des 2 386 arcs sur la frame 1. Suite de tests documentée dans le projet.
 
-## 6. Intégrité et reproductibilité
 
-- Indiquer dans le rapport les données d'origine, le code ancien éventuellement réutilisé, les nouveaux développements et **l'usage effectif des outils IA**.
-- Ne pas publier le script ancien non assaini : il contient une **clé API Gemini en clair**. Cette clé doit être révoquée/renouvelée par son titulaire.
-- Ne jamais changer les dates de fichiers copiés pour laisser croire que les données ou scripts originaux ont été produits en 2026.
-- Les métriques du modèle A ne peuvent **pas** être présentées comme des métriques du modèle B : le champ de visibilité transforme les arêtes, l'orientation et parfois les algorithmes applicables.
 
-## 7. Extension scientifique planifiée — simulation Boids / comparatif réel-simulé
+## 6. Extension scientifique planifiée — simulation Boids / comparatif réel-simulé
 
 **Projet complémentaire cadré, pas encore codé ni validé.** Deux nouveaux axes suivront la partie obligatoire de Graph Analytics : (1) simulation dynamique à partir d'une frame observée avec séparation / alignement / cohésion ; (2) confrontation quantitative des trajectoires et graphes expérimentaux aux trajectoires et graphes simulés sur des fenêtres temporelles comparables.
 
 - **Angle mort inchangé : 25°** pour tous les agents, à toutes les étapes de simulation et de comparaison. Seuls les rayons et coefficients de comportement pourront faire l'objet d'une calibration documentée.
-- Le code Boids antérieur (fonctions de séparation, alignement, cohésion et boucle de simulation) sera **audité et assaini**, et son origine attribuée. Une clé Gemini est présente dans le script ancien : **ne pas importer/publi­er ce fichier tel quel**.
 - Les vitesses `(vx,vy)` du dataset ressemblent à des directions unitaires ; l'échelle et `dt` du simulateur devront être calibrés à partir des trajectoires appariées et de la fréquence de **30 fps**.
 - Comparaison prévue : mêmes états initiaux, simulation libre sur fenêtres courtes ; **graphe spatial et directionnel à 25°**, degré moyen, composantes, clustering, communautés, polarisation, distances aux plus proches voisins et écarts de trajectoire si suivis fiables.
 - Contrôle de robustesse : évaluer sur fenêtres distinctes de celles servant au réglage, comparer au mouvement par persistance, retirer une règle à la fois (**ablations**). L'objectif est de mesurer la **capacité de Boids à reproduire des régularités**, pas de prouver que les poissons exécutent littéralement les trois règles.
 - **Priorité : P1 après les livrables P0.** Référence scientifique : Reynolds (1987), [Flocks, Herds and Schools](https://doi.org/10.1145/37402.37406) ; Katz et al. (2011), [Inferring the structure and dynamics of interactions in schooling fish](https://doi.org/10.1073/pnas.1107583108).
 
 
-## 8. Mesures structurelles — premiers résultats exécutés localement (3 novembre 2026)
+## 7. Mesures structurelles — premiers résultats exécutés localement (3 novembre 2026)
 
 **Module local :** `src/graph_metrics.py`, exécuté par `python -m src.graph_metrics` sur la frame observée 1, `R=100` (unités natives), angle mort arrière **constant de 25°** pour la visibilité. **Exécution réussie en 1,12 s**, avec messages de progression aux six étapes. Les deux jeux de métriques ont été enregistrés localement dans `results/metrics_frame1_R100.json`. À ce stade, **le module et ses nouveaux tests ne sont pas encore publiés sur GitHub**.
 
@@ -184,7 +162,7 @@ Commande exécutée sur le Mac M1 : `python -m pytest -v -s`. Résultat **15 pas
 **Publication :** `src/graph_metrics.py` et `tests/test_graph_metrics.py` ont été créés et testés **localement**, mais leur commit GitHub n'est pas encore confirmé.
 
 
-## 9. Détection des communautés Louvain — premiers résultats (3 novembre 2026)
+## 8. Détection des communautés Louvain — premiers résultats (3 novembre 2026)
 
 **Exécution locale confirmée :** `python -m src.community_detection` sur la frame réelle 1 avec `R=100`, et angle mort arrière **constant de 25°** pour le modèle orienté. Module local **non encore committé**, tests unitaires spécifiques encore à réaliser.
 

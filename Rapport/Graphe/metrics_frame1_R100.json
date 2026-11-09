@@ -1,0 +1,144 @@
+{
+  "frame_id": 1,
+  "radius": 100,
+  "rear_blind_angle_deg": 25,
+  "spatial": {
+    "graph_type": "undirected",
+    "nodes": 253,
+    "edges": 1281,
+    "connected_components": 4,
+    "largest_component_size": 248,
+    "largest_component_share": 0.9802,
+    "diameter_largest_component_hops": 23,
+    "radius_largest_component_hops": 12,
+    "density": 0.04018,
+    "average_clustering": 0.578,
+    "top_betweenness": [
+      {
+        "fish_id": "99458",
+        "score": 0.16501
+      },
+      {
+        "fish_id": "100065",
+        "score": 0.13985
+      },
+      {
+        "fish_id": "98372",
+        "score": 0.13726
+      },
+      {
+        "fish_id": "100087",
+        "score": 0.13207
+      },
+      {
+        "fish_id": "99699",
+        "score": 0.12967
+      }
+    ],
+    "average_degree": 10.1265,
+    "top_degree_centrality": [
+      {
+        "fish_id": "100230",
+        "score": 0.09921
+      },
+      {
+        "fish_id": "100014",
+        "score": 0.0873
+      },
+      {
+        "fish_id": "100172",
+        "score": 0.0873
+      },
+      {
+        "fish_id": "100206",
+        "score": 0.0873
+      },
+      {
+        "fish_id": "100210",
+        "score": 0.0873
+      }
+    ]
+  },
+  "visibility": {
+    "graph_type": "directed",
+    "nodes": 253,
+    "arcs": 2386,
+    "weak_components": 4,
+    "largest_component_size": 248,
+    "largest_component_share": 0.9802,
+    "diameter_largest_component_hops": 24,
+    "radius_largest_component_hops": 12,
+    "density": 0.03742,
+    "average_clustering": 0.54551,
+    "top_betweenness": [
+      {
+        "fish_id": "99981",
+        "score": 0.14945
+      },
+      {
+        "fish_id": "99458",
+        "score": 0.1366
+      },
+      {
+        "fish_id": "100087",
+        "score": 0.1363
+      },
+      {
+        "fish_id": "100065",
+        "score": 0.13587
+      },
+      {
+        "fish_id": "99699",
+        "score": 0.12411
+      }
+    ],
+    "strong_components": 4,
+    "largest_weak_component_size": 248,
+    "average_in_degree": 9.4308,
+    "average_out_degree": 9.4308,
+    "top_out_degree_centrality": [
+      {
+        "fish_id": "100230",
+        "score": 0.09524
+      },
+      {
+        "fish_id": "100206",
+        "score": 0.0873
+      },
+      {
+        "fish_id": "100236",
+        "score": 0.0873
+      },
+      {
+        "fish_id": "99960",
+        "score": 0.0873
+      },
+      {
+        "fish_id": "100178",
+        "score": 0.08333
+      }
+    ],
+    "top_in_degree_centrality": [
+      {
+        "fish_id": "100230",
+        "score": 0.09524
+      },
+      {
+        "fish_id": "100172",
+        "score": 0.0873
+      },
+      {
+        "fish_id": "100170",
+        "score": 0.07937
+      },
+      {
+        "fish_id": "100178",
+        "score": 0.07937
+      },
+      {
+        "fish_id": "99960",
+        "score": 0.07937
+      }
+    ]
+  }
+}

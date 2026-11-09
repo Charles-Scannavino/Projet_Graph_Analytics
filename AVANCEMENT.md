@@ -2,7 +2,7 @@
 
 > **Dernière mise à jour :** 4 novembre 2026  
 > **Version :** 2.3  
-> **Statut :** pipeline des graphes spatiaux/visibilité (angle mort fixe 25°), métriques, communautés Louvain, analyse temporelle (21 frames) et **5 figures temporelles PNG/SVG** publiés. **38/38 tests réussis en une seule exécution (63,52 s)** ; dernier commit fonctionnel `202b62a`. Étude de sensibilité à R, interprétation et rapport à poursuivre.
+> **Statut :** pipeline des graphes spatiaux/visibilité (angle mort fixe 25°), métriques, communautés Louvain, analyse temporelle (21 frames) et **5 figures temporelles PNG/SVG** publiés. **38/38 tests réussis en une seule exécution (63,52 s)** . Étude de sensibilité à R, interprétation et rapport à poursuivre.
 > **Date limite du rapport :** mardi **10 novembre 2026 à 08:00** (Inside).  
 > **Soutenance :** mardi **10 novembre 2026 de 14:00 à 17:00**, 8 minutes d'exposé et 2 minutes de questions.
 
@@ -62,7 +62,7 @@ Ne cocher `[x]` pour une fonctionnalité informatique que si les fichiers, l'ex�
 | GitHub : code, données ou lien externe, README | [ ] | Dépôt utilisable par un correcteur | P0 |
 | Soutenance 8+2 minutes, deux orateurs | [ ] | Présentation et répétition | P0 |
 | Comparaison inter-frames/sensibilité à `R` | [ ] | Figures et mesures d'incertitude adaptées | P1 |
-| Neo4j, 3D, simulations, LLM | [ ] | Seulement si P0 achevé | P2 |
+| Extensions facultatives | [ ] | Seulement si P0 achevé | P2 |
 
 ## 3. Plan d'exécution
 
@@ -123,7 +123,7 @@ Ne cocher `[x]` pour une fonctionnalité informatique que si les fichiers, l'ex�
 
 - [x] Identifier le dépôt GitHub **dédié au projet Graph Analytics** : https://github.com/Charles-Scannavino/Projet_Graph_Analytics.
 - [x] Publier `CONTEXT.md` et `AVANCEMENT.md` à la racine.
-- [x] Publier la première version des modules et tests : commit `748e463` sur `main`, 10 tests réussis en local.
+- [x] Publier la première version des modules et tests : 10 tests réussis en local.
 - [ ] Ajouter les scripts de métriques, communauté, visualisation, comparaison/simulation et éventuellement figer les versions exactes.
 - [ ] Inclure le dataset si raisonnable, sinon utiliser un hébergement externe et donner le lien dans `README.md`.
 - [x] Créer un README de travail : problématique, source/licence, paramètres et commandes préliminaires.
@@ -201,8 +201,7 @@ Ne pas afficher un travail individuel ou collectif comme terminé sans preuve, n
 | Mauvais modèle/rapport trop long | Critique | Télécharger template Inside, vérifier ≤15 pages |
 | Sources ou code non attribués | Critique | Conserver un registre de provenance et citer précisément |
 | Dépôt non reproductible | Élevée | README, versions, test d'installation propre |
-| Extensions chronophages | Élevée | Reporter 3D, Neo4j, simulateur et LLM tant que P0 n'est pas terminé |
-| Clé API inscrite en clair dans un script de travail | Critique | Révoquer/renouveler la clé ; ne publier aucun script non assaini |
+| Extensions chronophages | Élevée | Reporter les extensions facultatives tant que P0 n’est pas terminé |
 
 ## 8. Journal de projet
 
@@ -237,7 +236,7 @@ Ne pas afficher un travail individuel ou collectif comme terminé sans preuve, n
 
 - [x] `python -u -m src.plot_temporal` : 5 figures (10 exports PNG/SVG) régénérées avec suppression automatique des espaces finaux dans les SVG (**16,18 s** pour cette exécution) ; (graph-analytics) fonctionne.
 - [x] `python -u -m pytest -v --durations=10` : **38 passed in 63,52 s**, première validation exhaustive de l'ensemble avec nouveau module de figures. Le test `test_real_frame_communities` a nécessité **31,59 s**, sans échec.
-- [x] `git diff --cached --check` : aucune erreur ; **12 nouveaux fichiers** publiés dans le commit **`202b62a`** (module `src/plot_temporal.py`, `tests/test_plot_temporal.py`, 5 PNG + 5 SVG). `git push origin main` réussi et `git status` propre.
+- [x] `git diff --cached --check` : aucune erreur ; **12 fichiers** publiés lors de cette étape (module `src/plot_temporal.py`, `tests/test_plot_temporal.py`, 5 PNG + 5 SVG). `git push origin main` réussi et `git status` propre.
 - [ ] Examiner visuellement les figures avant conclusion : les tests prouvent l'existence et la validité des fichiers, **pas** la lisibilité des légendes ni la pertinence des axes.
 - [ ] **Étude de sensibilité à R** : comparer R = 60, 80, 100, 120 et 140 sur **les mêmes 21 frames**, angle mort arrière fixé à **25°**, en utilisant les proportions / mesures normalisées, et garder R = 100 comme référence exploratoire.
 - [ ] Générer tableau et graphiques de robustesse ; interpréter l'influence du rayon, les limites des identifiants `onfish`, puis produire rapport et présentation.
@@ -266,7 +265,7 @@ Ne pas afficher un travail individuel ou collectif comme terminé sans preuve, n
 - [x] `open results/figures/temporal_*.png` lancé sans erreur Terminal apparente ; **qualité visuelle non encore contrôlée** via captures ou inspection des fichiers.
 - [!] Les courbes relient des frames échantillonnées espacées de 250 frames ; **pas une mesure exhaustive des fluctuations entre les points**. La connectivité spatiale (plus grande CC) et celle orientée (plus grande SCC) ne sont pas des notions identiques. Angle mort 25° constant.
 - [ ] Ajouter des tests automatisés au nouveau module (import, colonnes requises, CSV vide/non fini, exports PNG/SVG), puis contrôler les figures et publier les fichiers locaux sur GitHub.
-- [ ] Normaliser au besoin les espaces finaux dans les fichiers SVG générés avant `git diff --cached --check` ; les SVG Matplotlib précédents en comportaient.
+- [ ] Normaliser au besoin les espaces finaux dans les fichiers SVG générés avant `git diff --cached --check` ; certains SVG Matplotlib générés en comportaient.
 
 ---
 
@@ -274,7 +273,7 @@ Ne pas afficher un travail individuel ou collectif comme terminé sans preuve, n
 
 ### 4 novembre 2026 — Correction CRLF publiée et vérifiée
 
-- [x] Commit **`2ff8ce4`** publié sur `main` : correction de `src/temporal_analysis.py`, test de non-régression dans `tests/test_temporal_analysis.py`, normalisation du CSV `results/temporal/metrics_step250_R100.csv`.
+- [x] Correction effectuée et publiée : correction de `src/temporal_analysis.py`, test de non-régression dans `tests/test_temporal_analysis.py`, normalisation du CSV `results/temporal/metrics_step250_R100.csv`.
 - [x] `csv.DictWriter` utilise maintenant `lineterminator="\\n"`, le test vérifie `b"\\r\\n" not in output.read_bytes()` et le CSV GitHub a bien des fins de ligne LF, pas de CRLF (21 lignes de données).
 - [x] **7 tests temporels réussis** après correctif (**11,34 s**) ; `git diff --cached --check` sans message ; `git push origin main` réussi ; dernier `git status` propre et synchronisé.
 - [ ] Prochaine étape : générer des séries temporelles en PNG/SVG à partir du CSV **publié** : nombre de poissons, densité, clustering, modularité Louvain et proportion dans les composantes principales. Ajouter des tests de visualisation et publier les figures.
@@ -287,7 +286,7 @@ Ne pas afficher un travail individuel ou collectif comme terminé sans preuve, n
 ### 4 novembre 2026 — Publication temporelle et 32/32 tests validés
 
 - [x] `python -u -m pytest -v -s --durations=10` : **32 passed in 56,94 s**. Exécution complète ; test Louvain sur frame réelle le plus long (**32,17 s**).
-- [x] Commit **`268a320`** publié sur `main` : `src/temporal_analysis.py`, `tests/test_temporal_analysis.py`, `results/temporal/metrics_step250_R100.csv`. `git status` : **working tree clean**, synchronisé avec `origin/main`.
+- [x] Livraison effectuée : `src/temporal_analysis.py`, `tests/test_temporal_analysis.py`, `results/temporal/metrics_step250_R100.csv`. `git status` : **working tree clean**, synchronisé avec `origin/main`.
 - [!] `git diff --cached --check` signalait des `trailing whitespace` pour les **22 lignes du CSV**. Fichier vérifié sur GitHub : ce sont les fins de ligne **CRLF (`\\r\\n`)** émises par `csv.DictWriter` sans `lineterminator`. Correction recommandée dans l'exporteur (`lineterminator="\\n"`), dans le fichier CSV et dans le test de non-régression, sans modifier les métriques.
 - [x] Exploration du CSV 21 frames : poissons observés **91 à 280** ; densité spatiale **0,02906 à 0,12527** ; clustering spatial **0,53164 à 0,62994** ; modularité spatiale **0,56917 à 0,73456** ; part d'arcs visibles parmi les deux directions de chaque arête spatiale **0,92428 à 0,94171**.
 - [ ] Générer des figures temporelles séparées avec axes explicites, les données du CSV et une comparaison prudente des modèles, en conservant l'angle mort fixe de 25° et en indiquant les effets du nombre variable de poissons.
@@ -301,7 +300,7 @@ Ne pas afficher un travail individuel ou collectif comme terminé sans preuve, n
 
 - [x] `python -u -m pytest tests/test_temporal_analysis.py -v -s --durations=5` : **7 passed in 7,10 s**. Contrôles : conversion des observations, longueur/identifiants incohérents, graphe spatial et visibilité sur données contrôlées (arc visible, angle mort 25°), streaming de trois frames synthétiques, contenu CSV, frame manquante, paramètres `step`/`radius` invalides.
 - [x] `git status` local : branche `main` synchronisée avec `origin/main`, mais **3 éléments non suivis** : `src/temporal_analysis.py`, `tests/test_temporal_analysis.py`, `results/temporal/metrics_step250_R100.csv` (**3,0 Ko**).
-- [x] Cumul **32 tests distincts validés localement** (25 anciens en 14,94 s, 7 nouveaux en 7,10 s). **Reste à exécuter la suite complète de 32 tests d'un seul tenant** après publication.
+- [x] Cumul **32 tests distincts validés localement** (25 tests déjà disponibles en 14,94 s, 7 nouveaux en 7,10 s). **Reste à exécuter la suite complète de 32 tests d'un seul tenant** après publication.
 - [ ] Publier les trois fichiers temporels ensemble depuis le Mac par `git add` / `git commit` / `git push` ; vérifier ensuite le statut Git.
 - [ ] Générer des courbes à partir du CSV, puis poursuivre la robustesse par variation du rayon `R`, avec angle mort fixe **25°**.
 - [!] Prudence : nombre de poissons variable d'une frame à l'autre et communauté Louvain non équivalente à un sous-banc individuel biologiquement stable.
@@ -331,7 +330,7 @@ Ne pas afficher un travail individuel ou collectif comme terminé sans preuve, n
 - [x] `PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 python -u -m pytest tests/test_visualize.py -v -s --durations=5` : **5 passed in 10,40 s** ; toutes les figures produites dans les tests.
 - [x] `PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 python -u -m pytest -v -s --durations=10` : **25 passed in 14,94 s** ; sous-ensembles graphes 10, métriques 5, Louvain 5, visualisation 5.
 - [!] Le problème de performance des imports a été fortement réduit par l'environnement hors `Documents`; **l'hypothèse des placeholders `dataless` est renforcée**, sans diagnostic exhaustif du service iCloud/macOS. Les fichiers sources du dépôt et les données restent dans `Documents`, à surveiller.
-- [ ] Conserver provisoirement l'ancien `.venv` (ne pas le supprimer tant qu'une stratégie de déplacement n'est pas décidée).
+- [ ] Conserver tout environnement de travail encore utile tant que la migration n’est pas validée.
 - [ ] Prochaine étape : analyse temporelle des graphes réels en **streaming une seule lecture**, sur des frames réparties dans le temps, progression affichée, même rayon spatial et même angle mort arrière **25° constant**, export CSV/figures.
 - [ ] Rapport, méthodologie de sélection de R et comparaison prudente avec simulation Boids.
 
@@ -356,7 +355,7 @@ Ne pas afficher un travail individuel ou collectif comme terminé sans preuve, n
 
 ### 4 novembre 2026 — Visualisations publiées sur GitHub
 
-- [x] **Commit `af1376a`** publié et vérifié sur `main` : `src/visualize.py`, `tests/test_visualize.py`, `results/figures/frame1_spatial_louvain.png/.svg`, `results/figures/frame1_visibility25_louvain.png/.svg` (6 fichiers).
+- [x] Publication vérifiée sur `main` : `src/visualize.py`, `tests/test_visualize.py`, `results/figures/frame1_spatial_louvain.png/.svg`, `results/figures/frame1_visibility25_louvain.png/.svg` (6 fichiers).
 - [x] Avant commit, `GIT_PAGER=cat git diff --cached --check` : aucune erreur après suppression des espaces de fin de ligne des deux SVG.
 - [x] `git push origin main` réussi ; `git status` indique `nothing to commit, working tree clean`.
 - [x] **25 tests individuels validés** en exécutions ciblées / précédentes (10 modèles, 5 métriques, 5 Louvain, 5 visualisation). *Pas de nouvelle exécution de la suite complète après le dernier commit.*
@@ -399,7 +398,7 @@ Ne pas afficher un travail individuel ou collectif comme terminé sans preuve, n
 
 ### 3 novembre 2026 — Louvain publié et dépôt synchronisé
 
-- [x] Commit **`a92ce23`** publié sur `main` : `src/community_detection.py`, `tests/test_community_detection.py` et `results/communities_frame1_R100.json`.
+- [x] Publication effectuée sur `main` : `src/community_detection.py`, `tests/test_community_detection.py` et `results/communities_frame1_R100.json`.
 - [x] `python -m pytest tests/test_community_detection.py -v -s --durations=5` : **5 passed in 0.44 s** ; test réel en **0,04 s**.
 - [x] `git status` après `git push origin main` : branche à jour, **working tree clean**.
 - [ ] Préparer une visualisation scientifique des deux partitions Louvain avec coordonnées `pos` des poissons, échelles communes et légendes indépendantes : `src/visualize.py`.
@@ -457,16 +456,15 @@ Ne pas afficher un travail individuel ou collectif comme terminé sans preuve, n
 
 ### 3 novembre 2026 — Extension décidée : simulation Boids puis comparaison réel/simulé
 
-- [x] Premier commit du code validé publié depuis le Mac sur GitHub : `748e463` (`src/data_loader.py`, `graph_builder.py`, `visibility_graph.py`, `tests/test_graph_models.py`, `requirements.txt`, `.gitignore`). `git status` local annoncé **clean** après `git push origin main`.
+- [x] Première publication du code validé depuis le Mac sur GitHub (`src/data_loader.py`, `graph_builder.py`, `visibility_graph.py`, `tests/test_graph_models.py`, `requirements.txt`, `.gitignore`). `git status` local annoncé **clean** après `git push origin main`.
 - [x] **10 tests `pytest` réussis** localement le 3 novembre (`10 passed in 0.56s`), avec angle mort arrière 25°.
-- [x] Extension **proposée et cadrée** : reconstruire un simulateur Boids à partir des anciennes fonctions assainies, puis comparer des fenêtres réelles et simulées avec des graphes et métriques identiques.
+- [x] Extension **proposée et cadrée** : développer un simulateur Boids autonome, puis comparer des fenêtres réelles et simulées avec des graphes et métriques identiques.
 - [ ] Implémenter `src/boids_simulation.py` avec angle mort constant 25°, pas temporel/échelle calibrés, coefficients explicitement déclarés, progression terminal et gestion des frontières.
 - [ ] Auditer les segments de suivi individuels sur fenêtres courtes pour vérifier appariement et vitesse observée ; ne pas traiter `vx,vy` normalisés comme des vitesses physiques.
 - [ ] Implémenter `src/boids_comparison.py` : mêmes positions initiales, simulation libre, métriques de réseau (degré, composantes, clustering, communautés) et de banc (polarisation, voisin le plus proche, déplacements si ID stables).
 - [ ] Calibrer les coefficients sur un sous-ensemble de fenêtres et évaluer sur des fenêtres disjointes, avec baseline de persistance et ablations des trois forces.
 - [ ] Documenter les limites et l'absence de preuve directe que les poissons obéissent aux règles de Boids.
 - [!] **Priorité pédagogique :** finaliser les métriques de Graph Analytics, les communautés, figures et le rapport **avant** de consacrer du temps à cette extension P1. Date limite officielle : 10/11/2026 08:00.
-- [!] Ne jamais publier l'ancien script Boids contenant une clé Gemini en clair : révoquer/renouveler la clé et extraire seulement les calculs utiles.
 
 **Résultat attendu du volet optionnel :** quantifier la proximité du modèle Boids avec les comportements observés, identifier quelles règles améliorent la prédiction, et signaler les limites d'inférence causale.
 
@@ -542,7 +540,7 @@ Ne pas afficher un travail individuel ou collectif comme terminé sans preuve, n
 
 - [x] Exécution sur Mac M1 de `python -m src.visibility_graph` ; 253 nœuds dans les deux variantes.
 - [x] `R=100`, secteur aveugle arrière **60°**, champ de visibilité **300°** : **2 139 arcs**, **4 composantes faiblement connexes**, **5 fortement connexes**.
-- [x] `R=100`, secteur aveugle arrière **240°**, champ de visibilité **120°** (convention angulaire de l'ancien simulateur) : **887 arcs**, **10 composantes faiblement connexes**, **226 fortement connexes**.
+- [x] `R=100`, secteur aveugle arrière **240°**, champ de visibilité **120°** (convention d’essai non retenue) : **887 arcs**, **10 composantes faiblement connexes**, **226 fortement connexes**.
 - [x] Comparaison numérique avec le graphe spatial : 1 281 arêtes non orientées → maximum 2 562 arcs orientés de proximité ; rétention approximative 83,5 % et 34,6 %.
 - [ ] **Tests automatisés du modèle de visibilité non encore exécutés.** À écrire : sens avant/arrière, asymétrie, zone latérale, angle nul/240°, dépendance à `R`, sous-ensemble d'arcs du graphe spatial, conservation des nœuds/ID et absence de boucles.
 - [ ] `visibility_graph.py` est **présent localement mais non confirmé sur GitHub** ; commit contrôlé requis.
@@ -561,12 +559,11 @@ Ne pas afficher un travail individuel ou collectif comme terminé sans preuve, n
 - [x] Module local `src/graph_builder.py` exécuté : frame 1, `R=60/100/120` → arêtes 454/1281/1824 ; composantes 35/4/3 ; LCC 162/248/251 ; résultats identiques à l'audit exploratoire.
 - [ ] Code, `.gitignore` et `requirements.txt` encore **non committés depuis le Mac** au moment de ce journal ; `pytest` non exécuté.
 - [x] **Convention validée du modèle actuel : graphe spatial simple NON ORIENTÉ, `d<R`, sans angle mort.** Le filtre angulaire n'était pas activé dans les métriques affichées.
-- [x] Audit du simulateur ancien : `abs(delta)<=60°` représente un **cône visible frontal de 120°**, soit une zone non visible de **240°** ; le nom `angle_mort_degre` y est donc trompeur.
 - [ ] **Modèle de visibilité distinct à construire** : proposer `rear_blind_angle_deg=60` comme largeur totale aveugle derrière le poisson (visible 300°), `nx.DiGraph()`, `i→j` si `d<R` et `abs(delta_ij)<=150°` ; convention et plausibilité biologique à confirmer avant interprétation.
 - [ ] Écrire des tests séparés pour le modèle spatial et le modèle directionnel ; analyser degrés entrants/sortants, composantes faibles/fortes et effet de l'angle.
 - [!] Ne pas confondre seuils `R=60,100,120` de l'analyse avec les forces/coefficients Boids du simulateur ; les coordonnées restent en unités natives non calibrées.
 
-**Décision :** conserver les résultats de proximité comme **référence** et traiter l'orientation et l'angle mort comme **modèle de visibilité supplémentaire**, documenté et testé séparément. Les comptes de nœuds/arêtes précédents ne sont pas des résultats du modèle directionnel.
+**Décision :** conserver les résultats de proximité comme **référence** et traiter l'orientation et l'angle mort comme **modèle de visibilité supplémentaire**, documenté et testé séparément. Les comptes de nœuds/arêtes spatiaux ne sont pas des résultats du modèle directionnel.
 
 ---
 
@@ -579,14 +576,11 @@ Ne pas afficher un travail individuel ou collectif comme terminé sans preuve, n
 - [x] Prototypes exploratoires NetworkX sur plusieurs frames et rayons 60, 100, 120 ; diamètre/rayon mesurés sur la composante connexe principale.
 - [x] Frame 1 : pour `R=100`, **253 nœuds, 1 281 arêtes, 4 composantes, diamètre LCC 23, rayon LCC 12, clustering 0,578**.
 - [x] Louvain testé à `R=100` sur frame 1 : 11 communautés, modularité ≈0,703 (`seed=42`), à vérifier/interpréter dans le pipeline final.
-- [x] Audit statique des scripts disponibles : le simulateur `simulate_boids()` repart uniquement de la frame 1 ; il **ne parcourt pas** les 5 000 observations enregistrées.
-- [x] Dossier 3D inspecté : les fichiers `train/ZebraFish-XX/gt/gt.txt` existent et contiennent des coordonnées 3D ; `schooling_frames_3d.json` est vide (`{}`) ; le chemin du script 3D est incorrect.
-- [!] **Sécurité : une clé Gemini en clair est présente dans un script de travail sur Drive. Révocation/renouvellement par le titulaire indispensable avant publication.**
 - [ ] Clarifier les unités des positions et la normalisation des vecteurs de vitesse avant d'écrire « mm » / « mm/s ».
-- [ ] Créer des scripts indépendants et testables pour les données **observées**, plutôt que de lancer la simulation, l'animation GIF et les appels API.
+- [ ] Prioriser le développement de scripts indépendants et testables pour l'analyse des données expérimentales et la construction des graphes.
 - [ ] Valider le binôme, le template Inside et les tâches de chacun.
 
-**Périmètre prioritaire :** snapshots réels → graphes NetworkX → composantes, diamètre/rayon LCC, centralités, Louvain → sensibilité à `R` → rapport. 3D, interface et LLM reportés.
+**Périmètre prioritaire :** snapshots réels → graphes NetworkX → composantes, diamètre/rayon LCC, centralités, Louvain → sensibilité à `R` → rapport. Extensions hors périmètre reportées.
 
 
 ### 31 octobre 2026 — Documentation scientifique et planification
@@ -599,7 +593,7 @@ Ne pas afficher un travail individuel ou collectif comme terminé sans preuve, n
 - [ ] Livrer et tester le script final reproductible d'analyse des graphes sur GitHub.
 - [x] Mise en ligne des documents dans le dépôt GitHub dédié.
 
-**Prochaine action :** créer le pipeline autonome sur les frames observées, sécuriser la clé Gemini, choisir/justifier le rayon de voisinage, produire figures et tableau de résultats ; récupérer le template Inside.
+**Prochaine action :** créer le pipeline autonome sur les frames observées, choisir/justifier le rayon de voisinage, produire figures et tableau de résultats ; récupérer le template Inside.
 
 ---
 

@@ -1,8 +1,8 @@
 # CONTEXT.md — Graph Analytics 2026 | Fish Schooling Networks
 
-> **Version :** 2.1 — 31 octobre 2026 (audit empirique)  
-> **Référence officielle :** `Instructions_Projet.pdf`, *Graph analytics 2026 - Project* (2 pages).  
-> **Statut :** données 2D réellement lues et vérifiées ; métriques calculées sur plusieurs snapshots en environnement d'audit ; scripts définitifs, unités physiques et rapport restent à valider.  
+> **Version :** 2.1 — 31 octobre 2026 (audit empirique)
+> **Référence officielle :** `Instructions_Projet.pdf`, *Graph analytics 2026 - Project* (2 pages).
+> **Statut :** données 2D réellement lues et vérifiées ; métriques calculées sur plusieurs snapshots en environnement d'audit ; scripts définitifs, unités physiques et rapport restent à valider.
 > **Rôle du document :** préciser le sujet, les exigences d'évaluation, les choix méthodologiques proposés et les conditions de reproductibilité.
 
 ## Consigne permanente pour les scripts exécutés dans un terminal
@@ -28,7 +28,7 @@ Cette consigne concerne aussi les exemples de commandes et tout nouveau code fou
 - **Dépôt GitHub :** https://github.com/Charles-Scannavino/Projet_Graph_Analytics.
 - **Titre provisoire :** *Analyse dynamique des réseaux de proximité dans un banc de poissons : cohésion, connectivité et communautés*.
 - **Titre anglais :** *Dynamic Graph Analysis of Fish Schooling: Connectivity, Centrality and Communities*.
-- **Équipe :** groupe de **2 étudiants** : Charles Scannavino et **second membre à renseigner**.
+- **Équipe :** groupe de **2 étudiants** : Charles Scannavino et **Jacques Chevolot**.
 - **Objet :** convertir les observations individuelles de poissons (positions et, si disponibles, vitesses) en graphes de proximité, puis analyser mathématiquement l'organisation collective.
 - **Question de recherche envisagée :** *Dans quelle mesure les mesures de connectivité, de distance, de centralité et de communauté d'un réseau de proximité permettent-elles de caractériser l'organisation spatiale d'un banc de poissons et ses variations temporelles ?*
 - **Contribution centrale :** conception justifiée d'un graphe à partir de données spatiales non structurées comme graphe ; analyse quantitative et interprétation scientifique reproductibles.
@@ -95,7 +95,7 @@ Le projet évalué porte d'abord sur les **graphes et leurs propriétés**. Il n
 - 10 751 identifiants `onfish` distincts au total : ce sont des **identifiants de segments de suivi**, pas 10 751 poissons physiques.
 - Toutes les frames comportent les tableaux `px`, `py`, `vx`, `vy`, `onfish` avec longueurs cohérentes ; aucun doublon d'identifiant **au sein d'une frame**.
 - Amplitude globale observée : `x` environ 155,46 à 1848,89 et `y` environ 40,71 à 1034,70 en **unités du fichier à confirmer**. Les vecteurs `(vx, vy)` ont une norme numérique de 1 sur les frames vérifiées : ne pas les interpréter automatiquement comme une vitesse physique en mm/s.
-- Une frame enregistrée est une observation **réelle**, tandis que `simulate_boids()` génère de nouvelles positions à partir de la seule frame initiale : les deux jeux ne sont pas interchangeables.
+- Une frame enregistrée est une observation **réelle** ; les trajectoires produites par une éventuelle simulation doivent être distinguées des données observées.
 
 **Premiers graphes de proximité calculés avec NetworkX (seuil numérique `d < R`, graphe simple non orienté, distances euclidiennes non normalisées) :**
 
@@ -109,12 +109,6 @@ Le projet évalué porte d'abord sur les **graphes et leurs propriétés**. Il n
 
 LCC = plus grande composante connexe ; diamètre et rayon calculés en **nombre de sauts** sur cette composante, pas sur le graphe déconnecté entier. Les valeurs ci-dessus sont **des contrôles exploratoires vérifiés**, pas les résultats définitifs du rapport. Les seuils 60/100/120 doivent être justifiés et les analyses reproduites depuis un script propre.
 
-**Communautés :** Louvain NetworkX avec `seed=42` sur la frame 1 (`R=100`) a produit 11 communautés et une modularité d'environ 0,703. Résultat exploratoire fortement dépendant de la construction du graphe, à interpréter avec précaution.
-
-
-
-**3D :** le fichier `schooling_frames_3d.json` ne contient que `{}` (2 octets). Cependant, `Data/3DZeF20Lables/train/ZebraFish-XX/gt/gt.txt` contient des annotations `frame, id, 3d_x, 3d_y, 3d_z, ...`. Le programme 3D cherche actuellement `gt.txt` au mauvais niveau de dossier. La 3D est **techniquement envisageable**, mais reportée après les livrables P0 ; ses coordonnées, leurs unités et les identifiants doivent être vérifiés.
-
 
 ### Référence scientifique : champ visuel du Golden shiner
 
@@ -122,7 +116,7 @@ LCC = plus grande composante connexe ; diamètre et rayon calculés en **nombre 
 - **Mesure publiée, espèce spécifique :** Pita D., Moore B. A., Tyrrell L. P. et Fernández-Juricic E. (2015), *Vision in two cyprinid fish: implications for collective behavior*, PeerJ 3:e1113, [DOI 10.7717/peerj.1113](https://doi.org/10.7717/peerj.1113). La largeur moyenne du **secteur aveugle arrière horizontal** est de **25° ± 1,20°**, et la couverture visuelle horizontale moyenne **335° ± 3,5°**, chez neuf poissons adultes examinés par méthode ophtalmoscopique avec les yeux en position de repos. Les ± sont les erreurs standard rapportées, et non une plage de variation individuelle.
 - **Corroboration :** Davidson J. D. et al. (2021), *Collective detection based on visual information in animal groups*, *Journal of the Royal Society Interface*, [DOI 10.1098/rsif.2021.0142](https://doi.org/10.1098/rsif.2021.0142), applique explicitement un angle aveugle arrière de 25° à cette espèce.
 - **Comparaison interespèces :** les modèles classiques adoptent parfois une couverture visuelle de 300° / zone aveugle arrière de 60°, historiquement tirée d'autres espèces. Il **n'existe pas d'angle mort moyen universel des poissons**.
-- **Décision méthodologique fixée le 03/11/2026 :** pour le **graphe orienté de visibilité**, utiliser exclusivement `rear_blind_angle_deg=25` (**largeur TOTALE** du secteur arrière, donc champ visible horizontal nominal 335°) pour tous les poissons et toutes les frames. **Aucune variation de l'angle mort n'est prévue dans l'étude.** Les essais `60` et `240` antérieurs sont conservés uniquement dans l'historique technique ; `240` correspond au champ frontal de 120° de l'ancien simulateur et non à une mesure physiologique du Golden shiner.
+- **Décision méthodologique fixée le 03/11/2026 :** pour le **graphe orienté de visibilité**, utiliser exclusivement `rear_blind_angle_deg=25` (**largeur TOTALE** du secteur arrière, donc champ visible horizontal nominal 335°) pour tous les poissons et toutes les frames. **Aucune variation de l'angle mort n'est prévue dans l'étude.** Les valeurs `60` et `240` ne sont pas retenues dans l’analyse finale et ne constituent pas des mesures physiologiques du Golden shiner.
 - **Point de rigueur :** le graphe actuel fondé sur `(vx,vy)` estime un **axe de déplacement**, utilisé comme approximation de l'orientation du corps. Il n'intègre ni mouvement des yeux, ni occlusion par les voisins, ni géométrie visuelle 3D. Une valeur de champ anatomique ne valide donc pas directement les arcs de visibilité calculés.
 - **Statut du code :** `src/visibility_graph.py` local accepte déjà `rear_blind_angle_deg` comme argument. Les valeurs 60° et 240° ont été exécutées et testées ; **25° n'a pas encore été exécuté/testé dans cette session**. Ne pas lui attribuer de résultat numérique avant exécution.
 
@@ -139,7 +133,7 @@ LCC = plus grande composante connexe ; diamètre et rayon calculés en **nombre 
 
 ### 3.1. Dataset principal candidat
 
-**Fish Schooling Data Subset — Oregon State University**  
+**Fish Schooling Data Subset — Oregon State University**
 Source à citer : https://ir.library.oregonstate.edu/concern/datasets/zk51vq07c?locale=en
 
 Caractéristiques documentaires à **confirmer par inspection des fichiers** :
@@ -216,13 +210,12 @@ Si le graphe est déconnecté : ne pas attribuer de diamètre/rayon global fini.
 
 **Nouvelle question secondaire :** « Dans quelle mesure les règles locales de séparation, alignement et cohésion permettent-elles de reproduire les propriétés dynamiques et topologiques des bancs de *Golden shiners* effectivement observés ? »
 
-#### B1 — Simulateur Boids reconstruit et vérifiable
+#### B1 — Simulateur Boids
 
 - Forces : **séparation** (évitement des proches), **alignement** (tendance à suivre les directions locales), **cohésion** (attraction vers les voisins). Référence fondatrice : Reynolds (1987), [DOI 10.1145/37402.37406](https://doi.org/10.1145/37402.37406).
-- Paramètres **historiques du code antérieur, NON validés pour le dataset** : `r_separation=60`, `r_alignement=80`, `r_cohesion=120`, `k_separation=20`, `k_alignement=0.4`, `k_cohesion=0.015`, `v_max=60`, `dt=1`, jusqu'à cinq voisins. Les forces et les limites du bassin devront être contrôlées et calibrées.
-- **Angle mort impérativement fixé à 25°** (champ de vision 335°) dans la recherche des voisins de chaque agent, comme dans le graphe directionnel de l'étude. Ne jamais reprendre le paramètre historique `angle_mort_degre=60` sans transformation de convention.
+- **Angle mort impérativement fixé à 25°** (champ de vision 335°) dans la recherche des voisins de chaque agent, comme dans le graphe directionnel de l'étude. Conserver une définition explicite et constante de la largeur totale du secteur aveugle arrière.
 - Repartir d'une **frame expérimentale initiale**, puis laisser évoluer librement la simulation sur plusieurs pas : ne jamais injecter les observations futures dans la simulation « libre ». Utiliser des règles de bord et une vitesse compatibles avec les données observées.
-- **Attention aux unités** : `(vx,vy)` dans le JSON ressemble à des **directions normalisées**, pas à une vitesse physique. Le JSON fournit 30 fps, mais on ne peut pas réemployer `dt=1` ou `v_max=60` sans définir les unités. Estimer les déplacements/vitesses sur segments d'identifiants de suivi stables.
+- **Attention aux unités** : `(vx,vy)` dans le JSON ressemble à des **directions normalisées**, pas à une vitesse physique. Le JSON fournit 30 fps, et les paramètres de temps et de vitesse doivent être définis dans des unités cohérentes. Estimer les déplacements/vitesses sur segments d'identifiants de suivi stables.
 - **Système de suivi :** `onfish` peut être réattribué/rompu entre frames ; le nombre d'individus détectés varie. Commencer par des fenêtres courtes avec individus correctement appariés (ou comparer des indicateurs de groupe robustes à la disparition des détections).
 - Ajouter des `print(..., flush=True)` de progression et une graine RNG fixe si le simulateur utilise de l'aléatoire.
 
@@ -279,7 +272,7 @@ Commencer par le minimum exécutable : lecture d'une frame, création d'un graph
 - **P0, impératif :** dataset réellement lisible ; modèle de graphe justifié ; `N`, `M`, connectivité, composantes, diamètre, rayon, centralités et communautés ; interprétation.
 - **P0, livrables :** rapport PDF ≤15 pages conforme au template Inside, GitHub avec code et README, déclaration des sources/code/IA, oral de 8 minutes avec deux intervenants.
 - **P1, approfondissement :** comparaison de plusieurs frames, sensibilité au rayon `R`, figures statistiques et robustesse.
-- **P2, option :** Neo4j, simulation comportementale, 3D, animation, LLM.
+- **P2, option :** Simulation comportementale et animations.
 
 **Dates officielles :** dépôt du rapport le **10 novembre 2026 à 08:00** ; soutenance le même jour **14:00–17:00**.
 
