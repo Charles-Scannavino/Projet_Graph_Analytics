@@ -181,3 +181,60 @@ Les listes de tailles couvrent chacune **253 poissons observés**. Sortie locale
 
 **À faire :** tests unitaires et régression frame 1, commit du module/des tests/du JSON, visualisation cartographique des groupes sur les positions réelles, stabilité entre frames.
 
+---
+
+## État actuel du projet — 9 novembre 2026
+
+Cette section actualise les informations historiques ci-dessus.
+
+### Simulation et validation Boids
+
+Le dépôt local comprend désormais les modules suivants :
+
+- `src/boids_pilot.py` : simulation pilote.
+- `src/boids_interface.py` : interface de simulation.
+- `src/calibrate_boids.py` : calibration des paramètres.
+- `src/optimize_boids_weights.py` : optimisation des coefficients.
+- `src/validate_boids_windows.py` : validation sur fenêtres temporelles.
+- `src/validate_calibrated_boids.py` : validation des paramètres calibrés.
+- `src/validate_optimized_weights.py` : validation des poids optimisés.
+- `src/compare_boids_graphs.py` : comparaison des graphes observés et simulés.
+- `src/boids_structural_metrics.py` : indicateurs structurels.
+- `src/boids_behavior_metrics.py` : indicateurs comportementaux.
+
+### Analyse du leadership
+
+Les modules `detect_fish_leaders.py`, `compare_fish_leadership.py`
+et `leader_display.py` permettent d'étudier des indicateurs de
+leadership estimé et leur représentation.
+
+Ces indicateurs ne démontrent pas une influence biologique causale.
+
+### Résultats et tests
+
+Les résultats restaurés sont enregistrés dans :
+
+- `results/simulation/`
+- `results/leadership/`
+
+Le 9 novembre 2026, la commande `python3 -m pytest -q`
+a réussi : **76 tests sur 76**, sur l'environnement local utilisé.
+
+Cette validation ne constitue pas encore un test de reproductibilité
+sur une installation neuve.
+
+### Données expérimentales
+
+Le dataset brut reste exclu de Git.
+
+Deux emplacements sont actuellement utilisés :
+
+- `data/schooling_frames.json`
+- `data/local/schooling_frames.json`
+
+Les deux fichiers locaux vérifiés possèdent la même empreinte SHA-256 :
+
+`66ffab3090b86cc9993caba495b6c362ce4ca4d67084e531b9a58753dd65159e`
+
+Le fichier doit être obtenu depuis sa source documentée et placé
+localement avant l'exécution des programmes qui en dépendent.
