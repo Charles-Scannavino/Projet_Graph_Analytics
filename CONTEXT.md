@@ -300,3 +300,35 @@ Commencer par le minimum exécutable : lecture d'une frame, création d'un graph
 - **Données utilisées pour l'audit :** Katz et al. (2021), *Fish Schooling Data Subset*, Oregon State University, DOI https://doi.org/10.7267/zk51vq07c, licence CC BY 4.0 d'après `Data/README.txt`.
 - **Méthode de simulation éventuelle :** Reynolds, C. W. (1987), *Flocks, Herds, and Schools: A Distributed Behavioral Model*.
 - **Outils :** Python/NetworkX ; Neo4j/Cypher facultatifs.
+
+---
+
+## Actualisation de l'architecture — 9 novembre 2026
+
+La section 4.5 et l'architecture initiale décrivent le cadrage
+historique du projet. Une partie de cette extension a depuis été
+implémentée.
+
+Les modules récupérés couvrent notamment :
+
+1. La simulation Boids.
+2. La calibration et l'optimisation des paramètres.
+3. Les comparaisons réel/simulé.
+4. Les métriques structurelles et comportementales.
+5. L'analyse exploratoire du leadership.
+6. La validation sur plusieurs fenêtres temporelles.
+
+Les programmes sont présents dans `src/`, les tests dans `tests/`,
+et les résultats sauvegardés dans `results/simulation/`
+et `results/leadership/`.
+
+Le modèle conserve comme convention méthodologique un angle mort
+arrière de 25 degrés. La conformité de chaque module à cette
+convention reste à vérifier individuellement.
+
+Les analyses de leadership sont exploratoires et ne constituent
+pas une preuve d'interaction causale.
+
+Les anciennes propositions de noms de modules doivent être
+considérées comme des intentions de conception historiques,
+et non comme la liste actuelle des fichiers.

@@ -34,3 +34,10 @@ results/*.mp4
 *.fls
 *.fdb_latexmk
 /Rapport/Graphe/Rapport_Projet_Graphe.pdf
+
+# Données brutes locales
+/data/local/
+
+# Sauvegardes intermédiaires Python
+*.bak
+*.before_*

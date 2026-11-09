@@ -600,3 +600,38 @@ Ne pas afficher un travail individuel ou collectif comme terminé sans preuve, n
 ---
 
 *Mettre à jour ce journal après toute étape effectivement vérifiée, en consignant les fichiers, commandes, résultats, obstacles et décisions.*
+
+---
+
+## 9 novembre 2026 — Récupération et validation du travail scientifique
+
+### Récupération Git
+
+- [x] Création de la branche `recuperation-travail` depuis `origin/main`.
+- [x] Récupération de 16 programmes Python.
+- [x] Récupération de 5 fichiers de tests.
+- [x] Récupération de 23 fichiers de résultats scientifiques.
+- [x] Exclusion des données brutes et sauvegardes intermédiaires.
+- [x] Vérification de l'identité SHA-256 des deux chemins de données.
+- [x] Normalisation des fins de ligne CSV concernées.
+- [x] Contrôle Git des fichiers préparés.
+- [x] Exécution de 76 tests automatisés : 76 réussis.
+- [x] Création du commit local `8942afb`.
+
+### État de publication
+
+- [x] Travail restauré dans un commit local propre.
+- [ ] Publication de la branche de récupération sur GitHub.
+- [ ] Intégration dans `main`.
+- [ ] Vérification de la reproductibilité sur environnement neuf.
+- [ ] Harmonisation des chemins d'accès au dataset.
+- [ ] Vérification des commandes d'exécution des modules restaurés.
+
+### Limites de validation
+
+Les tests réussis confirment les comportements couverts par la
+suite automatisée, sans établir une validation scientifique complète.
+
+Les résultats de leadership restent des indicateurs exploratoires.
+Les limites de suivi des poissons, d'orientation et de calibration
+doivent être conservées dans l'interprétation.

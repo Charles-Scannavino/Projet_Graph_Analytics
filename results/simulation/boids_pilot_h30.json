@@ -1,0 +1,299 @@
+{
+  "setup": {
+    "initial_frames": [
+      1,
+      2
+    ],
+    "predicted_frames": [
+      3,
+      32
+    ],
+    "fps": 30,
+    "units": "native_coordinates",
+    "initial_velocity": "positions_1_to_2",
+    "use_future_vx_vy": false,
+    "parameters": {
+      "radius_separation": 60.0,
+      "radius_alignment": 80.0,
+      "radius_cohesion": 120.0,
+      "rear_blind_angle_deg": 25.0,
+      "weight_separation": 0.5,
+      "weight_alignment": 0.3,
+      "weight_cohesion": 0.2
+    },
+    "status": "exploratory_not_calibrated",
+    "boundaries": "not_modeled"
+  },
+  "per_horizon": [
+    {
+      "horizon_frames": 1,
+      "frame_id": 3,
+      "continuous_ids": 247,
+      "mean_error_boids": 1.69063,
+      "mean_error_persistence": 1.38903,
+      "median_error_boids": 1.21487,
+      "median_error_persistence": 0.88275
+    },
+    {
+      "horizon_frames": 2,
+      "frame_id": 4,
+      "continuous_ids": 245,
+      "mean_error_boids": 3.41094,
+      "mean_error_persistence": 2.46286,
+      "median_error_boids": 2.49343,
+      "median_error_persistence": 1.62086
+    },
+    {
+      "horizon_frames": 3,
+      "frame_id": 5,
+      "continuous_ids": 240,
+      "mean_error_boids": 5.5257,
+      "mean_error_persistence": 3.75221,
+      "median_error_boids": 4.14159,
+      "median_error_persistence": 2.55913
+    },
+    {
+      "horizon_frames": 4,
+      "frame_id": 6,
+      "continuous_ids": 237,
+      "mean_error_boids": 7.33504,
+      "mean_error_persistence": 4.69522,
+      "median_error_boids": 5.72583,
+      "median_error_persistence": 3.29904
+    },
+    {
+      "horizon_frames": 5,
+      "frame_id": 7,
+      "continuous_ids": 234,
+      "mean_error_boids": 9.20314,
+      "mean_error_persistence": 5.74077,
+      "median_error_boids": 7.48194,
+      "median_error_persistence": 4.01004
+    },
+    {
+      "horizon_frames": 6,
+      "frame_id": 8,
+      "continuous_ids": 229,
+      "mean_error_boids": 11.2096,
+      "mean_error_persistence": 6.92704,
+      "median_error_boids": 9.59006,
+      "median_error_persistence": 5.03448
+    },
+    {
+      "horizon_frames": 7,
+      "frame_id": 9,
+      "continuous_ids": 227,
+      "mean_error_boids": 13.26717,
+      "mean_error_persistence": 8.24842,
+      "median_error_boids": 11.17051,
+      "median_error_persistence": 6.04498
+    },
+    {
+      "horizon_frames": 8,
+      "frame_id": 10,
+      "continuous_ids": 224,
+      "mean_error_boids": 15.44795,
+      "mean_error_persistence": 9.67137,
+      "median_error_boids": 12.94388,
+      "median_error_persistence": 6.82201
+    },
+    {
+      "horizon_frames": 9,
+      "frame_id": 11,
+      "continuous_ids": 221,
+      "mean_error_boids": 17.42933,
+      "mean_error_persistence": 10.9332,
+      "median_error_boids": 15.30166,
+      "median_error_persistence": 8.23251
+    },
+    {
+      "horizon_frames": 10,
+      "frame_id": 12,
+      "continuous_ids": 221,
+      "mean_error_boids": 19.41954,
+      "mean_error_persistence": 12.27051,
+      "median_error_boids": 17.10167,
+      "median_error_persistence": 9.33257
+    },
+    {
+      "horizon_frames": 11,
+      "frame_id": 13,
+      "continuous_ids": 220,
+      "mean_error_boids": 21.46775,
+      "mean_error_persistence": 13.83225,
+      "median_error_boids": 19.05979,
+      "median_error_persistence": 10.67245
+    },
+    {
+      "horizon_frames": 12,
+      "frame_id": 14,
+      "continuous_ids": 217,
+      "mean_error_boids": 22.96659,
+      "mean_error_persistence": 14.84831,
+      "median_error_boids": 21.60006,
+      "median_error_persistence": 11.85492
+    },
+    {
+      "horizon_frames": 13,
+      "frame_id": 15,
+      "continuous_ids": 215,
+      "mean_error_boids": 24.44682,
+      "mean_error_persistence": 16.18504,
+      "median_error_boids": 22.47875,
+      "median_error_persistence": 12.74593
+    },
+    {
+      "horizon_frames": 14,
+      "frame_id": 16,
+      "continuous_ids": 214,
+      "mean_error_boids": 26.23778,
+      "mean_error_persistence": 17.72473,
+      "median_error_boids": 25.06152,
+      "median_error_persistence": 14.27142
+    },
+    {
+      "horizon_frames": 15,
+      "frame_id": 17,
+      "continuous_ids": 213,
+      "mean_error_boids": 28.02742,
+      "mean_error_persistence": 19.04552,
+      "median_error_boids": 25.65249,
+      "median_error_persistence": 15.81204
+    },
+    {
+      "horizon_frames": 16,
+      "frame_id": 18,
+      "continuous_ids": 211,
+      "mean_error_boids": 30.02883,
+      "mean_error_persistence": 20.9024,
+      "median_error_boids": 27.78987,
+      "median_error_persistence": 17.77832
+    },
+    {
+      "horizon_frames": 17,
+      "frame_id": 19,
+      "continuous_ids": 209,
+      "mean_error_boids": 31.96891,
+      "mean_error_persistence": 22.30941,
+      "median_error_boids": 29.80085,
+      "median_error_persistence": 18.83389
+    },
+    {
+      "horizon_frames": 18,
+      "frame_id": 20,
+      "continuous_ids": 207,
+      "mean_error_boids": 33.92265,
+      "mean_error_persistence": 23.9926,
+      "median_error_boids": 30.49489,
+      "median_error_persistence": 20.75338
+    },
+    {
+      "horizon_frames": 19,
+      "frame_id": 21,
+      "continuous_ids": 206,
+      "mean_error_boids": 35.71657,
+      "mean_error_persistence": 25.56918,
+      "median_error_boids": 32.29935,
+      "median_error_persistence": 21.82867
+    },
+    {
+      "horizon_frames": 20,
+      "frame_id": 22,
+      "continuous_ids": 204,
+      "mean_error_boids": 37.3548,
+      "mean_error_persistence": 27.2379,
+      "median_error_boids": 32.85602,
+      "median_error_persistence": 23.33752
+    },
+    {
+      "horizon_frames": 21,
+      "frame_id": 23,
+      "continuous_ids": 201,
+      "mean_error_boids": 38.8162,
+      "mean_error_persistence": 28.98401,
+      "median_error_boids": 33.26742,
+      "median_error_persistence": 24.39576
+    },
+    {
+      "horizon_frames": 22,
+      "frame_id": 24,
+      "continuous_ids": 198,
+      "mean_error_boids": 40.48541,
+      "mean_error_persistence": 30.3805,
+      "median_error_boids": 34.35064,
+      "median_error_persistence": 25.81408
+    },
+    {
+      "horizon_frames": 23,
+      "frame_id": 25,
+      "continuous_ids": 195,
+      "mean_error_boids": 41.4259,
+      "mean_error_persistence": 31.3699,
+      "median_error_boids": 36.27378,
+      "median_error_persistence": 27.33282
+    },
+    {
+      "horizon_frames": 24,
+      "frame_id": 26,
+      "continuous_ids": 194,
+      "mean_error_boids": 43.04429,
+      "mean_error_persistence": 32.90519,
+      "median_error_boids": 36.69185,
+      "median_error_persistence": 28.62396
+    },
+    {
+      "horizon_frames": 25,
+      "frame_id": 27,
+      "continuous_ids": 194,
+      "mean_error_boids": 44.55643,
+      "mean_error_persistence": 34.50846,
+      "median_error_boids": 37.62869,
+      "median_error_persistence": 29.81717
+    },
+    {
+      "horizon_frames": 26,
+      "frame_id": 28,
+      "continuous_ids": 192,
+      "mean_error_boids": 45.9329,
+      "mean_error_persistence": 36.17093,
+      "median_error_boids": 39.3198,
+      "median_error_persistence": 31.60408
+    },
+    {
+      "horizon_frames": 27,
+      "frame_id": 29,
+      "continuous_ids": 191,
+      "mean_error_boids": 47.48499,
+      "mean_error_persistence": 37.74803,
+      "median_error_boids": 40.40881,
+      "median_error_persistence": 33.28663
+    },
+    {
+      "horizon_frames": 28,
+      "frame_id": 30,
+      "continuous_ids": 190,
+      "mean_error_boids": 49.1587,
+      "mean_error_persistence": 39.24024,
+      "median_error_boids": 43.15696,
+      "median_error_persistence": 34.00556
+    },
+    {
+      "horizon_frames": 29,
+      "frame_id": 31,
+      "continuous_ids": 188,
+      "mean_error_boids": 51.03403,
+      "mean_error_persistence": 41.00222,
+      "median_error_boids": 45.68432,
+      "median_error_persistence": 35.43898
+    },
+    {
+      "horizon_frames": 30,
+      "frame_id": 32,
+      "continuous_ids": 184,
+      "mean_error_boids": 52.53971,
+      "mean_error_persistence": 42.81432,
+      "median_error_boids": 47.17256,
+      "median_error_persistence": 36.78405
+    }
+  ]
+}
