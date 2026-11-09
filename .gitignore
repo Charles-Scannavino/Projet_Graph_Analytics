@@ -21,3 +21,15 @@ results/*.gif
 results/*.mp4
 
 .pytest_cache/
+
+# Historique R
+.Rhistory
+
+# Fichiers temporaires LaTeX
+*.aux
+*.log
+*.out
+*.toc
+*.synctex.gz
+*.fls
+*.fdb_latexmk
