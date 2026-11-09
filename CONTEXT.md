@@ -28,7 +28,7 @@ Cette consigne concerne aussi les exemples de commandes et tout nouveau code fou
 - **Dépôt GitHub :** https://github.com/Charles-Scannavino/Projet_Graph_Analytics.
 - **Titre provisoire :** *Analyse dynamique des réseaux de proximité dans un banc de poissons : cohésion, connectivité et communautés*.
 - **Titre anglais :** *Dynamic Graph Analysis of Fish Schooling: Connectivity, Centrality and Communities*.
-- **Équipe :** groupe de **2 étudiants** : Charles Scannavino et **Jacques Chevolot**.
+- **Équipe :** groupe de **2 étudiants** : Charles Scannavino et Jacques Chevolot.
 - **Objet :** convertir les observations individuelles de poissons (positions et, si disponibles, vitesses) en graphes de proximité, puis analyser mathématiquement l'organisation collective.
 - **Question de recherche envisagée :** *Dans quelle mesure les mesures de connectivité, de distance, de centralité et de communauté d'un réseau de proximité permettent-elles de caractériser l'organisation spatiale d'un banc de poissons et ses variations temporelles ?*
 - **Contribution centrale :** conception justifiée d'un graphe à partir de données spatiales non structurées comme graphe ; analyse quantitative et interprétation scientifique reproductibles.
