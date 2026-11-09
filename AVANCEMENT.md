@@ -30,7 +30,7 @@ Ne cocher `[x]` pour une fonctionnalité informatique que si les fichiers, l'ex�
 
 ### 1.2. Éléments encore non vérifiés
 
-- [!] Nom du **second étudiant** non renseigné dans ces documents.
+- [x] **Second étudiant identifié : Jacques Chevolot** (binôme avec Charles Scannavino).
 - [x] Dataset 2D `Data/schooling_frames.json` accessible sur Drive et audité (5 000 frames, 86,8 Mo).
 - [!] Template du rapport sur **Inside** : non fourni ici.
 - [x] Dépôt GitHub dédié : https://github.com/Charles-Scannavino/Projet_Graph_Analytics.
@@ -43,7 +43,7 @@ Ne cocher `[x]` pour une fonctionnalité informatique que si les fichiers, l'ex�
 
 | Exigence | État actuel | Preuve attendue | Priorité |
 |---|---|---|---|
-| Groupe de exactement 2 étudiants | [!] | Deux noms et répartition orale | P0 |
+| Groupe de exactement 2 étudiants | [x] | Charles Scannavino et Jacques Chevolot ; répartition orale à définir | P0 |
 | Dataset : origine et intérêt | [x] Audit du 31/10 | DOI et licence identifiés ; JSON lu | P0 |
 | Attribution du code effectivement utilisé | [ ] | Provenance du code incorporé, auteurs et URLs le cas échéant | P0 |
 | Problématique explicite | [x] Formulation candidate | Question finalisée dans le rapport | P0 |
@@ -68,7 +68,8 @@ Ne cocher `[x]` pour une fonctionnalité informatique que si les fichiers, l'ex�
 
 ### Phase A — Données et organisation (P0)
 
-- [ ] Confirmer les deux membres et répartir les tâches.
+- [x] Identifier les deux membres : Charles Scannavino et Jacques Chevolot.
+- [ ] Répartir les tâches entre les deux membres.
 - [ ] Récupérer le **template de rapport** sur Inside.
 - [x] Accéder au jeu *Fish Schooling Data Subset* (Google Drive) ; le fichier brut a été audité sans modification.
 - [x] Vérifier DOI, auteurs, institution et licence depuis `Data/README.txt` (31/10/2026).
@@ -178,7 +179,7 @@ Ne pas afficher un travail individuel ou collectif comme terminé sans preuve, n
 
 ## 6. Questions ouvertes
 
-- [ ] Qui est le second membre du binôme ?
+- [x] Second membre du binôme : Jacques Chevolot.
 - [x] Oui : `Data/schooling_frames.json` vérifié, 86 762 262 octets, 5 000 frames.
 - [x] 87 à 289 observations par frame, moyenne 223,62 ; 10 751 IDs distincts sur la séquence, ID de suivi non permanent.
 - [ ] Quelles sont les unités et quel seuil `R` est justifié ?
@@ -197,7 +198,7 @@ Ne pas afficher un travail individuel ou collectif comme terminé sans preuve, n
 | Oubli du diamètre ou du rayon | Critique | Checklist P0, calcul explicite et convention des composantes |
 | Mauvaise gestion de la déconnexion | Élevée | Métriques sur LCC ou par composante, description du choix |
 | Analyse insuffisamment interprétée | Élevée | Formuler une question, discuter le sens des métriques et leurs limites |
-| Absence de deuxième membre | Critique | Définir le binôme et partager la soutenance |
+| Répartition des tâches et de la soutenance non finalisée | Élevée | Répartir les responsabilités entre Charles Scannavino et Jacques Chevolot |
 | Mauvais modèle/rapport trop long | Critique | Télécharger template Inside, vérifier ≤15 pages |
 | Sources ou code non attribués | Critique | Conserver un registre de provenance et citer précisément |
 | Dépôt non reproductible | Élevée | README, versions, test d'installation propre |
@@ -578,7 +579,8 @@ Ne pas afficher un travail individuel ou collectif comme terminé sans preuve, n
 - [x] Louvain testé à `R=100` sur frame 1 : 11 communautés, modularité ≈0,703 (`seed=42`), à vérifier/interpréter dans le pipeline final.
 - [ ] Clarifier les unités des positions et la normalisation des vecteurs de vitesse avant d'écrire « mm » / « mm/s ».
 - [ ] Prioriser le développement de scripts indépendants et testables pour l'analyse des données expérimentales et la construction des graphes.
-- [ ] Valider le binôme, le template Inside et les tâches de chacun.
+- [x] Identifier le binôme : Charles Scannavino et Jacques Chevolot.
+- [ ] Valider le template Inside et répartir les tâches de chacun.
 
 **Périmètre prioritaire :** snapshots réels → graphes NetworkX → composantes, diamètre/rayon LCC, centralités, Louvain → sensibilité à `R` → rapport. Extensions hors périmètre reportées.
 
