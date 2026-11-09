@@ -1,0 +1,172 @@
+{
+  "training_window": [
+    1,
+    32
+  ],
+  "validation_windows": [
+    [
+      2000,
+      2031
+    ],
+    [
+      4000,
+      4031
+    ]
+  ],
+  "selected_parameters": {
+    "weight_separation": 0.0,
+    "weight_alignment": 0.15,
+    "weight_cohesion": 0.0,
+    "radius_separation": 60.0,
+    "radius_alignment": 80.0,
+    "radius_cohesion": 120.0,
+    "rear_blind_angle_deg": 25.0
+  },
+  "selection_objective": "maximize_mean_spatial_edge_jaccard",
+  "results": [
+    {
+      "model": "inertia",
+      "graph_type": "spatial",
+      "mean_jaccard": 0.717087,
+      "jaccard_h30": 0.50461,
+      "position_error_h30": 40.04162,
+      "modularity_error_h30": 0.04106,
+      "clustering_error_h30": 0.0307,
+      "community_count_error_h30": 1,
+      "window": "2000-2031",
+      "cohort_size": 190
+    },
+    {
+      "model": "original_boids",
+      "graph_type": "spatial",
+      "mean_jaccard": 0.704338,
+      "jaccard_h30": 0.53333,
+      "position_error_h30": 45.23543,
+      "modularity_error_h30": 0.04862,
+      "clustering_error_h30": 0.01009,
+      "community_count_error_h30": 1,
+      "window": "2000-2031",
+      "cohort_size": 190
+    },
+    {
+      "model": "calibrated_boids",
+      "graph_type": "spatial",
+      "mean_jaccard": 0.724538,
+      "jaccard_h30": 0.52896,
+      "position_error_h30": 39.30232,
+      "modularity_error_h30": 0.03278,
+      "clustering_error_h30": 0.03232,
+      "community_count_error_h30": 2,
+      "window": "2000-2031",
+      "cohort_size": 190
+    },
+    {
+      "model": "inertia",
+      "graph_type": "visibility",
+      "mean_jaccard": 0.66464,
+      "jaccard_h30": 0.46541,
+      "position_error_h30": 40.04162,
+      "modularity_error_h30": 0.04041,
+      "clustering_error_h30": 0.03139,
+      "community_count_error_h30": 2,
+      "window": "2000-2031",
+      "cohort_size": 190
+    },
+    {
+      "model": "original_boids",
+      "graph_type": "visibility",
+      "mean_jaccard": 0.6307,
+      "jaccard_h30": 0.48272,
+      "position_error_h30": 45.23543,
+      "modularity_error_h30": 0.05812,
+      "clustering_error_h30": 0.01176,
+      "community_count_error_h30": 0,
+      "window": "2000-2031",
+      "cohort_size": 190
+    },
+    {
+      "model": "calibrated_boids",
+      "graph_type": "visibility",
+      "mean_jaccard": 0.676242,
+      "jaccard_h30": 0.49396,
+      "position_error_h30": 39.30232,
+      "modularity_error_h30": 0.02159,
+      "clustering_error_h30": 0.03473,
+      "community_count_error_h30": 5,
+      "window": "2000-2031",
+      "cohort_size": 190
+    },
+    {
+      "model": "inertia",
+      "graph_type": "spatial",
+      "mean_jaccard": 0.726267,
+      "jaccard_h30": 0.51983,
+      "position_error_h30": 37.35651,
+      "modularity_error_h30": 0.00654,
+      "clustering_error_h30": 0.00988,
+      "community_count_error_h30": 1,
+      "window": "4000-4031",
+      "cohort_size": 232
+    },
+    {
+      "model": "original_boids",
+      "graph_type": "spatial",
+      "mean_jaccard": 0.667915,
+      "jaccard_h30": 0.46452,
+      "position_error_h30": 43.5855,
+      "modularity_error_h30": 0.05104,
+      "clustering_error_h30": 0.04129,
+      "community_count_error_h30": 2,
+      "window": "4000-4031",
+      "cohort_size": 232
+    },
+    {
+      "model": "calibrated_boids",
+      "graph_type": "spatial",
+      "mean_jaccard": 0.73303,
+      "jaccard_h30": 0.54068,
+      "position_error_h30": 35.93669,
+      "modularity_error_h30": 0.00711,
+      "clustering_error_h30": 0.02086,
+      "community_count_error_h30": 2,
+      "window": "4000-4031",
+      "cohort_size": 232
+    },
+    {
+      "model": "inertia",
+      "graph_type": "visibility",
+      "mean_jaccard": 0.685057,
+      "jaccard_h30": 0.47521,
+      "position_error_h30": 37.35651,
+      "modularity_error_h30": 0.00525,
+      "clustering_error_h30": 0.00376,
+      "community_count_error_h30": 1,
+      "window": "4000-4031",
+      "cohort_size": 232
+    },
+    {
+      "model": "original_boids",
+      "graph_type": "visibility",
+      "mean_jaccard": 0.600015,
+      "jaccard_h30": 0.42248,
+      "position_error_h30": 43.5855,
+      "modularity_error_h30": 0.04596,
+      "clustering_error_h30": 0.03859,
+      "community_count_error_h30": 1,
+      "window": "4000-4031",
+      "cohort_size": 232
+    },
+    {
+      "model": "calibrated_boids",
+      "graph_type": "visibility",
+      "mean_jaccard": 0.691388,
+      "jaccard_h30": 0.50953,
+      "position_error_h30": 35.93669,
+      "modularity_error_h30": 0.005,
+      "clustering_error_h30": 0.01586,
+      "community_count_error_h30": 1,
+      "window": "4000-4031",
+      "cohort_size": 232
+    }
+  ]
+}

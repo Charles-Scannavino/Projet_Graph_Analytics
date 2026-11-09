@@ -1,0 +1,4 @@
+window_start,window_end,fish_count,phase_count,potential_leaders,persistent_leaders,total_influence,persistent_ids
+1,150,105,5,17,0,98.289823,
+2000,2149,93,5,21,1,100.449429,105760
+4000,4149,140,5,27,0,133.757974,
