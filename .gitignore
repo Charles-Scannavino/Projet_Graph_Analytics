@@ -33,3 +33,4 @@ results/*.mp4
 *.synctex.gz
 *.fls
 *.fdb_latexmk
+/Rapport/Graphe/Rapport_Projet_Graphe.pdf
