@@ -292,7 +292,5 @@ Ne pas committer automatiquement les résultats régénérés, les données brut
 2. Les arêtes de proximité et arcs de visibilité ne prouvent pas une interaction réelle.
 3. Le graphe de visibilité utilise une approximation de l'orientation et ignore les occlusions.
 4. Les cohortes retenues sur la durée d'une fenêtre introduisent un biais de sélection.
-5. Les résultats de validation Boids ne concernent que deux fenêtres hors entraînement ; aucun test de significativité ou de généralisation large n'est établi.
-6. Les leaders identifiés sont **potentiels** et ne démontrent pas une influence causale.
 
 Pour le contenu scientifique détaillé, consulter le [rapport PDF](Rapport/Graphe/SCANNAVINO_CHEVOLOT-Rapport_Projet_Graphe.pdf), le [README](README.md), [CONTEXT.md](CONTEXT.md) et [AVANCEMENT.md](AVANCEMENT.md).
