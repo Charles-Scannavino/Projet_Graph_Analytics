@@ -170,17 +170,93 @@ Les résultats sont enregistrés dans `results/leadership/` et `results/leadersh
 
 Ces scores indiquent une **précédence temporelle corrélée**, pas une causalité ou une hiérarchie biologique démontrée.
 
-## 9. Ouvrir l'interface graphique
+## 9. Installer, lancer et utiliser l'interface graphique Matplotlib
 
-Sur un ordinateur disposant d'un affichage local :
+### 9.1. Installation initiale (macOS / Linux)
+
+Depuis la racine du dépôt, créer un environnement virtuel **si `.venv` n'existe pas encore**, puis installer les dépendances :
 
 ```bash
+cd ~/Developer/Projet_Graph_Analytics  # adapter ce chemin à son installation
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements.txt
+```
+
+Le dossier `.venv` n'est pas versionné sur GitHub : il est normal qu'il manque après un clone. Si un environnement Python fonctionnel existe déjà, le réutiliser au lieu d'en créer un autre. Sous Windows, suivre la procédure PowerShell de la section 3.
+
+Vérifier la présence du JSON brut (non inclus dans Git) :
+
+```bash
+ls -lh data/schooling_frames.json
+```
+
+Les modules de l'interface utilisent `data/schooling_frames.json`. Ne pas déplacer ni ajouter le fichier brut à Git. Pour un premier démarrage, les fichiers CSV de leaders présents dans `results/leadership/` sont également nécessaires pour afficher les leaders en rouge.
+
+### 9.2. Démarrage et arrêt
+
+À chaque nouvelle session Terminal macOS / Linux :
+
+```bash
+cd ~/Developer/Projet_Graph_Analytics  # adapter si nécessaire
+source .venv/bin/activate
 python -m src.boids_interface
 ```
 
-L'interface Matplotlib permet de comparer les poissons réels, l'inertie et Boids, d'explorer les fenêtres disponibles (**1–32**, **2000–2031**, **4000–4031**), d'afficher les liens spatiaux et de visualiser les leaders potentiels.
+Si `(.venv)` apparaît déjà dans l'invite et que le Terminal est dans le dépôt, seule la dernière commande est nécessaire. Une fenêtre Matplotlib interactive s'ouvre ; la fermeture de cette fenêtre termine normalement l'interface. `Ctrl+C` permet d'interrompre le processus depuis le Terminal si besoin.
 
-L'application charge les observations depuis `data/schooling_frames.json`. **Ne pas définir `MPLBACKEND=Agg`** pour cette commande : un backend interactif est nécessaire. En cas de problème d'affichage, lancer depuis le Terminal de l'ordinateur plutôt que depuis un notebook ou une session distante sans serveur graphique.
+L'interface affiche trois vues comparatives : **observations réelles, inertie et simulation Boids**. Elle permet de changer les coefficients, la fenêtre temporelle, d'afficher ou masquer les arêtes spatiales, de mettre en pause et de mettre en évidence les leaders potentiels.
+
+### 9.3. Champs et boutons
+
+| Contrôle | Utilisation |
+| --- | --- |
+| `Séparation` | Poids de la règle d'évitement Boids ; valeur initiale affichée : `0.005`. |
+| `Alignement` | Poids de l'alignement ; valeur initiale : `0.05`. |
+| `Cohésion` | Poids du rapprochement vers le groupe ; valeur initiale : `0.005`. |
+| `Début` | Numéro de la première frame de la fenêtre (initialement `1`). |
+| `Horizon (frames)` | Nombre de pas simulés : **30, 60, 150 ou 300** uniquement. |
+| `Redémarrer` | Recharge la fenêtre et recalcule les trajectoires avec les valeurs saisies. |
+| `Pause` | Suspend/reprend l'animation. |
+| `Arêtes spatiales : ON/OFF` | Affiche/masque les liens de proximité. |
+| `Paramètres calibrés` | Rétablit les poids de simulation calibrés proposés par l'interface. |
+| `Leaders : OFF/Phase/Persistants` | Fait défiler les trois modes de visualisation des leaders. |
+
+Le graphe spatial affiché utilise un rayon de **100 unités natives** ; l'angle mort arrière modélisé est de **25°**. La simulation ne modélise pas de frontières physiques. Les poids Boids modifient la simulation, **pas** les identifiants de leaders préalablement calculés.
+
+### 9.4. Démonstration : afficher les leaders en rouge
+
+Les CSV de leadership livrés avec le dépôt concernent **exclusivement les frames 2000 à 2149**. La fonction `selected_leaders()` n'active leur coloration que si **`Début = 2000` et `Horizon = 150`**.
+
+1. Saisir **`2000`** dans `Début` et **`150`** dans `Horizon (frames)`.
+2. Conserver par exemple les poids initiaux `Séparation = 0.005`, `Alignement = 0.05`, `Cohésion = 0.005` ; ils ne conditionnent pas l'identification des leaders.
+3. Cliquer sur **`Redémarrer`** et attendre le chargement/calcul de la fenêtre.
+4. Cliquer **une fois** sur `Leaders : OFF` pour obtenir **`Leaders : Phase`** : les candidats leaders sont affichés en rouge selon la phase courante.
+5. Cliquer **une deuxième fois** pour obtenir **`Leaders : Persistants`** : les candidats présents dans au moins **3 des 5 phases** sont mis en évidence. Un troisième clic revient à **`OFF`**.
+
+| Phase | Frames | Comportement en mode `Phase` |
+| --- | --- | --- |
+| 1 | 2000–2029 | Leaders potentiels de la phase 1 |
+| 2 | 2030–2059 | Leaders potentiels de la phase 2 |
+| 3 | 2060–2089 | Leaders potentiels de la phase 3 |
+| 4 | 2090–2119 | Leaders potentiels de la phase 4 |
+| 5 | 2120–2149 | Leaders potentiels de la phase 5 |
+
+Les poissons sélectionnés sont représentés par des **triangles rouges plus grands**, avec leur identifiant. Le poisson **105760** est un exemple de candidat persistant (**3 phases sur 5**, soit **60 %** de persistance) dans les résultats publiés. En mode `Phase`, les poissons rouges peuvent changer au fil de l'animation ; en mode `Persistants`, la liste de candidats est fixe sur la fenêtre.
+
+**Cas sans coloration :** avec `Début = 1`, ou avec `Début = 2000` et `Horizon = 30`, aucun leader n'est sélectionné par le mécanisme actuel. L'absence de rouge hors de la fenêtre 2000–2149 ne signifie donc pas qu'aucun leader biologique n'existe.
+
+La détection est **exploratoire** : elle repose sur des corrélations temporelles des changements de direction et ne prouve pas une influence causale.
+
+### 9.5. Dépannage
+
+- **`source: no such file or directory: .venv/bin/activate`** : vérifier `pwd` et `ls -la` à la racine du dépôt ; si `.venv` manque, exécuter `python3 -m venv .venv`, puis l'activer et installer `requirements.txt`.
+- **`ModuleNotFoundError`** : vérifier que `(.venv)` est actif et réexécuter `python -m pip install -r requirements.txt`.
+- **`FileNotFoundError` pour le JSON** : vérifier `data/schooling_frames.json` et la section 4.
+- **L'interface paraît bloquée au lancement** : la lecture JSON et la préparation des trajectoires peuvent prendre du temps, particulièrement avec 150 ou 300 frames ; attendre avant d'interrompre.
+- **Aucun leader rouge** : vérifier les deux champs exacts `2000` et `150`, le mode `Phase` ou `Persistants`, et la présence de `results/leadership/leaders_phases.csv` et `leaders_summary.csv`.
+- **Pas de fenêtre** : utiliser un Terminal local avec affichage graphique ; **ne pas définir `MPLBACKEND=Agg`**, qui désactive l'affichage interactif.
+
 
 ## 10. Vérifier les sorties et ne pas écraser ses résultats par erreur
 
